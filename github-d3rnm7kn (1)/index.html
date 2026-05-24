@@ -1,0 +1,2999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4262912359957760" crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090d16">
+  <meta name="theme-color" content="#090d16" id="themeColorMeta">
+
+  <!-- SEO Meta Tags -->
+  <title>Free File Wizard - 50+ Free Online Tools | PDF, QR Code, CV Builder, Image Editor</title>
+  <meta name="description" content="Free File Wizard - 50+ premium online tools completely free. PDF extractor, QR code generator, CV builder, image compressor, barcode maker, zodiac detector, astronomy portal, SEO wizard and more. No signup, no paywalls, works offline.">
+  <meta name="keywords" content="free online tools, PDF extractor, QR code generator, CV builder, image compressor, barcode generator, zodiac signs, horoscope, IP detector, astronomy, SEO keywords, hashtag generator, password generator, unit converter, currency converter, free file tools, no signup, offline tools, web utilities">
+  <meta name="author" content="Achaleke Prosper Taku">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <link rel="canonical" href="https://freefilewizard.com">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free File Wizard - 50+ Free Online Tools">
+  <meta property="og:description" content="Premium tools without paywalls. PDF, QR codes, CV builder, image editor, barcode, zodiac, astronomy & more. 100% free.">
+  <meta property="og:url" content="https://freefilewizard.com">
+  <meta property="og:site_name" content="Free File Wizard">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free File Wizard - 50+ Free Online Tools">
+  <meta name="twitter:description" content="Premium tools without paywalls. PDF, QR codes, CV builder, image editor, barcode, zodiac, astronomy & more.">
+
+  <!-- Structured Data / Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Free File Wizard",
+    "url": "https://freefilewizard.com",
+    "description": "50+ free online tools including PDF extractor, QR code generator, CV builder, image compressor, barcode maker, zodiac detector, astronomy portal, SEO wizard and more.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Achaleke Prosper Taku", "email": "jeepsyearth@gmail.com" },
+    "provider": { "@type": "Organization", "name": "Free File Wizard" },
+    "featureList": ["PDF Text Extraction","QR Code Generator","CV Builder","Image Compressor","Password Generator","Unit Converter","Currency Converter","Barcode Generator","Zodiac Detector","Horoscope","IP Detector","Astronomy Portal","SEO & Hashtag Wizard","Secret Message Maker","Morse Code Decoder"]
+  }
+  </script>
+
+  <!-- FAQ Schema for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Is Free File Wizard really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, all 50+ tools are 100% free with no signup, no paywalls, and no hidden fees." } },
+      { "@type": "Question", "name": "Does Free File Wizard work offline?", "acceptedAnswer": { "@type": "Answer", "text": "Most tools work offline after first load. File processing happens entirely in your browser." } },
+      { "@type": "Question", "name": "Is my data safe with Free File Wizard?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All file processing happens locally in your browser. No files are uploaded to any server." } },
+      { "@type": "Question", "name": "Who built Free File Wizard?", "acceptedAnswer": { "@type": "Answer", "text": "Free File Wizard was built by Achaleke Prosper Taku from Cameroon to provide valuable tools without expensive paywalls." } }
+    ]
+  }
+  </script>
+
+  <link rel="manifest" href="/manifest.json">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Parisienne&family=Sacramento&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-core: #090d16;
+      --bg-panel: #131926;
+      --accent-cyan: #00f0ff;
+      --accent-purple: #bc00dd;
+      --success: #10b981;
+      --error: #ef4444;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --border-radius: 12px;
+      --transition: 0.25s ease;
+    }
+
+    body.light-mode {
+      --bg-core: #f0f2f5;
+      --bg-panel: #ffffff;
+      --accent-cyan: #0891b2;
+      --accent-purple: #7c3aed;
+      --success: #10b981;
+      --error: #ef4444;
+      --text-primary: #1a1a2e;
+      --text-secondary: #64748b;
+    }
+
+    body.light-mode .header { background: #ffffff; border-bottom-color: rgba(0,0,0,0.1); }
+    body.light-mode .sidebar { background: #ffffff; border-right-color: rgba(0,0,0,0.1); }
+    body.light-mode .info-card { background: #ffffff; border-color: rgba(0,0,0,0.1); }
+    body.light-mode .tool-container { background: #ffffff; border-color: rgba(0,0,0,0.1); }
+    body.light-mode .input-field { background: #f0f2f5; border-color: rgba(0,0,0,0.15); color: #1a1a2e; }
+    body.light-mode .output-area { background: #f0f2f5; border-color: rgba(0,0,0,0.1); }
+    body.light-mode .modal-content { background: #ffffff; border-color: rgba(0,0,0,0.15); }
+    body.light-mode .ad-banner { background: #e8eaed; border-color: rgba(0,0,0,0.1); color: #64748b; }
+    body.light-mode .hero-banner { background: linear-gradient(135deg, #ffffff, rgba(124,58,237,0.1)); border-color: rgba(0,0,0,0.1); }
+    body.light-mode .sidebar-category-title { color: var(--accent-cyan); }
+    body.light-mode .sidebar-item { color: #64748b; }
+    body.light-mode .sidebar-item:hover { background: rgba(8,145,178,0.1); color: #1a1a2e; }
+    body.light-mode .sidebar-item.active { background: linear-gradient(135deg, rgba(8,145,178,0.15), rgba(124,58,237,0.15)); border-left-color: var(--accent-cyan); color: #1a1a2e; }
+    body.light-mode .brand-title { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    body.light-mode .hamburger { color: var(--accent-cyan); }
+    body.light-mode .header-btn { border-color: rgba(8,145,178,0.3); color: var(--accent-cyan); }
+    body.light-mode .filter-btn { border-color: rgba(0,0,0,0.15); color: #64748b; }
+    body.light-mode .back-btn { border-color: rgba(0,0,0,0.15); color: var(--accent-cyan); }
+    body.light-mode .btn-secondary { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+    body.light-mode select.input-field { background: #f0f2f5; color: #1a1a2e; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-core);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .eco-mode * { animation: none !important; transition: none !important; box-shadow: none !important; }
+    .large-text { font-size: 110% !important; }
+    .large-text .input-label, .large-text .card-name, .large-text .sidebar-item { font-size: 14px !important; }
+    .large-text .input-field { font-size: 15px !important; }
+    .large-text .tool-title { font-size: 20px !important; }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--bg-panel);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-left { display: flex; align-items: center; gap: 12px; }
+
+    .hamburger {
+      background: none;
+      border: none;
+      color: var(--accent-cyan);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    .hamburger:hover { background: rgba(0, 240, 255, 0.1); }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    .logo-container:hover {
+      background: rgba(0, 240, 255, 0.1);
+      transform: scale(1.02);
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1e5a96, #2d7ab8);
+      border-radius: 8px;
+      border: 2px solid var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+      font-size: 20px;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @media(max-width: 600px) { .brand-title { display: none; } }
+
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+
+    .header-btn {
+      background: none;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--accent-cyan);
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-btn:hover { background: rgba(0, 240, 255, 0.1); }
+
+    .donate-btn {
+      background: linear-gradient(135deg, #ef4444, #ec4899);
+      border: none;
+      color: white;
+      animation: pulse-glow 2s infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+      50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.8); }
+    }
+
+    .profile-widget {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    .profile-widget:hover { background: rgba(188, 0, 221, 0.1); }
+
+    .profile-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      border: 2px solid var(--accent-cyan);
+      overflow: hidden;
+    }
+
+    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-name { font-size: 12px; color: var(--text-secondary); display: none; }
+
+    @media(min-width: 768px) { .profile-name { display: block; } }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0; left: -280px;
+      width: 280px;
+      height: 100vh;
+      background: var(--bg-panel);
+      border-right: 1px solid rgba(0, 240, 255, 0.2);
+      z-index: 2000;
+      transition: var(--transition);
+      overflow-y: auto;
+      padding-top: 80px;
+    }
+
+    .sidebar.open { left: 0; }
+
+    .sidebar-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1999;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .sidebar-overlay.visible { opacity: 1; visibility: visible; }
+
+    .sidebar-category { padding: 12px 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+    .sidebar-category-title { font-size: 11px; font-weight: 600; color: var(--accent-cyan); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-bottom: 2px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .sidebar-item:hover { background: rgba(0, 240, 255, 0.1); color: var(--text-primary); }
+
+    .sidebar-item.active {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(188, 0, 221, 0.2));
+      border-left: 3px solid var(--accent-cyan);
+      color: var(--text-primary);
+    }
+
+    /* Main Content */
+    .main-content { padding: 20px; max-width: 1400px; margin: 0 auto; }
+
+    .screen { display: none; opacity: 0; transition: opacity 0.3s ease; }
+    .screen.active { display: block; opacity: 1; }
+
+    /* Home Screen */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--bg-panel), rgba(188, 0, 221, 0.2));
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: var(--border-radius);
+      padding: 40px 24px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .hero-logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      padding: 16px;
+      background: linear-gradient(135deg, rgba(30, 90, 150, 0.2), rgba(45, 122, 184, 0.2));
+      border-radius: 16px;
+      border: 2px solid var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    .filter-btn {
+      padding: 8px 16px;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      background: transparent;
+      color: var(--text-secondary);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 13px;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      color: var(--text-primary);
+      border-color: transparent;
+    }
+
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+
+    .info-card {
+      background: var(--bg-panel);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .info-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-cyan);
+    }
+
+    .info-card:hover::before { opacity: 1; }
+    .card-icon { font-size: 28px; margin-bottom: 12px; }
+    .card-name { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .card-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+
+    /* Tool Screen Common */
+    .tool-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+
+    .tool-info-btn {
+      margin-left: auto; width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3);
+      color: var(--accent-cyan); font-size: 14px; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .tool-info-btn:hover { background: rgba(0,240,255,0.25); transform: scale(1.1); }
+
+    .info-modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      animation: fadeIn 0.2s ease;
+    }
+    .info-modal-box {
+      background: var(--bg-secondary); border-radius: 14px; padding: 22px;
+      max-width: 420px; width: 90%; border: 1px solid rgba(0,240,255,0.2);
+      max-height: 80vh; overflow-y: auto;
+    }
+    .info-modal-box h3 { color: var(--accent-cyan); margin-bottom: 12px; font-size: 16px; }
+    .info-modal-box p { color: var(--text-secondary); font-size: 13px; line-height: 1.6; margin-bottom: 8px; }
+    .info-modal-box ul { color: var(--text-secondary); font-size: 13px; line-height: 1.8; padding-left: 18px; margin-bottom: 8px; }
+    .info-modal-close { margin-top: 14px; width: 100%; }
+
+    .back-btn {
+      background: none;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      color: var(--accent-cyan);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 13px;
+    }
+
+    .back-btn:hover { background: rgba(0, 240, 255, 0.1); }
+
+    .tool-title { font-size: 24px; font-weight: 600; }
+
+    .tool-container {
+      background: var(--bg-panel);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .input-group { margin-bottom: 20px; }
+    .input-label { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; font-weight: 600; }
+
+    .input-field {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--bg-core);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .input-field:focus { outline: none; border-color: var(--accent-cyan); }
+    textarea.input-field { min-height: 100px; resize: vertical; font-family: 'Courier New', monospace; }
+    .file-input { display: none; }
+
+    .file-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .file-label:hover { transform: translateY(-2px); }
+
+    .btn {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      border: none;
+      border-radius: 8px;
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-success { background: linear-gradient(135deg, var(--success), #059669); }
+    .btn-secondary { background: transparent; border: 1px solid var(--accent-cyan); color: var(--accent-cyan); }
+    .btn-sm { padding: 8px 16px; font-size: 12px; }
+
+    .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+
+    .output-area {
+      background: var(--bg-core);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 20px;
+    }
+
+    .output-title { font-size: 13px; color: var(--accent-cyan); margin-bottom: 10px; font-weight: 600; }
+
+    .alert {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid var(--error);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--error);
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    .alert.show { display: block; }
+
+    .control-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .control-item { flex: 1; min-width: 140px; }
+
+    .range-slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      -webkit-appearance: none;
+    }
+
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      cursor: pointer;
+    }
+
+    .color-input {
+      width: 100%;
+      height: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      padding: 20px;
+    }
+
+    .modal.show { display: flex; }
+
+    .modal-content {
+      background: var(--bg-panel);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: var(--border-radius);
+      padding: 28px;
+      max-width: 480px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: fadeIn 0.3s ease;
+      position: relative;
+    }
+
+    .modal-title {
+      font-size: 22px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      color: var(--text-primary);
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      z-index: 4000;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    .payment-section {
+      background: var(--bg-core);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .payment-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .payment-icon { font-size: 36px; }
+    .payment-title { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+    .payment-subtitle { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+    .payment-detail { font-size: 14px; color: var(--accent-cyan); margin: 10px 0; font-family: monospace; }
+    .payment-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 10px; }
+    .payment-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin: 12px 0; padding: 12px; background: rgba(0, 240, 255, 0.05); border-radius: 8px; }
+    .payment-paypal-btn { display: block; width: 100%; text-align: center; background: linear-gradient(135deg, #0070ba, #003087); padding: 14px 20px; border-radius: 8px; color: white; font-weight: 600; text-decoration: none; margin-top: 10px; transition: var(--transition); }
+    .payment-paypal-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 112, 186, 0.4); }
+    .payment-email { font-size: 11px; color: var(--text-secondary); text-align: center; margin-top: 10px; }
+
+    .ad-banner {
+      width: 100%;
+      max-width: 728px;
+      height: 90px;
+      margin: 20px auto;
+      background: var(--bg-panel);
+      border: 1px dashed rgba(0, 240, 255, 0.3);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .form-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .form-col { flex: 1; min-width: 200px; }
+
+    .toggle-switch {
+      position: relative;
+      width: 44px; height: 24px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+    .toggle-switch.active { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); }
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 20px; height: 20px;
+      background: white;
+      border-radius: 50%;
+      transition: var(--transition);
+    }
+    .toggle-switch.active::after { left: 22px; }
+
+    @media(max-width: 480px) {
+      .hero-title { font-size: 24px; }
+      .tool-title { font-size: 20px; }
+      .hero-logo { width: 60px; height: 60px; font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <button class="hamburger" onclick="toggleSidebar()">☰</button>
+      <div class="logo-container" onclick="openScreen('home'); closeSidebar();">
+        <div class="logo-icon">🧙</div>
+        <h1 class="brand-title">Free File Wizard</h1>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="header-btn" onclick="shareApp()"><span>📤</span><span>Share</span></button>
+      <button class="header-btn donate-btn" onclick="openModal('donateModal')"><span>❤️</span><span>Support</span></button>
+      <div class="profile-widget" onclick="openModal('profileModal')">
+        <div class="profile-avatar" id="profileAvatar">👤</div>
+        <span class="profile-name" id="profileName">Guest</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <nav class="sidebar" id="sidebar"></nav>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Profile Modal -->
+  <div class="modal" id="profileModal" onclick="closeModalOnOverlay(event, 'profileModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('profileModal')">&times;</button>
+      <h3 class="modal-title">Profile & Settings</h3>
+
+      <!-- Profile Section -->
+      <div style="padding: 15px; background: rgba(0,240,255,0.05); border-radius: 10px; margin-bottom: 16px;">
+        <div style="font-size: 13px; font-weight: 600; color: var(--accent-cyan); margin-bottom: 12px;">Profile</div>
+        <div class="input-group" style="margin-bottom: 12px;">
+          <label class="input-label">Display Name</label>
+          <input type="text" class="input-field" id="displayNameInput" placeholder="Your name">
+        </div>
+        <div class="input-group" style="margin-bottom: 0;">
+          <label class="file-label" for="avatarInput"><span>📁</span> Upload Avatar</label>
+          <input type="file" class="file-input" id="avatarInput" accept="image/*">
+        </div>
+      </div>
+
+      <!-- Settings Section -->
+      <div style="padding: 15px; background: rgba(188,0,221,0.05); border-radius: 10px; margin-bottom: 16px;">
+        <div style="font-size: 13px; font-weight: 600; color: var(--accent-purple); margin-bottom: 12px;">App Settings</div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Light Mode</div><div style="font-size: 11px; color: var(--text-secondary);">Switch to light theme</div></div>
+          <div class="toggle-switch" id="toggleLightMode" onclick="toggleSetting('lightMode')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Eco Mode</div><div style="font-size: 11px; color: var(--text-secondary);">Disable animations & effects</div></div>
+          <div class="toggle-switch" id="toggleEcoMode" onclick="toggleSetting('ecoMode')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Audio Feedback</div><div style="font-size: 11px; color: var(--text-secondary);">Sound on actions</div></div>
+          <div class="toggle-switch active" id="toggleAudioFeedback" onclick="toggleSetting('audioFeedback')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Auto-Save</div><div style="font-size: 11px; color: var(--text-secondary);">Save tool data to local storage</div></div>
+          <div class="toggle-switch active" id="toggleAutoSave" onclick="toggleSetting('autoSave')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Notifications</div><div style="font-size: 11px; color: var(--text-secondary);">Browser notifications for timers</div></div>
+          <div class="toggle-switch" id="toggleNotifications" onclick="toggleSetting('notifications')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Compact Cards</div><div style="font-size: 11px; color: var(--text-secondary);">Smaller tool cards on home</div></div>
+          <div class="toggle-switch" id="toggleCompactCards" onclick="toggleSetting('compactCards')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Confirm Before Actions</div><div style="font-size: 11px; color: var(--text-secondary);">Ask before clearing or overwriting data</div></div>
+          <div class="toggle-switch active" id="toggleConfirmActions" onclick="toggleSetting('confirmActions')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Auto-Copy Results</div><div style="font-size: 11px; color: var(--text-secondary);">Copy tool output to clipboard automatically</div></div>
+          <div class="toggle-switch" id="toggleAutoCopy" onclick="toggleSetting('autoCopy')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Show Tool Info Tips</div><div style="font-size: 11px; color: var(--text-secondary);">Display info button on each tool</div></div>
+          <div class="toggle-switch active" id="toggleShowInfoBtns" onclick="toggleSetting('showInfoBtns')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Large Text Mode</div><div style="font-size: 11px; color: var(--text-secondary);">Increase font sizes for readability</div></div>
+          <div class="toggle-switch" id="toggleLargeText" onclick="toggleSetting('largeText')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Analytics Sharing</div><div style="font-size: 11px; color: var(--text-secondary);">Help improve tools with anonymous usage data</div></div>
+          <div class="toggle-switch" id="toggleAnalyticsOptIn" onclick="toggleSetting('analyticsOptIn')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Auto-Sync</div><div style="font-size: 11px; color: var(--text-secondary);">Sync latest data when back online</div></div>
+          <div class="toggle-switch active" id="toggleAutoSync" onclick="toggleSetting('autoSync')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Partner: Games</div><div style="font-size: 11px; color: var(--text-secondary);">Allow users to submit games</div></div>
+          <div class="toggle-switch" id="togglePartnerGames" onclick="toggleSetting('partnerGames')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Partner: Web Apps</div><div style="font-size: 11px; color: var(--text-secondary);">Allow users to submit web apps</div></div>
+          <div class="toggle-switch" id="togglePartnerApps" onclick="toggleSetting('partnerApps')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">Cross-Ads Sharing</div><div style="font-size: 11px; color: var(--text-secondary);">Ad revenue sharing with partners</div></div>
+          <div class="toggle-switch" id="toggleCrossAds" onclick="toggleSetting('crossAds')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
+          <div><div style="font-size: 13px;">Self-Hosted Database</div><div style="font-size: 11px; color: var(--text-secondary);">Use your own database server</div></div>
+          <div class="toggle-switch" id="toggleSelfHosted" onclick="toggleSetting('selfHosted')"></div>
+        </div>
+      </div>
+
+      <!-- Self-Hosted Database Config -->
+      <div id="selfHostConfig" style="display:none;padding:15px;background:rgba(16,185,129,0.05);border-radius:10px;border:1px solid rgba(16,185,129,0.2);margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:600;color:var(--success);margin-bottom:10px;">Self-Hosted Database</div>
+        <div class="input-group" style="margin-bottom:8px;">
+          <label class="input-label">Database URL</label>
+          <input type="url" class="input-field" id="selfHostUrl" placeholder="postgresql://user:pass@localhost:5432/db" oninput="saveSelfHostConfig()">
+        </div>
+        <div class="input-group" style="margin-bottom:8px;">
+          <label class="input-label">API Endpoint (optional)</label>
+          <input type="url" class="input-field" id="selfHostApi" placeholder="http://localhost:3000/api" oninput="saveSelfHostConfig()">
+        </div>
+        <div style="font-size:11px;color:var(--text-secondary);line-height:1.5;">When enabled, the app will use your own database instead of the cloud service. Requires PostgreSQL with matching schema. Restart the app after changing.</div>
+      </div>
+
+      <!-- Install App -->
+      <div style="padding: 15px; background: rgba(16,185,129,0.05); border-radius: 10px; border: 1px solid rgba(16,185,129,0.2); margin-bottom: 16px;">
+        <div style="font-size: 13px; font-weight: 600; color: var(--success); margin-bottom: 12px;">Install App</div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.5;">Install Free File Wizard to your home screen for offline access and a native app experience.</div>
+        <button class="btn btn-success btn-sm" id="installAppBtn" onclick="installApp()" style="width: 100%;">Install to Home Screen</button>
+        <div id="installStatus" style="font-size: 11px; color: var(--text-secondary); margin-top: 8px; text-align: center;"></div>
+      </div>
+
+      <!-- Feedback & Support Section -->
+      <div style="padding: 15px; background: rgba(0,240,255,0.05); border-radius: 10px; border: 1px solid rgba(0,240,255,0.15); margin-bottom: 16px;">
+        <div style="font-size: 13px; font-weight: 600; color: var(--accent-cyan); margin-bottom: 12px;">Feedback & Support</div>
+
+        <!-- Tab Navigation -->
+        <div class="btn-group" style="margin-bottom: 14px;">
+          <button class="btn btn-secondary btn-sm" id="supportTabFeedback" onclick="switchSupportTab('feedback')" style="background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); color: white; border: none; font-size: 12px; padding: 6px 14px;">Feedback</button>
+          <button class="btn btn-secondary btn-sm" id="supportTabCollab" onclick="switchSupportTab('collab')" style="font-size: 12px; padding: 6px 14px;">Collaborate</button>
+          <button class="btn btn-secondary btn-sm" id="supportTabBug" onclick="switchSupportTab('bug')" style="font-size: 12px; padding: 6px 14px;">Bug Report</button>
+        </div>
+
+        <!-- Feedback Panel -->
+        <div id="supportFeedbackPanel">
+          <div class="input-group" style="margin-bottom: 10px;">
+            <label class="input-label">Category</label>
+            <select class="input-field" id="feedbackCategory">
+              <option value="bug">Bug Report</option>
+              <option value="feature">Feature Request</option>
+              <option value="support">Support / Help</option>
+              <option value="faq">Question / FAQ</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="input-group" style="margin-bottom: 10px;">
+            <label class="input-label">Your Email (optional)</label>
+            <input type="email" class="input-field" id="feedbackEmail" placeholder="your@email.com">
+          </div>
+          <div class="input-group" style="margin-bottom: 10px;">
+            <label class="input-label">Message</label>
+            <textarea class="input-field" id="feedbackMessage" placeholder="Describe your issue, idea, or question..." style="min-height: 80px;"></textarea>
+          </div>
+          <button class="btn btn-success btn-sm" onclick="sendFeedback()" style="width: 100%;" id="sendFeedbackBtn">Send Feedback</button>
+          <div id="feedbackStatus" style="font-size: 11px; margin-top: 8px; text-align: center;"></div>
+        </div>
+
+        <!-- Collaboration Panel -->
+        <div id="supportCollabPanel" style="display: none;">
+          <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.5; padding: 10px; background: rgba(124,58,237,0.08); border-radius: 8px; border-left: 3px solid var(--accent-purple);">
+            Want to contribute to Free File Wizard? Whether you're a developer, designer, content creator, or just passionate about free tools -- we'd love to hear from you!
+          </div>
+          <div class="input-group" style="margin-bottom: 10px;">
+            <label class="input-label">Your Email</label>
+            <input type="email" class="input-field" id="collabEmail" placeholder="your@email.com">
+          </div>
+          <div class="input-group" style="margin-bottom: 10px;">
+            <label class="input-label">Reason for Collaborating</label>
+            <select class="input-field" id="collabReason">
+              <option value="development">Development / Coding</option>
+              <option value="design">UI/UX Design</option>
+              <option value="content">Content / Translation</option>
+              <option value="marketing">Marketing / Outreach</option>
+              <option value="testing">QA / Testing</option>
+              <option value="sponsorship">Sponsorship / Partnership</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="input-group" style="margin-bottom: 10px;">
+            <label class="input-label">Tell us about yourself & how you'd like to help</label>
+            <textarea class="input-field" id="collabMessage" placeholder="Share your skills, ideas, and how you'd like to contribute..." style="min-height: 100px;"></textarea>
+          </div>
+          <button class="btn btn-success btn-sm" onclick="sendCollaboration()" style="width: 100%;" id="sendCollabBtn">Submit Collaboration Request</button>
+          <div id="collabStatus" style="font-size: 11px; margin-top: 8px; text-align: center;"></div>
+        </div>
+
+        <!-- Bug Report Panel -->
+        <div id="supportBugPanel" style="display: none;">
+          <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 14px; line-height: 1.5; padding: 10px; background: rgba(239,68,68,0.08); border-radius: 8px; border-left: 3px solid var(--error);">
+            Found a bug or have a feature request? Send it directly to our team and we'll investigate.
+          </div>
+          <div class="input-group" style="margin-bottom: 10px;">
+            <label class="input-label">Your Email Address</label>
+            <input type="email" class="input-field" id="bugEmail" placeholder="your@email.com">
+          </div>
+          <div class="input-group" style="margin-bottom: 10px;">
+            <label class="input-label">Describe Bug / Feature Request</label>
+            <textarea class="input-field" id="bugMessage" placeholder="What went wrong? What should happen instead? Steps to reproduce..." style="min-height: 100px;"></textarea>
+          </div>
+          <button class="btn btn-success btn-sm" onclick="sendBugReport()" style="width: 100%;" id="sendBugBtn">Send Bug Report</button>
+          <div id="bugStatus" style="font-size: 11px; margin-top: 8px; text-align: center;"></div>
+        </div>
+      </div>
+
+      <!-- Danger Zone -->
+      <div style="padding: 15px; background: rgba(239,68,68,0.05); border-radius: 10px; border: 1px solid rgba(239,68,68,0.2); margin-bottom: 16px;">
+        <div style="font-size: 13px; font-weight: 600; color: var(--error); margin-bottom: 12px;">Data & Cache</div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button class="btn btn-secondary btn-sm" onclick="exportAllData()" style="border-color: var(--accent-cyan); color: var(--accent-cyan);">Export All Data</button>
+          <button class="btn btn-secondary btn-sm" onclick="clearAllData()" style="border-color: var(--error); color: var(--error);">Clear All Data</button>
+          <button class="btn btn-secondary btn-sm" onclick="clearBrowserCache()" style="border-color: var(--warning, #f59e0b); color: var(--warning, #f59e0b);">Clear Browser Cache</button>
+        </div>
+        <div id="cacheStatus" style="font-size: 11px; margin-top: 8px; text-align: center; color: var(--text-secondary);"></div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn" onclick="saveProfileAndSettings()">Save All</button>
+        <button class="btn btn-secondary" onclick="closeModal('profileModal')">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Donate Modal -->
+  <div class="modal" id="donateModal" onclick="closeModalOnOverlay(event, 'donateModal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('donateModal')">&times;</button>
+      <h3 class="modal-title">❤️ Support Free File Wizard</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 13px; line-height: 1.6;">Help keep this platform 100% free. Your donation supports development and hosting.</p>
+
+      <div class="payment-section">
+        <div class="payment-header">
+          <span class="payment-icon">📱</span>
+          <div>
+            <div class="payment-title" style="color: #ffcc00;">MTN Mobile Money</div>
+            <div class="payment-subtitle">Cameroon</div>
+          </div>
+        </div>
+        <div class="payment-label">Account</div>
+        <div class="payment-detail">TAKU EMEFUA BERRY</div>
+        <div class="payment-label">Number</div>
+        <div class="payment-detail" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <span>+237653954225</span>
+          <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('+237653954225', 'MTN MoMo Number Copied!')">Copy</button>
+        </div>
+      </div>
+
+      <div class="payment-section">
+        <div class="payment-header">
+          <span class="payment-icon">🟠</span>
+          <div>
+            <div class="payment-title" style="color: #ff6600;">Orange Money</div>
+            <div class="payment-subtitle">Cameroon</div>
+          </div>
+        </div>
+        <div class="payment-label">Account</div>
+        <div class="payment-detail">ADELLE LIHMBE</div>
+        <div class="payment-label">Number</div>
+        <div class="payment-detail" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <span>+237677104499</span>
+          <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('+237677104499', 'Orange Money Number Copied!')">Copy</button>
+        </div>
+      </div>
+
+      <div class="payment-section">
+        <div class="payment-header">
+          <span class="payment-icon">💳</span>
+          <div>
+            <div class="payment-title" style="color: #009cde;">Credit Card / PayPal</div>
+            <div class="payment-subtitle">International</div>
+          </div>
+        </div>
+        <div class="payment-desc"><strong>Secure International Payouts:</strong> Click below to open our official encrypted billing lane. Use any Credit/Debit Card or PayPal wallet. No registration required.</div>
+        <a href="https://paypal.com" target="_blank" rel="noopener noreferrer" class="payment-paypal-btn">💳 Donate with PayPal</a>
+        <div class="payment-email">Contact: <span style="color: var(--accent-cyan);">prospertaku098@hmail.com</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ad Slots -->
+  <div class="ad-banner">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-4262912359957760"
+         data-ad-slot="1122334455"
+         data-ad-format="auto"
+         full-width-responsive="true"></ins>
+    <script>
+         try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { console.log("AdSense load skipped"); }
+    </script>
+  </div>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- HOME SCREEN -->
+    <section class="screen active" id="home">
+      <div class="hero-banner">
+        <div class="hero-logo">🧙</div>
+        <h2 class="hero-title">Free File Wizard</h2>
+        <p class="hero-subtitle">40+ premium tools • 100% free • 100% client-side • No login required</p>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterTools('all', event)">All</button>
+        <button class="filter-btn" onclick="filterTools('A', event)">Foundational</button>
+        <button class="filter-btn" onclick="filterTools('B', event)">Media</button>
+        <button class="filter-btn" onclick="filterTools('C', event)">Office</button>
+        <button class="filter-btn" onclick="filterTools('D', event)">Life</button>
+        <button class="filter-btn" onclick="filterTools('E', event)">Local</button>
+      </div>
+      <div class="tools-grid" id="toolsGrid"></div>
+    </section>
+
+    <!-- PDF EXTRACTOR SCREEN -->
+    <section class="screen" id="pdf-extract">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">📄 PDF Text Extractor</h2>
+        </div>
+
+        <div class="input-group">
+          <label class="file-label" for="pdfFileInput"><span>📁</span> Select PDF File</label>
+          <input type="file" class="file-input" id="pdfFileInput" accept=".pdf">
+        </div>
+
+        <button class="btn btn-success" onclick="extractPDFText()">Extract Text</button>
+
+        <div class="output-area" id="pdfOutput" style="display:none;">
+          <div class="output-title">Extracted Text</div>
+          <textarea class="input-field" id="pdfTextArea" readonly style="min-height: 200px;"></textarea>
+          <button class="btn btn-secondary btn-sm" style="margin-top: 10px;" onclick="copyToClipboard(document.getElementById('pdfTextArea').value, 'Text copied!')">Copy Text</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CV BUILDER SCREEN -->
+    <section class="screen" id="resume">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">💼 CV Builder</h2>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Full Name</label>
+              <input type="text" class="input-field" id="cvName" placeholder="John Doe">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Email</label>
+              <input type="email" class="input-field" id="cvEmail" placeholder="john@example.com">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Phone</label>
+              <input type="tel" class="input-field" id="cvPhone" placeholder="+1 234 567 8900">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Location</label>
+              <input type="text" class="input-field" id="cvLocation" placeholder="City, Country">
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Professional Summary</label>
+          <textarea class="input-field" id="cvSummary" placeholder="Brief professional summary..."></textarea>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Experience</label>
+          <textarea class="input-field" id="cvExperience" placeholder="Job titles, companies, dates and achievements..."></textarea>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-success" onclick="generateCVPDF()">📥 Print CV to PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMAGE COMPRESSOR SCREEN -->
+    <section class="screen" id="img-compress">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🖼️ Image Compressor</h2>
+        </div>
+
+        <div class="input-group">
+          <label class="file-label" for="imgFileInput"><span>📁</span> Select Image</label>
+          <input type="file" class="file-input" id="imgFileInput" accept="image/*">
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Quality: <span id="qualityValue">70</span>%</label>
+          <input type="range" class="range-slider" id="qualitySlider" min="10" max="100" value="70" oninput="updateQuality(this.value)">
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-success" onclick="compressImage()">Compress & Download</button>
+        </div>
+
+        <div class="output-area" id="imgPreview" style="display:none;">
+          <div class="output-title">Preview</div>
+          <img id="previewImg" style="max-width: 100%; border-radius: 8px; margin-top: 10px;">
+        </div>
+      </div>
+    </section>
+
+    <!-- QR CODE GENERATOR SCREEN -->
+    <section class="screen" id="qr-gen">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">📱 QR Code Generator</h2>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">URL / Link</label>
+          <input type="url" class="input-field" id="qrData" placeholder="https://example.com">
+          <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">Only valid URLs accepted (https:// preferred)</div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Light Color</label>
+              <input type="color" class="color-input" id="qrLightColor" value="#ffffff">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Dark Color</label>
+              <input type="color" class="color-input" id="qrDarkColor" value="#000000">
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Size</label>
+          <select class="input-field" id="qrSize">
+            <option value="200">Small (200px)</option>
+            <option value="300" selected>Medium (300px)</option>
+            <option value="400">Large (400px)</option>
+            <option value="512">XL (512px)</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Error Correction</label>
+          <select class="input-field" id="qrErrorLevel">
+            <option value="L">Low (7%)</option>
+            <option value="M" selected>Medium (15%)</option>
+            <option value="Q">Quartile (25%)</option>
+            <option value="H">High (30%) - Best for center logo</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Center Text (Optional)</label>
+          <input type="text" class="input-field" id="qrCenterText" placeholder="e.g., My Brand, Link name" maxlength="12">
+          <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">Short text overlay in the center of QR code (max 12 chars)</div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Label (Optional)</label>
+          <input type="text" class="input-field" id="qrLabel" placeholder="e.g., My Business Card">
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-success" onclick="generateQR()">Generate QR Code</button>
+        </div>
+
+        <div class="output-area" id="qrOutput" style="display:none;">
+          <div class="output-title" id="qrLabelDisplay"></div>
+          <div style="text-align: center; padding: 20px; position: relative;">
+            <canvas id="qrCanvas"></canvas>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:10px;">
+            <button class="btn btn-secondary btn-sm" onclick="downloadQR()" style="flex:1;">Download PNG</button>
+            <button class="btn btn-secondary btn-sm" onclick="downloadQRSVG()" style="flex:1;">Download SVG</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORD COUNTER SCREEN -->
+    <section class="screen" id="word-count">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">📝 Word Counter</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Enter Text</label>
+          <textarea class="input-field" id="wordInput" placeholder="Paste or type your text here..." style="min-height: 200px;" oninput="updateWordCount()"></textarea>
+        </div>
+        <div class="output-area">
+          <div class="output-title">Statistics</div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">Words</div>
+              <div style="font-size: 20px; color: var(--accent-cyan); font-weight: bold;" id="wordCount">0</div>
+            </div>
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">Characters</div>
+              <div style="font-size: 20px; color: var(--accent-cyan); font-weight: bold;" id="charCount">0</div>
+            </div>
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">Sentences</div>
+              <div style="font-size: 20px; color: var(--accent-cyan); font-weight: bold;" id="sentenceCount">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UNIT CONVERTER SCREEN -->
+    <section class="screen" id="unit-conv">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">⚖️ Unit Converter</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Value</label>
+              <input type="number" class="input-field" id="unitValue" placeholder="Enter value" oninput="convertUnits()">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">From</label>
+              <select class="input-field" id="unitFrom" onchange="convertUnits()">
+                <option value="m">Meters</option><option value="km">Kilometers</option><option value="mi">Miles</option><option value="ft">Feet</option>
+                <option value="kg">Kilograms</option><option value="lb">Pounds</option><option value="c">Celsius</option><option value="f">Fahrenheit</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Result</label>
+              <input type="text" class="input-field" id="unitResult" readonly placeholder="Result">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">To</label>
+              <select class="input-field" id="unitTo" onchange="convertUnits()">
+                <option value="km">Kilometers</option><option value="m">Meters</option><option value="mi">Miles</option><option value="ft">Feet</option>
+                <option value="lb">Pounds</option><option value="kg">Kilograms</option><option value="f">Fahrenheit</option><option value="c">Celsius</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASSWORD GENERATOR SCREEN -->
+    <section class="screen" id="pwd-gen">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🔒 Password Generator</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Length: <span id="pwdLengthVal">16</span></label>
+          <input type="range" class="range-slider" id="pwdLength" min="8" max="64" value="16" oninput="document.getElementById('pwdLengthVal').textContent=this.value">
+        </div>
+        <div class="input-group">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;"><input type="checkbox" id="pwdUpper" checked> Uppercase (A-Z)</label>
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin-top: 8px;"><input type="checkbox" id="pwdLower" checked> Lowercase (a-z)</label>
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin-top: 8px;"><input type="checkbox" id="pwdNums" checked> Numbers (0-9)</label>
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin-top: 8px;"><input type="checkbox" id="pwdSyms" checked> Symbols (!@#$)</label>
+        </div>
+        <button class="btn btn-success" onclick="generatePassword()">Generate Password</button>
+        <div class="output-area" id="pwdOutput" style="display:none;">
+          <div class="output-title">Generated Password</div>
+          <div style="background: var(--bg-core); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; font-family: monospace; word-break: break-all; cursor: pointer;" id="pwdResult" onclick="copyToClipboard(this.textContent, 'Password copied!')"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTRAST CHECKER SCREEN -->
+    <section class="screen" id="contrast">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🎨 Contrast Checker</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Text Color</label>
+              <input type="color" class="color-input" id="fgColor" value="#ffffff" oninput="checkContrast()">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Background Color</label>
+              <input type="color" class="color-input" id="bgColor" value="#000000" oninput="checkContrast()">
+            </div>
+          </div>
+        </div>
+        <div class="output-area">
+          <div class="output-title">Contrast Ratio: <span id="contrastRatio">21:1</span></div>
+          <div id="contrastStatus" style="margin-top: 10px; font-size: 13px;"></div>
+          <div id="contrastPreview" style="margin-top: 15px; padding: 20px; border-radius: 8px; text-align: center;">Sample Text Preview</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CURRENCY CONVERTER SCREEN -->
+    <section class="screen" id="currency">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">💱 Currency Converter</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Amount</label>
+              <input type="number" class="input-field" id="currencyAmount" placeholder="100" oninput="convertCurrency()">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">From</label>
+              <select class="input-field" id="currencyFrom" onchange="convertCurrency()">
+                <option value="usd">USD</option><option value="eur">EUR</option><option value="gbp">GBP</option><option value="xaf">XAF</option><option value="ngn">NGN</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Result</label>
+              <input type="text" class="input-field" id="currencyResult" readonly>
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">To</label>
+              <select class="input-field" id="currencyTo" onchange="convertCurrency()">
+                <option value="eur">EUR</option><option value="usd">USD</option><option value="gbp">GBP</option><option value="xaf">XAF</option><option value="ngn">NGN</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 10px;">Rates are approximate for demonstration.</div>
+      </div>
+    </section>
+
+    <!-- HASH GENERATOR SCREEN -->
+    <section class="screen" id="hash">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🔐 Hash Generator</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Text to Hash</label>
+          <input type="text" class="input-field" id="hashInput" placeholder="Enter text">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Algorithm</label>
+          <select class="input-field" id="hashAlgo"><option value="SHA-256">SHA-256</option><option value="SHA-384">SHA-384</option><option value="SHA-512">SHA-512</option></select>
+        </div>
+        <button class="btn btn-success" onclick="generateHash()">Generate Hash</button>
+        <div class="output-area" id="hashOutput" style="display:none;">
+          <div class="output-title">Hash Result</div>
+          <div style="background: var(--bg-core); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; font-family: monospace; word-break: break-all; cursor: pointer;" id="hashResult" onclick="copyToClipboard(this.textContent, 'Hash copied!')"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THUMBNAIL / SAFE ZONE SCREEN -->
+    <section class="screen" id="thumbnail">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🖼️ Safe Zone Overlay</h2>
+        </div>
+        <div class="input-group">
+          <label class="file-label" for="thumbnailImgInput"><span>📁</span> Upload Image</label>
+          <input type="file" class="file-input" id="thumbnailImgInput" accept="image/*" onchange="drawSafeZone()">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Platform</label>
+          <select class="input-field" id="thumbnailPlatform" onchange="drawSafeZone()">
+            <option value="youtube">YouTube</option><option value="instagram">Instagram</option><option value="tiktok">TikTok</option><option value="twitter">Twitter/X</option>
+          </select>
+        </div>
+        <canvas id="thumbnailCanvas" style="max-width: 100%; border-radius: 8px; display: none;"></canvas>
+        <button class="btn btn-secondary btn-sm" onclick="downloadThumbnail()" style="margin-top: 10px;">Download</button>
+      </div>
+    </section>
+
+    <!-- VIDEO TO AUDIO SCREEN -->
+    <section class="screen" id="vid-audio">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🎬 Video to Audio</h2>
+        </div>
+        <div class="input-group">
+          <label class="file-label" for="videoFileInput"><span>📁</span> Select Video</label>
+          <input type="file" class="file-input" id="videoFileInput" accept="video/*">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Output Format</label>
+          <select class="input-field" id="vidAudioFormat">
+            <option value="webm">WebM (fastest)</option>
+            <option value="wav">WAV (universal)</option>
+          </select>
+        </div>
+        <div id="vidAudioStatus" style="display:none; padding: 12px; background: rgba(0,240,255,0.1); border-radius: 8px; font-size: 13px; color: var(--accent-cyan); margin-bottom: 15px;"></div>
+        <div class="btn-group">
+          <button class="btn btn-success" id="extractAudioBtn" onclick="extractAudio()">Extract Audio</button>
+        </div>
+        <div class="output-area" id="vidAudioOutput" style="display:none;">
+          <div class="output-title">Extracted Audio</div>
+          <audio id="audioOutput" controls style="width: 100%; margin-top: 10px;"></audio>
+          <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn btn-success btn-sm" onclick="downloadExtractedAudio()">Download Audio</button>
+          </div>
+        </div>
+        <video id="videoPreview" style="display:none;"></video>
+      </div>
+    </section>
+
+    <!-- SCREEN RECORDER SCREEN -->
+    <section class="screen" id="screen-rec">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🖥️ Screen Recorder</h2>
+        </div>
+        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 15px;"><input type="checkbox" id="recAudio" checked> Include Microphone</label>
+        <video id="screenPreview" controls style="width: 100%; border-radius: 8px; display: none;"></video>
+        <div class="btn-group">
+          <button class="btn btn-success" id="startRecBtn" onclick="startScreenRecording()">⏺️ Start Recording</button>
+          <button class="btn btn-secondary" id="stopRecBtn" onclick="stopScreenRecording()" style="display:none;">⏹️ Stop</button>
+        </div>
+        <div id="recStatus" style="text-align: center; margin-top: 15px; display: none; color: var(--error); font-weight: 600;">
+          <span style="display: inline-block; width: 10px; height: 10px; background: var(--error); border-radius: 50%; animation: pulse-glow 1s infinite; vertical-align: middle; margin-right: 8px;"></span>
+          Recording... <span id="recTimer">00:00</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUDIO RECORDER SCREEN -->
+    <section class="screen" id="audio-rec">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🎙️ Audio Recorder</h2>
+        </div>
+        <audio id="audioRecPreview" controls style="width: 100%; display: none;"></audio>
+        <div class="btn-group">
+          <button class="btn btn-success" id="startAudioBtn" onclick="startAudioRecording()">🎤 Start Recording</button>
+          <button class="btn btn-secondary" id="stopAudioBtn" onclick="stopAudioRecording()" style="display:none;">⏹️ Stop</button>
+        </div>
+        <div id="audioRecStatus" style="text-align: center; margin-top: 15px; display: none; color: var(--error); font-weight: 600;">
+          <span style="display: inline-block; width: 10px; height: 10px; background: var(--error); border-radius: 50%; animation: pulse-glow 1s infinite; vertical-align: middle; margin-right: 8px;"></span>
+          Recording... <span id="audioRecTimer">00:00</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLOR PICKER SCREEN -->
+    <section class="screen" id="color-pick">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">💉 Color Picker</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Pick a Color</label>
+          <input type="color" class="color-input" id="colorPickerInput" value="#00f0ff" oninput="updateColorInfo()">
+        </div>
+        <div id="colorPreview" style="width: 100%; height: 80px; border-radius: 8px; margin-bottom: 15px; background: #00f0ff;"></div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+          <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center; cursor: pointer;" onclick="copyToClipboard(document.getElementById('colorHex').textContent, 'HEX copied!')">
+            <div style="font-size: 11px; color: var(--text-secondary);">HEX</div>
+            <div style="font-size: 14px; color: var(--accent-cyan); font-weight: bold;" id="colorHex">#00F0FF</div>
+          </div>
+          <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center; cursor: pointer;" onclick="copyToClipboard(document.getElementById('colorRgb').textContent, 'RGB copied!')">
+            <div style="font-size: 11px; color: var(--text-secondary);">RGB</div>
+            <div style="font-size: 14px; color: var(--accent-cyan); font-weight: bold;" id="colorRgb">0, 240, 255</div>
+          </div>
+          <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center; cursor: pointer;" onclick="copyToClipboard(document.getElementById('colorHsl').textContent, 'HSL copied!')">
+            <div style="font-size: 11px; color: var(--text-secondary);">HSL</div>
+            <div style="font-size: 14px; color: var(--accent-cyan); font-weight: bold;" id="colorHsl">180, 100%, 50%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SRT SHIFTER SCREEN -->
+    <section class="screen" id="srt-shift">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">⏱️ SRT Subtitle Shifter</h2>
+        </div>
+        <div class="input-group">
+          <label class="file-label" for="srtFileInput"><span>📁</span> Select SRT File</label>
+          <input type="file" class="file-input" id="srtFileInput" accept=".srt">
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Shift (seconds)</label>
+              <input type="number" class="input-field" id="srtShift" placeholder="-2.5" step="0.1">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Direction</label>
+              <select class="input-field" id="srtDirection"><option value="forward">Later (+)</option><option value="backward">Earlier (-)</option></select>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-success" onclick="shiftSRT()">Shift Subtitles</button>
+        <div class="output-area" id="srtOutput" style="display:none;">
+          <div class="output-title">Shifted Subtitles</div>
+          <textarea class="input-field" id="srtResult" readonly style="min-height: 150px; font-family: monospace;"></textarea>
+          <button class="btn btn-secondary btn-sm" style="margin-top: 10px; width: 100%;" onclick="downloadShiftedSRT()">Download SRT</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMAGE FORMAT CONVERTER SCREEN -->
+    <section class="screen" id="img-format">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🔄 Image Format Converter</h2>
+        </div>
+        <div class="input-group">
+          <label class="file-label" for="imgFormatInput"><span>📁</span> Select Image</label>
+          <input type="file" class="file-input" id="imgFormatInput" accept="image/*">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Convert To</label>
+          <select class="input-field" id="targetFormat"><option value="png">PNG</option><option value="jpeg">JPEG</option><option value="webp">WebP</option></select>
+        </div>
+        <button class="btn btn-success" onclick="convertImageFormat()">Convert & Download</button>
+        <div class="output-area" id="formatOutput" style="display:none;">
+          <div class="output-title">Preview</div>
+          <img id="formatPreview" style="max-width: 100%; border-radius: 8px; margin-top: 10px;">
+        </div>
+      </div>
+    </section>
+
+    <!-- CSS SHADOW GENERATOR SCREEN -->
+    <section class="screen" id="shadow">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🌫️ CSS Shadow Generator</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Offset X: <span id="shadowX">10</span>px</label>
+              <input type="range" class="range-slider" id="shadowOffsetX" min="-50" max="50" value="10" oninput="document.getElementById('shadowX').textContent=this.value; updateShadow()">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Offset Y: <span id="shadowY">10</span>px</label>
+              <input type="range" class="range-slider" id="shadowOffsetY" min="-50" max="50" value="10" oninput="document.getElementById('shadowY').textContent=this.value; updateShadow()">
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Blur: <span id="shadowBlur">20</span>px</label>
+              <input type="range" class="range-slider" id="shadowBlurR" min="0" max="100" value="20" oninput="document.getElementById('shadowBlur').textContent=this.value; updateShadow()">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Opacity: <span id="shadowOp">50</span>%</label>
+              <input type="range" class="range-slider" id="shadowAlpha" min="0" max="100" value="50" oninput="document.getElementById('shadowOp').textContent=this.value; updateShadow()">
+            </div>
+          </div>
+        </div>
+        <div style="padding: 40px; text-align: center; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 8px; margin-bottom: 15px;">
+          <div id="shadowPreview" style="width: 120px; height: 120px; margin: 0 auto; background: white; border-radius: 8px;"></div>
+        </div>
+        <div class="output-area">
+          <div class="output-title">CSS Code</div>
+          <div style="background: var(--bg-core); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; font-family: monospace; cursor: pointer;" id="shadowCode" onclick="copyToClipboard(this.textContent, 'CSS copied!')">box-shadow: 10px 10px 20px 0px rgba(0,0,0,0.5);</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SVG OPTIMIZER SCREEN -->
+    <section class="screen" id="svg-opt">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">📐 SVG Optimizer</h2>
+        </div>
+        <div class="input-group">
+          <label class="file-label" for="svgFileInput"><span>📁</span> Select SVG</label>
+          <input type="file" class="file-input" id="svgFileInput" accept=".svg">
+        </div>
+        <button class="btn btn-success" onclick="optimizeSVG()">Optimize SVG</button>
+        <div class="output-area" id="svgOutput" style="display:none;">
+          <div class="output-title">Optimized</div>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">Original</div>
+              <div style="font-size: 14px; color: var(--accent-cyan);" id="svgOrigSize">--</div>
+            </div>
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">Optimized</div>
+              <div style="font-size: 14px; color: var(--success);" id="svgNewSize">--</div>
+            </div>
+          </div>
+          <div id="svgPreview" style="background: white; padding: 20px; border-radius: 8px; margin-top: 15px; text-align: center;"></div>
+          <button class="btn btn-secondary btn-sm" style="margin-top: 10px; width: 100%;" onclick="downloadOptimizedSVG()">Download SVG</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- WATERMARK SCREEN -->
+    <section class="screen" id="watermark">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">💧 Watermark Tool</h2>
+        </div>
+        <div class="input-group">
+          <label class="file-label" for="watermarkInput"><span>📁</span> Upload Image</label>
+          <input type="file" class="file-input" id="watermarkInput" accept="image/*">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Watermark Text</label>
+          <input type="text" class="input-field" id="watermarkText" placeholder="© Your Name">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Opacity: <span id="wmOp">50</span>%</label>
+          <input type="range" class="range-slider" id="watermarkOpacity" min="10" max="100" value="50" oninput="document.getElementById('wmOp').textContent=this.value">
+        </div>
+        <button class="btn btn-success" onclick="addWatermark()">Add Watermark</button>
+        <div class="output-area" id="watermarkOutput" style="display:none;">
+          <div class="output-title">Preview</div>
+          <img id="watermarkPreview" style="max-width: 100%; border-radius: 8px; margin-top: 10px;">
+        </div>
+      </div>
+    </section>
+
+    <!-- CSV VIEWER SCREEN -->
+    <section class="screen" id="csv-view">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">📊 CSV Viewer</h2>
+        </div>
+        <div class="input-group">
+          <label class="file-label" for="csvFileInput"><span>📁</span> Select CSV</label>
+          <input type="file" class="file-input" id="csvFileInput" accept=".csv">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Or paste CSV data</label>
+          <textarea class="input-field" id="csvInput" placeholder="Name,Age,City&#10;John,30,NYC" style="min-height: 80px;"></textarea>
+        </div>
+        <button class="btn btn-success" onclick="parseCSV()">Parse CSV</button>
+        <div class="output-area" id="csvOutput" style="display:none; overflow-x: auto;">
+          <div class="output-title">Data (<span id="csvRows">0</span> rows)</div>
+          <table style="width: 100%; border-collapse: collapse; margin-top: 10px;" id="csvTable"></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEXT BINDER SCREEN -->
+    <section class="screen" id="txt-bind">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">📚 Text Binder</h2>
+        </div>
+        <div class="input-group">
+          <label class="file-label" for="txtFilesInput"><span>📁</span> Select Text Files</label>
+          <input type="file" class="file-input" id="txtFilesInput" accept=".txt" multiple>
+        </div>
+        <button class="btn btn-success" onclick="bindTextFiles()">Combine Files</button>
+        <div class="output-area" id="txtBindOutput" style="display:none;">
+          <div class="output-title">Combined Text</div>
+          <textarea class="input-field" id="txtBindResult" readonly style="min-height: 150px;"></textarea>
+          <button class="btn btn-secondary btn-sm" style="margin-top: 10px; width: 100%;" onclick="downloadTxtBind()">Download .txt</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEXT REDACTOR SCREEN -->
+    <section class="screen" id="redact">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🖍️ Text Redactor</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Text to Redact</label>
+          <textarea class="input-field" id="redactInput" placeholder="Paste text with sensitive info..." style="min-height: 120px;"></textarea>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Words to Redact (comma separated)</label>
+          <input type="text" class="input-field" id="redactWords" placeholder="password, email, phone">
+        </div>
+        <button class="btn btn-success" onclick="redactText()">Redact Text</button>
+        <div class="output-area" id="redactOutput" style="display:none;">
+          <div class="output-title">Redacted Text</div>
+          <textarea class="input-field" id="redactResult" readonly style="min-height: 120px;"></textarea>
+          <button class="btn btn-secondary btn-sm" style="margin-top: 10px; width: 100%;" onclick="copyToClipboard(document.getElementById('redactResult').value, 'Copied!')">Copy</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARKDOWN PREVIEW SCREEN -->
+    <section class="screen" id="md-preview">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">📺 Markdown Preview</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Markdown</label>
+          <textarea class="input-field" id="mdInput" placeholder="# Heading&#10;&#10;**Bold** and *italic*" style="min-height: 150px; font-family: monospace;" oninput="updateMarkdown()"></textarea>
+        </div>
+        <div class="output-area">
+          <div class="output-title">Preview</div>
+          <div id="mdHtmlOutput" style="padding: 15px; background: white; color: black; border-radius: 8px; min-height: 150px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIGNATURE SCREEN -->
+    <section class="screen" id="signature">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">✍️ Digital Signature</h2>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="btn-group" style="margin-bottom: 20px;">
+          <button class="btn btn-secondary btn-sm" id="sigTabDraw" onclick="switchSigTab('draw')" style="background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); color: white; border: none;">Draw</button>
+          <button class="btn btn-secondary btn-sm" id="sigTabGenerate" onclick="switchSigTab('generate')">Generate</button>
+          <button class="btn btn-secondary btn-sm" id="sigTabType" onclick="switchSigTab('type')">Type</button>
+        </div>
+
+        <!-- DRAW TAB -->
+        <div id="sigDrawPanel">
+          <div class="input-group">
+            <label class="input-label">Draw Your Signature</label>
+            <canvas id="sigCanvas" width="600" height="200" style="width: 100%; background: white; border-radius: 8px; cursor: crosshair;"></canvas>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+              <div class="input-group">
+                <label class="input-label">Pen Width: <span id="sigPenWidthVal">2.5</span>px</label>
+                <input type="range" class="range-slider" id="sigPenWidth" min="1" max="8" value="2.5" step="0.5" oninput="updateSigPen()">
+              </div>
+            </div>
+            <div class="form-col">
+              <div class="input-group">
+                <label class="input-label">Pen Color</label>
+                <input type="color" id="sigPenColor" value="#000000" oninput="updateSigPen()" style="width: 100%; height: 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;">
+              </div>
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="input-label">Signature Style</label>
+            <select class="input-field" id="sigDrawStyle">
+              <option value="smooth">Smooth Calligraphy</option>
+              <option value="rough">Rough Ink</option>
+              <option value="dotted">Dotted Line</option>
+            </select>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-sm" onclick="clearSigCanvas()">Clear</button>
+            <button class="btn btn-secondary btn-sm" onclick="undoSigStroke()">Undo</button>
+          </div>
+        </div>
+
+        <!-- GENERATE TAB -->
+        <div id="sigGeneratePanel" style="display:none;">
+          <div class="input-group">
+            <label class="input-label">Full Name</label>
+            <input type="text" class="input-field" id="sigGenName" placeholder="John Doe" oninput="generateSigFromDesc()">
+          </div>
+          <div class="input-group">
+            <label class="input-label">Description / Style Keywords</label>
+            <textarea class="input-field" id="sigGenDesc" placeholder="elegant, flowing, bold, formal, cursive, artistic, minimal" style="min-height: 60px;" oninput="generateSigFromDesc()"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+              <div class="input-group">
+                <label class="input-label">Length</label>
+                <select class="input-field" id="sigGenLength" onchange="generateSigFromDesc()">
+                  <option value="short">Short (initials)</option>
+                  <option value="medium" selected>Medium (first + last)</option>
+                  <option value="long">Long (full name)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-col">
+              <div class="input-group">
+                <label class="input-label">Size</label>
+                <select class="input-field" id="sigGenSize" onchange="generateSigFromDesc()">
+                  <option value="small">Small</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="large">Large</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+              <div class="input-group">
+                <label class="input-label">Shape</label>
+                <select class="input-field" id="sigGenShape" onchange="generateSigFromDesc()">
+                  <option value="straight">Straight</option>
+                  <option value="ascending">Ascending</option>
+                  <option value="descending">Descending</option>
+                  <option value="wave">Wave</option>
+                  <option value="arch">Arch</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-col">
+              <div class="input-group">
+                <label class="input-label">Weight</label>
+                <select class="input-field" id="sigGenWeight" onchange="generateSigFromDesc()">
+                  <option value="light">Light</option>
+                  <option value="regular" selected>Regular</option>
+                  <option value="bold">Bold</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+              <div class="input-group">
+                <label class="input-label">Ink Color</label>
+                <input type="color" id="sigGenColor" value="#000000" oninput="generateSigFromDesc()" style="width: 100%; height: 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;">
+              </div>
+            </div>
+            <div class="form-col">
+              <div class="input-group">
+                <label class="input-label">Slant</label>
+                <select class="input-field" id="sigGenSlant" onchange="generateSigFromDesc()">
+                  <option value="left">Left</option>
+                  <option value="none" selected>None</option>
+                  <option value="right">Right</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="output-area" style="background: white; border-radius: 8px; padding: 20px; text-align: center; min-height: 120px;">
+            <canvas id="sigGenCanvas" width="500" height="150" style="max-width: 100%;"></canvas>
+          </div>
+        </div>
+
+        <!-- TYPE TAB -->
+        <div id="sigTypePanel" style="display:none;">
+          <div class="input-group">
+            <label class="input-label">Your Name</label>
+            <input type="text" class="input-field" id="sigTypeName" placeholder="John Doe" oninput="renderTypedSig()">
+          </div>
+          <div class="input-group">
+            <label class="input-label">Font Style</label>
+            <select class="input-field" id="sigTypeFont" onchange="renderTypedSig()">
+              <option value="Brush Script MT, cursive">Brush Script</option>
+              <option value="Dancing Script, cursive">Dancing Script</option>
+              <option value="Great Vibes, cursive">Great Vibes</option>
+              <option value="Parisienne, cursive">Parisienne</option>
+              <option value="Sacramento, cursive">Sacramento</option>
+              <option value="Alex Brush, cursive">Alex Brush</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-col">
+              <div class="input-group">
+                <label class="input-label">Font Size: <span id="sigTypeSizeVal">36</span>px</label>
+                <input type="range" class="range-slider" id="sigTypeSize" min="20" max="72" value="36" oninput="document.getElementById('sigTypeSizeVal').textContent=this.value; renderTypedSig()">
+              </div>
+            </div>
+            <div class="form-col">
+              <div class="input-group">
+                <label class="input-label">Ink Color</label>
+                <input type="color" id="sigTypeColor" value="#000000" oninput="renderTypedSig()" style="width: 100%; height: 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;">
+              </div>
+            </div>
+          </div>
+          <div class="output-area" style="background: white; border-radius: 8px; padding: 20px; text-align: center; min-height: 120px;">
+            <div id="sigTypePreview" style="font-size: 36px; color: #000; line-height: 1.2;">Your Name</div>
+          </div>
+        </div>
+
+        <!-- Common Actions -->
+        <div class="btn-group" style="margin-top: 20px;">
+          <button class="btn btn-success" onclick="downloadSignature()">Download PNG</button>
+          <button class="btn btn-secondary" onclick="downloadSigSVG()">Download SVG</button>
+          <button class="btn btn-secondary btn-sm" onclick="copySigToClipboard()">Copy Image</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPENSE TRACKER SCREEN -->
+    <section class="screen" id="expense">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">💰 Expense Ledger</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Description</label>
+              <input type="text" class="input-field" id="expenseDesc" placeholder="Coffee">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Amount</label>
+              <input type="number" class="input-field" id="expenseAmt" placeholder="5.50">
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-success" onclick="addExpense()" style="width: 100%;">+ Add Expense</button>
+        <div class="output-area" style="margin-top: 15px;">
+          <div class="output-title">Total: <span id="totalExpense" style="color: var(--success);">0.00</span></div>
+          <div id="expenseList" style="max-height: 300px; overflow-y: auto; margin-top: 10px;"></div>
+          <div class="btn-group" style="margin-top: 10px;">
+            <button class="btn btn-secondary btn-sm" onclick="exportExpenses()">Export CSV</button>
+            <button class="btn btn-secondary btn-sm" onclick="clearExpenses()">Clear All</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JSON VALIDATOR SCREEN -->
+    <section class="screen" id="json-val">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">{ } JSON Validator</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">JSON Input</label>
+          <textarea class="input-field" id="jsonInput" placeholder='{ "key": "value" }' style="min-height: 120px; font-family: monospace;"></textarea>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-success" onclick="validateJSON()">Validate</button>
+          <button class="btn btn-secondary" onclick="formatJSON()">Format</button>
+        </div>
+        <div class="output-area" id="jsonOutput" style="display:none;">
+          <div class="output-title" id="jsonStatus"></div>
+          <textarea class="input-field" id="jsonResult" readonly style="min-height: 120px; font-family: monospace; margin-top: 10px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- BASE64 TOOL SCREEN -->
+    <section class="screen" id="base64">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🔢 Base64 Encode/Decode</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Input</label>
+          <textarea class="input-field" id="base64Input" placeholder="Enter text" style="min-height: 100px;"></textarea>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-success" onclick="encodeBase64()">Encode</button>
+          <button class="btn btn-success" onclick="decodeBase64()">Decode</button>
+        </div>
+        <div class="output-area" id="base64Output" style="display:none;">
+          <div class="output-title" id="base64Title"></div>
+          <div style="background: var(--bg-core); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; font-family: monospace; word-break: break-all; cursor: pointer;" id="base64Result" onclick="copyToClipboard(this.textContent, 'Copied!')"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGEX TESTER SCREEN -->
+    <section class="screen" id="regex">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🔍 RegEx Tester</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Pattern</label>
+          <input type="text" class="input-field" id="regexPattern" placeholder="^[a-zA-Z]+$" oninput="testRegex()">
+        </div>
+        <label style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 15px;">
+          <label style="cursor: pointer;"><input type="checkbox" id="regexGlobal" onclick="testRegex()"> Global (g)</label>
+          <label style="cursor: pointer;"><input type="checkbox" id="regexCase" onclick="testRegex()"> Case Insensitive (i)</label>
+        </label>
+        <div class="input-group">
+          <label class="input-label">Test String</label>
+          <textarea class="input-field" id="regexTest" placeholder="Enter test string" style="min-height: 80px;" oninput="testRegex()"></textarea>
+        </div>
+        <div class="output-area">
+          <div class="output-title">Matches</div>
+          <div id="regexMatches" style="margin-top: 10px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE CONVERTER SCREEN -->
+    <section class="screen" id="case-conv">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">Aa Case Converter</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Input Text</label>
+          <textarea class="input-field" id="caseInput" placeholder="Enter text" style="min-height: 100px;"></textarea>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-secondary btn-sm" onclick="convertCase('upper')">UPPER</button>
+          <button class="btn btn-secondary btn-sm" onclick="convertCase('lower')">lower</button>
+          <button class="btn btn-secondary btn-sm" onclick="convertCase('title')">Title Case</button>
+          <button class="btn btn-secondary btn-sm" onclick="convertCase('sentence')">Sentence</button>
+          <button class="btn btn-secondary btn-sm" onclick="convertCase('camel')">camelCase</button>
+          <button class="btn btn-secondary btn-sm" onclick="convertCase('snake')">snake_case</button>
+        </div>
+        <div class="output-area" id="caseOutput" style="display:none;">
+          <div class="output-title">Result</div>
+          <textarea class="input-field" id="caseResult" readonly style="min-height: 100px;"></textarea>
+          <button class="btn btn-secondary btn-sm" style="margin-top: 10px; width: 100%;" onclick="copyToClipboard(document.getElementById('caseResult').value, 'Copied!')">Copy</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPOUND INTEREST SCREEN -->
+    <section class="screen" id="compound">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">📈 Compound Interest</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Principal</label>
+          <input type="number" class="input-field" id="principal" placeholder="1000" oninput="calculateCompound()">
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Rate (%)</label>
+              <input type="number" class="input-field" id="rate" placeholder="5" oninput="calculateCompound()">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Years</label>
+              <input type="number" class="input-field" id="years" placeholder="10" oninput="calculateCompound()">
+            </div>
+          </div>
+        </div>
+        <div class="output-area">
+          <div class="output-title">Growth</div>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">Future Value</div>
+              <div style="font-size: 18px; color: var(--accent-cyan); font-weight: bold;" id="finalAmount">--</div>
+            </div>
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">Interest</div>
+              <div style="font-size: 18px; color: var(--success); font-weight: bold;" id="totalInterest">--</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMEZONE SCREEN -->
+    <section class="screen" id="timezone">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🌍 Timezone Converter</h2>
+        </div>
+        <div id="timezoneList" style="display: grid; gap: 12px;"></div>
+      </div>
+    </section>
+
+    <!-- VOLUME CALCULATOR SCREEN -->
+    <section class="screen" id="volume">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">📦 Volume Calculator</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Shape</label>
+          <select class="input-field" id="volumeShape" onchange="updateVolumeUI()">
+            <option value="box">Box</option><option value="cylinder">Cylinder</option><option value="sphere">Sphere</option>
+          </select>
+        </div>
+        <div id="volumeDims"></div>
+        <div class="output-area">
+          <div class="output-title">Volume</div>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">m³</div>
+              <div style="font-size: 18px; color: var(--accent-cyan); font-weight: bold;" id="volumeM3">--</div>
+            </div>
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">Liters</div>
+              <div style="font-size: 18px; color: var(--accent-cyan); font-weight: bold;" id="volumeLiters">--</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POMODORO SCREEN -->
+    <section class="screen" id="pomodoro">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🍅 Pomodoro Timer</h2>
+        </div>
+        <div style="text-align: center; padding: 30px;">
+          <div style="font-size: 64px; font-weight: bold; color: var(--accent-cyan); margin-bottom: 15px;" id="pomodoroTimer">25:00</div>
+          <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px;" id="pomodoroStatus">Ready</div>
+          <div class="btn-group" style="justify-content: center;">
+            <button class="btn btn-success btn-sm" onclick="startPomodoro()">Start</button>
+            <button class="btn btn-secondary btn-sm" onclick="pausePomodoro()">Pause</button>
+            <button class="btn btn-secondary btn-sm" onclick="resetPomodoro()">Reset</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HABIT TRACKER SCREEN -->
+    <section class="screen" id="habit">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">✅ Habit Tracker</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Habit Name</label>
+              <input type="text" class="input-field" id="habitName" placeholder="Daily Exercise">
+            </div>
+          </div>
+          <div class="form-col" style="display: flex; align-items: flex-end;">
+            <button class="btn btn-success" onclick="addHabit()" style="width: 100%;">+ Add</button>
+          </div>
+        </div>
+        <div id="habitList"></div>
+      </div>
+    </section>
+
+    <!-- BMI CALCULATOR SCREEN -->
+    <section class="screen" id="bmi">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">⚖️ BMI Calculator</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Height (cm)</label>
+              <input type="number" class="input-field" id="height" placeholder="180" oninput="calculateBMI()">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Weight (kg)</label>
+              <input type="number" class="input-field" id="weight" placeholder="75" oninput="calculateBMI()">
+            </div>
+          </div>
+        </div>
+        <div class="output-area" style="text-align: center; padding: 20px;">
+          <div style="font-size: 48px; color: var(--accent-cyan); font-weight: bold;" id="bmiValue">--</div>
+          <div style="font-size: 14px; color: var(--text-secondary); margin-top: 10px;" id="bmiCategory"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOAN CALCULATOR SCREEN -->
+    <section class="screen" id="loan">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🏦 Loan Calculator</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Loan Amount</label>
+          <input type="number" class="input-field" id="loanAmount" placeholder="250000" oninput="calculateLoan()">
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Rate (%)</label>
+              <input type="number" class="input-field" id="loanRate" placeholder="6.5" step="0.1" oninput="calculateLoan()">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Years</label>
+              <input type="number" class="input-field" id="loanYears" placeholder="30" oninput="calculateLoan()">
+            </div>
+          </div>
+        </div>
+        <div class="output-area" style="text-align: center; padding: 20px;">
+          <div style="font-size: 36px; color: var(--accent-cyan); font-weight: bold;" id="monthlyPayment">--</div>
+          <div style="font-size: 12px; color: var(--text-secondary); margin-top: 10px;">Monthly Payment | Total Interest: <span id="loanTotalInterest">--</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUBNET CALCULATOR SCREEN -->
+    <section class="screen" id="subnet">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🌐 Subnet Calculator</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">IP Address</label>
+              <input type="text" class="input-field" id="ipAddress" placeholder="192.168.1.0" oninput="calculateSubnet()">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">CIDR</label>
+              <input type="number" class="input-field" id="cidrMask" placeholder="24" min="0" max="32" oninput="calculateSubnet()">
+            </div>
+          </div>
+        </div>
+        <div class="output-area">
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center; cursor: pointer;" onclick="copyToClipboard(document.getElementById('netAddr').textContent, 'Copied!')">
+              <div style="font-size: 11px; color: var(--text-secondary);">Network</div>
+              <div style="font-size: 14px; color: var(--accent-cyan);" id="netAddr">--</div>
+            </div>
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center; cursor: pointer;" onclick="copyToClipboard(document.getElementById('broadcastAddr').textContent, 'Copied!')">
+              <div style="font-size: 11px; color: var(--text-secondary);">Broadcast</div>
+              <div style="font-size: 14px; color: var(--accent-cyan);" id="broadcastAddr">--</div>
+            </div>
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">First Host</div>
+              <div style="font-size: 14px; color: var(--accent-cyan);" id="firstHost">--</div>
+            </div>
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">Usable Hosts</div>
+              <div style="font-size: 14px; color: var(--accent-cyan);" id="usableHosts">--</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RECIPE SCALER SCREEN -->
+    <section class="screen" id="recipe">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🍳 Recipe Scaler</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Original Servings</label>
+              <input type="number" class="input-field" id="origServings" placeholder="4" oninput="scaleRecipe()">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Desired Servings</label>
+              <input type="number" class="input-field" id="newServings" placeholder="8" oninput="scaleRecipe()">
+            </div>
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Ingredients (one per line)</label>
+          <textarea class="input-field" id="recipeIngredients" placeholder="2 cups flour&#10;1 cup sugar&#10;2 eggs" style="min-height: 120px;" oninput="scaleRecipe()"></textarea>
+        </div>
+        <div class="output-area" id="recipeOutput" style="display:none;">
+          <div class="output-title">Scaled (x<span id="scaleFactor">2</span>)</div>
+          <textarea class="input-field" id="recipeResult" readonly style="min-height: 120px; margin-top: 10px;"></textarea>
+          <button class="btn btn-secondary btn-sm" style="margin-top: 10px; width: 100%;" onclick="copyToClipboard(document.getElementById('recipeResult').value, 'Copied!')">Copy</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- METRONOME SCREEN -->
+    <section class="screen" id="metronome">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🎵 Metronome</h2>
+        </div>
+        <div style="text-align: center; padding: 20px;">
+          <div style="font-size: 64px; font-weight: bold; color: var(--accent-cyan); margin-bottom: 10px;" id="bpmDisplay">120</div>
+          <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">BPM</div>
+          <input type="range" class="range-slider" id="bpmSlider" min="40" max="200" value="120" oninput="document.getElementById('bpmDisplay').textContent=this.value" style="margin-bottom: 20px;">
+          <div class="btn-group" style="justify-content: center;">
+            <button class="btn btn-success" id="metronomeStartBtn" onclick="toggleMetronome()">Start</button>
+          </div>
+          <div id="metronomeVisual" style="width: 50px; height: 50px; margin: 20px auto 0; background: var(--bg-panel); border: 3px solid var(--accent-cyan); border-radius: 50%;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOMO CALCULATOR SCREEN -->
+    <section class="screen" id="momo-calc">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">📱 MoMo Calculator</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Amount (XAF)</label>
+          <input type="number" class="input-field" id="momoAmount" placeholder="5000" oninput="calculateMomoFees()">
+        </div>
+        <div class="input-group">
+          <label class="input-label">Provider</label>
+          <select class="input-field" id="momoProvider" onchange="calculateMomoFees()">
+            <option value="mtn">MTN MoMo</option><option value="orange">Orange Money</option>
+          </select>
+        </div>
+        <div class="output-area">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px;">
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">Amount</div>
+              <div style="font-size: 14px; color: var(--accent-cyan);" id="momoAmountDisplay">0 XAF</div>
+            </div>
+            <div style="padding: 10px; background: rgba(0,240,255,0.1); border-radius: 8px; text-align: center;">
+              <div style="font-size: 11px; color: var(--text-secondary);">Fee</div>
+              <div style="font-size: 14px; color: var(--error);" id="momoFeeDisplay">0 XAF</div>
+            </div>
+            <div style="padding: 10px; background: rgba(250,200,0,0.2); border-radius: 8px; text-align: center; border: 1px solid rgba(250,200,0,0.5);">
+              <div style="font-size: 11px; color: var(--text-secondary);">Total</div>
+              <div style="font-size: 14px; font-weight: bold;" id="momoTotalDisplay">0 XAF</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASPECT RESIZER SCREEN -->
+    <section class="screen" id="aspect-resize">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">📐 Aspect Ratio Resizer</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Platform</label>
+          <select class="input-field" id="platform" onchange="loadPlatformPreset()">
+            <option value="">Custom</option>
+            <option value="instagram_post">Instagram Post (1080x1080)</option>
+            <option value="instagram_story">Instagram Story (1080x1920)</option>
+            <option value="youtube_thumbnail">YouTube (1280x720)</option>
+            <option value="tiktok">TikTok (1080x1920)</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Width (px)</label>
+              <input type="number" class="input-field" id="newWidth" placeholder="1920" oninput="calculateResized()">
+            </div>
+          </div>
+          <div class="form-col">
+            <div class="input-group">
+              <label class="input-label">Height (px)</label>
+              <input type="number" class="input-field" id="newHeight" placeholder="1080" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="output-area" style="text-align: center; padding: 20px;">
+          <div style="font-size: 24px; color: var(--accent-cyan); font-weight: bold;" id="finalSize">1920 x 1080</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHATSAPP BULK SCREEN -->
+    <section class="screen" id="wa-bulk">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">💬 WhatsApp Bulk Links</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Message</label>
+          <textarea class="input-field" id="waMessage" placeholder="Type your message..." style="min-height: 80px;"></textarea>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Numbers (one per line, with country code)</label>
+          <textarea class="input-field" id="waNumbers" placeholder="237653954225&#10;237677104499" style="min-height: 80px;"></textarea>
+        </div>
+        <button class="btn btn-success" onclick="generateWALinks()" style="width: 100%;">Generate Links</button>
+        <div class="output-area" id="waOutput" style="display:none;">
+          <div class="output-title">Links (<span id="waCount">0</span>)</div>
+          <div id="waLinksList" style="margin-top: 10px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enscrypter -->
+    <section class="screen" id="enscrypter">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🛡️ Enscrypter</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Mode</label>
+          <select class="input-field" id="enscryptMode" onchange="toggleEnscryptFields()">
+            <option value="encrypt">Encrypt</option>
+            <option value="decrypt">Decrypt</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label class="input-label" id="enscryptInputLabel">Plain Text</label>
+          <textarea class="input-field" id="enscryptInput" placeholder="Enter text to encrypt..." style="min-height: 80px;"></textarea>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Secret Key</label>
+          <input type="password" class="input-field" id="enscryptKey" placeholder="Enter a secret key">
+          <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Same key is required to decrypt</div>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Algorithm</label>
+          <select class="input-field" id="enscryptAlgo">
+            <option value="aes">AES-256-GCM</option>
+            <option value="caesar">Caesar Cipher</option>
+            <option value="rot13">ROT13</option>
+            <option value="reverse">Reverse + Base64</option>
+          </select>
+        </div>
+        <button class="btn btn-success" onclick="processEnscrypt()" style="width: 100%;" id="enscryptBtn">Encrypt</button>
+        <div class="output-area" id="enscryptOutput" style="display:none;">
+          <div class="output-title">Result</div>
+          <textarea class="output-area" id="enscryptResult" readonly style="min-height: 80px; margin-top: 8px; cursor: text;"></textarea>
+          <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <button class="btn btn-secondary btn-sm" onclick="copyEnscryptResult()" style="flex:1;">Copy</button>
+            <button class="btn btn-secondary btn-sm" onclick="downloadEnscryptResult()" style="flex:1;">Download</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Telegram Decoder -->
+    <section class="screen" id="tg-decode">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">✈️ Telegram Decoder</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Decode Mode</label>
+          <select class="input-field" id="tgDecodeMode" onchange="toggleTgFields()">
+            <option value="link">Decode Telegram Link</option>
+            <option value="format">Decode Formatting</option>
+            <option value="encode">Encode Telegram Link</option>
+          </select>
+        </div>
+        <div class="input-group" id="tgLinkGroup">
+          <label class="input-label">Telegram Link or Data</label>
+          <textarea class="input-field" id="tgInput" placeholder="Paste a Telegram link or encoded data...&#10;&#10;Examples:&#10;https://t.me/channel/123&#10;tg://resolve?domain=channel&#10;%D0%9F%D1%80%D0%B8%D0%B2%D0%B5%D1%82" style="min-height: 100px;"></textarea>
+        </div>
+        <div class="input-group" id="tgEncodeGroup" style="display:none;">
+          <label class="input-label">Channel/Group Username</label>
+          <input type="text" class="input-field" id="tgUsername" placeholder="channel_name">
+          <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">Without @ symbol</div>
+          <label class="input-label" style="margin-top: 10px;">Message ID (optional)</label>
+          <input type="number" class="input-field" id="tgMsgId" placeholder="123">
+          <label class="input-label" style="margin-top: 10px;">Phone (optional, for direct link)</label>
+          <input type="text" class="input-field" id="tgPhone" placeholder="+1234567890">
+        </div>
+        <button class="btn btn-success" onclick="processTgDecode()" style="width: 100%;">Decode</button>
+        <div class="output-area" id="tgOutput" style="display:none;">
+          <div class="output-title">Decoded Result</div>
+          <div id="tgResult" style="margin-top: 10px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Telegraph Morse Code Decoder -->
+    <section class="screen" id="telegraph">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">📡 Telegraph Decoder</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Mode</label>
+          <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+            <button class="btn btn-sm" id="morseModeBtn_enc" onclick="setMorseMode('encode')" style="flex:1; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); color: white; border: none;">Text to Morse</button>
+            <button class="btn btn-secondary btn-sm" id="morseModeBtn_dec" onclick="setMorseMode('decode')" style="flex:1;">Morse to Text</button>
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-label" id="morseInputLabel">Enter Text</label>
+          <textarea class="input-field" id="morseInput" placeholder="Type your message here..." style="min-height: 100px;"></textarea>
+        </div>
+        <button class="btn btn-success" onclick="processMorse()" style="width: 100%;">Convert</button>
+        <div class="output-area" id="morseOutput" style="display:none;">
+          <div class="output-title">Result</div>
+          <textarea class="output-area" id="morseResult" readonly style="min-height: 100px; margin-top: 8px; cursor: text;"></textarea>
+          <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('morseResult').value).then(()=>showToast('Copied!'))" style="flex:1;">Copy</button>
+            <button class="btn btn-secondary btn-sm" onclick="playMorseAudio()" style="flex:1;">Play Audio</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Secret Message Maker -->
+    <section class="screen" id="secret-msg">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🔮 Secret Message Maker</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Private Message</label>
+          <textarea class="input-field" id="secretMsgInput" placeholder="Write your secret message..." style="min-height: 80px;"></textarea>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Pin Lock Password</label>
+          <input type="password" class="input-field" id="secretPin" placeholder="Set a numeric pin (e.g. 1234)">
+        </div>
+        <button class="btn btn-success" onclick="generateSecretLink()" style="width: 100%;">Generate Secret Link</button>
+        <div class="output-area" id="secretOutput" style="display:none;">
+          <div class="output-title">Shareable Secret Link</div>
+          <textarea class="output-area" id="secretLink" readonly style="min-height: 60px; margin-top: 8px; cursor: text;"></textarea>
+          <div style="display: flex; gap: 8px; margin-top: 8px;">
+            <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('secretLink').value).then(()=>showToast('Secret link copied!'))" style="flex:1;">Copy Link</button>
+            <button class="btn btn-secondary btn-sm" onclick="shareSecretLink()" style="flex:1;">Share</button>
+          </div>
+          <div style="font-size: 11px; color: var(--text-secondary); margin-top: 8px; line-height: 1.4;">Anyone with this link will need the pin to unlock and read your message.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEO & Hashtag Wizard -->
+    <section class="screen" id="seo-wizard">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🏷️ SEO & Hashtag Wizard</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Core Topic / Niche</label>
+          <input type="text" class="input-field" id="seoTopic" placeholder="e.g. Freelancing, Photography, Fitness...">
+        </div>
+        <button class="btn btn-success" onclick="generateSEOKeywords()" style="width: 100%;">Generate Tags</button>
+        <div class="output-area" id="seoOutput" style="display:none;">
+          <div style="margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div class="output-title" style="margin: 0;">SEO Keywords</div>
+              <button class="btn btn-secondary btn-sm" onclick="copySEOSection('seoKeywordsGrid')">Copy All</button>
+            </div>
+            <div id="seoKeywordsGrid" style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;"></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div class="output-title" style="margin: 0;">Trending Hashtags</div>
+              <button class="btn btn-secondary btn-sm" onclick="copySEOSection('seoHashtagsGrid')">Copy All</button>
+            </div>
+            <div id="seoHashtagsGrid" style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Zodiac Sign Detector -->
+    <section class="screen" id="zodiac">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">♈ Zodiac Detector</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Your Birth Date</label>
+          <input type="date" class="input-field" id="zodiacDate" onchange="detectZodiac()">
+        </div>
+        <div class="output-area" id="zodiacOutput" style="display:none;">
+          <div style="text-align:center;padding:16px;">
+            <div style="font-size:48px;" id="zodiacSymbol"></div>
+            <div style="font-size:22px;font-weight:700;color:var(--accent-cyan);margin:8px 0;" id="zodiacName"></div>
+            <div style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;" id="zodiacDateRange"></div>
+            <div style="font-size:13px;color:var(--text-secondary);" id="zodiacElement"></div>
+          </div>
+          <div style="padding:12px;background:rgba(0,240,255,0.05);border-radius:10px;margin-top:8px;">
+            <div style="font-size:12px;font-weight:600;color:var(--accent-cyan);margin-bottom:8px;">Traits</div>
+            <div id="zodiacTraits" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
+          </div>
+          <div style="padding:12px;background:rgba(124,58,237,0.05);border-radius:10px;margin-top:8px;">
+            <div style="font-size:12px;font-weight:600;color:var(--accent-purple);margin-bottom:6px;">Compatibility</div>
+            <div id="zodiacCompat" style="font-size:13px;color:var(--text-secondary);"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Horoscope -->
+    <section class="screen" id="horoscope">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🔮 Horoscope</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Select Your Sign</label>
+          <select class="input-field" id="horoscopeSign">
+            <option value="aries">♈ Aries</option><option value="taurus">♉ Taurus</option>
+            <option value="gemini">♊ Gemini</option><option value="cancer">♋ Cancer</option>
+            <option value="leo">♌ Leo</option><option value="virgo">♍ Virgo</option>
+            <option value="libra">♎ Libra</option><option value="scorpio">♏ Scorpio</option>
+            <option value="sagittarius">♐ Sagittarius</option><option value="capricorn">♑ Capricorn</option>
+            <option value="aquarius">♒ Aquarius</option><option value="pisces">♓ Pisces</option>
+          </select>
+        </div>
+        <button class="btn btn-success" onclick="generateHoroscope()" style="width:100%;">Read Horoscope</button>
+        <div class="output-area" id="horoscopeOutput" style="display:none;">
+          <div style="text-align:center;margin-bottom:12px;">
+            <div style="font-size:36px;" id="horoscopeSymbol"></div>
+            <div style="font-size:18px;font-weight:700;color:var(--accent-cyan);" id="horoscopeTitle"></div>
+          </div>
+          <div id="horoscopeContent" style="padding:14px;background:rgba(0,240,255,0.05);border-radius:10px;font-size:13px;line-height:1.7;color:var(--text-primary);"></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;">
+            <div style="padding:10px;background:rgba(16,185,129,0.08);border-radius:8px;text-align:center;">
+              <div style="font-size:11px;color:var(--text-secondary);">Love</div>
+              <div id="horoscopeLove" style="font-size:16px;color:var(--success);"></div>
+            </div>
+            <div style="padding:10px;background:rgba(0,240,255,0.08);border-radius:8px;text-align:center;">
+              <div style="font-size:11px;color:var(--text-secondary);">Career</div>
+              <div id="horoscopeCareer" style="font-size:16px;color:var(--accent-cyan);"></div>
+            </div>
+            <div style="padding:10px;background:rgba(124,58,237,0.08);border-radius:8px;text-align:center;">
+              <div style="font-size:11px;color:var(--text-secondary);">Health</div>
+              <div id="horoscopeHealth" style="font-size:16px;color:var(--accent-purple);"></div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:10px;text-align:center;">Lucky Numbers: <span id="horoscopeLucky" style="color:var(--accent-cyan);"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IP Detector -->
+    <section class="screen" id="ip-detect">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🌐 IP Detector</h2>
+        </div>
+        <button class="btn btn-success" onclick="detectIP()" style="width:100%;">Detect My IP</button>
+        <div class="output-area" id="ipOutput" style="display:none;margin-top:14px;">
+          <div style="text-align:center;margin-bottom:14px;">
+            <div style="font-size:11px;color:var(--text-secondary);">Your Public IP</div>
+            <div style="font-size:24px;font-weight:700;color:var(--accent-cyan);cursor:pointer;" onclick="navigator.clipboard.writeText(this.textContent).then(()=>showToast('IP copied!'))" id="ipAddress"></div>
+          </div>
+          <div id="ipDetails" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Astronomy Portal -->
+    <section class="screen" id="astronomy">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🔭 Astronomy Portal</h2>
+        </div>
+        <div class="btn-group" style="margin-bottom:14px;flex-wrap:wrap;">
+          <button class="btn btn-sm" onclick="showAstroSection('planets')" id="astroBtn_planets" style="flex:1;background:linear-gradient(135deg,var(--accent-cyan),var(--accent-purple));color:white;border:none;">Planets</button>
+          <button class="btn btn-secondary btn-sm" onclick="showAstroSection('stars')" id="astroBtn_stars" style="flex:1;">Stars</button>
+          <button class="btn btn-secondary btn-sm" onclick="showAstroSection('galaxies')" id="astroBtn_galaxies" style="flex:1;">Galaxies</button>
+          <button class="btn btn-secondary btn-sm" onclick="showAstroSection('comets')" id="astroBtn_comets" style="flex:1;">Comets</button>
+          <button class="btn btn-secondary btn-sm" onclick="showAstroSection('moons')" id="astroBtn_moons" style="flex:1;">Moons</button>
+        </div>
+        <div id="astroContent"></div>
+      </div>
+    </section>
+
+    <!-- Barcode Generator -->
+    <section class="screen" id="barcode">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">█▌▌█ Barcode Generator</h2>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Mode</label>
+          <select class="input-field" id="barcodeMode" onchange="toggleBarcodeMode()">
+            <option value="generate">Generate Barcode</option>
+            <option value="scan">Scan Barcode (Camera)</option>
+          </select>
+        </div>
+        <div id="barcodeGenGroup">
+          <div class="input-group">
+            <label class="input-label">Text / Number</label>
+            <input type="text" class="input-field" id="barcodeInput" placeholder="Enter text or number...">
+          </div>
+          <div class="input-group">
+            <label class="input-label">Format</label>
+            <select class="input-field" id="barcodeFormat">
+              <option value="CODE128">Code 128 (Universal)</option>
+              <option value="EAN13">EAN-13 (Product)</option>
+              <option value="UPC">UPC (US Product)</option>
+              <option value="CODE39">Code 39 (Industrial)</option>
+            </select>
+          </div>
+          <button class="btn btn-success" onclick="generateBarcode()" style="width:100%;">Generate</button>
+        </div>
+        <div id="barcodeScanGroup" style="display:none;">
+          <div style="text-align:center;padding:20px;">
+            <video id="barcodeVideo" style="width:100%;max-width:300px;border-radius:8px;display:none;"></video>
+            <button class="btn btn-success" onclick="startBarcodeScan()" id="barcodeScanBtn" style="width:100%;">Start Camera Scan</button>
+          </div>
+        </div>
+        <div class="output-area" id="barcodeOutput" style="display:none;">
+          <div style="text-align:center;padding:16px;">
+            <svg id="barcodeSvg"></svg>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-secondary btn-sm" onclick="downloadBarcode()" style="flex:1;">Download SVG</button>
+            <button class="btn btn-secondary btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('barcodeInput').value).then(()=>showToast('Copied!'))" style="flex:1;">Copy Value</button>
+          </div>
+        </div>
+        <div class="output-area" id="barcodeScanOutput" style="display:none;">
+          <div style="padding:14px;background:rgba(16,185,129,0.08);border-radius:10px;text-align:center;">
+            <div style="font-size:11px;color:var(--text-secondary);">Scanned Value</div>
+            <div style="font-size:18px;font-weight:700;color:var(--success);" id="barcodeScanResult"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Page -->
+    <section class="screen" id="about">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">ℹ️ About</h2>
+        </div>
+        <div style="text-align:center;padding:20px 0;">
+          <div style="font-size:40px;margin-bottom:8px;">🧙</div>
+          <div style="font-size:20px;font-weight:700;color:var(--accent-cyan);">Free File Wizard</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:4px;">Version 2.0.0</div>
+        </div>
+        <div style="padding:14px;background:rgba(0,240,255,0.05);border-radius:10px;margin-bottom:12px;">
+          <div style="font-size:13px;line-height:1.7;color:var(--text-secondary);">
+            Free File Wizard is built to provide people with the valuable tools they need without expensive paywalls. Every tool is 100% free, works offline where possible, and respects your privacy. No accounts required, no data harvesting, no hidden fees.
+          </div>
+        </div>
+        <div style="padding:14px;background:rgba(0,240,255,0.05);border-radius:10px;margin-bottom:12px;">
+          <div style="font-size:13px;font-weight:600;color:var(--accent-cyan);margin-bottom:8px;">Developer</div>
+          <div style="font-size:14px;font-weight:600;color:var(--text-primary);">Achaleke Prosper Taku</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">From Cameroon 🇨🇲</div>
+          <div style="font-size:12px;color:var(--accent-cyan);margin-top:6px;cursor:pointer;" onclick="navigator.clipboard.writeText('jeepsyearth@gmail.com').then(()=>showToast('Email copied!'))">📧 jeepsyearth@gmail.com</div>
+        </div>
+        <div style="padding:14px;background:rgba(0,240,255,0.05);border-radius:10px;margin-bottom:12px;">
+          <div style="font-size:13px;font-weight:600;color:var(--accent-cyan);margin-bottom:8px;">Terms & Conditions</div>
+          <div style="font-size:12px;line-height:1.7;color:var(--text-secondary);">
+            <p style="margin-bottom:6px;">1. All tools are provided as-is without warranty. We are not liable for any data loss or damages from use.</p>
+            <p style="margin-bottom:6px;">2. Your data stays on your device. We do not collect, store, or sell personal information beyond what you voluntarily submit via feedback forms.</p>
+            <p style="margin-bottom:6px;">3. Feedback messages are forwarded to the developer email for support purposes only and are never shared with third parties.</p>
+            <p style="margin-bottom:6px;">4. Tools that process files (PDF, images, audio) do so entirely in your browser. No files are uploaded to any server.</p>
+            <p style="margin-bottom:6px;">5. You may use all tools freely for personal and commercial purposes. Redistribution of the app itself requires permission.</p>
+            <p>6. These terms may be updated. Continued use constitutes acceptance of changes.</p>
+          </div>
+        </div>
+        <div style="padding:14px;background:rgba(0,240,255,0.05);border-radius:10px;">
+          <div style="font-size:13px;font-weight:600;color:var(--accent-cyan);margin-bottom:8px;">Privacy Policy</div>
+          <div style="font-size:12px;line-height:1.7;color:var(--text-secondary);">
+            We believe your data is yours. This app processes everything locally in your browser. No tracking, no analytics, no cookies beyond what is technically necessary. Feedback you submit is stored in a secure database and emailed to the developer for response purposes only.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="screen" id="reviews">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">⭐ Reviews</h2>
+        </div>
+        <div style="text-align:center;margin-bottom:16px;">
+          <div style="font-size:36px;font-weight:700;color:var(--accent-cyan);" id="reviewAvg">0.0</div>
+          <div style="font-size:12px;color:var(--text-secondary);" id="reviewCount">0 reviews</div>
+        </div>
+        <div style="padding:14px;background:rgba(0,240,255,0.05);border-radius:10px;margin-bottom:14px;">
+          <div style="font-size:13px;font-weight:600;color:var(--accent-cyan);margin-bottom:10px;">Leave a Review</div>
+          <div class="input-group" style="margin-bottom:8px;">
+            <label class="input-label">Your Name</label>
+            <input type="text" class="input-field" id="reviewName" placeholder="Enter your name">
+          </div>
+          <div class="input-group" style="margin-bottom:8px;">
+            <label class="input-label">Rating</label>
+            <div id="reviewStars" style="display:flex;gap:4px;font-size:24px;cursor:pointer;"></div>
+          </div>
+          <div class="input-group" style="margin-bottom:8px;">
+            <label class="input-label">Comment</label>
+            <textarea class="input-field" id="reviewComment" placeholder="Share your experience..." style="min-height:60px;"></textarea>
+          </div>
+          <button class="btn btn-success btn-sm" onclick="submitReview()" style="width:100%;">Submit Review</button>
+        </div>
+        <div id="reviewsList"></div>
+      </div>
+    </section>
+
+    <!-- Retro Games -->
+    <section class="screen" id="retro-games">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🕹️ Retro Games</h2>
+        </div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-bottom:14px;line-height:1.5;">Classic internet games from the early web. Play directly in your browser - no downloads needed!</div>
+        <div id="retroGamesGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;"></div>
+      </div>
+    </section>
+
+    <!-- Community Games -->
+    <section class="screen" id="community-games">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🎮 Community Games</h2>
+        </div>
+        <div id="communityGamesContent"></div>
+        <div id="gameSubmitForm" style="display:none;">
+          <div style="padding:14px;background:rgba(0,240,255,0.05);border-radius:10px;margin-top:14px;">
+            <div style="font-size:13px;font-weight:600;color:var(--accent-cyan);margin-bottom:10px;">Submit Your Game</div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">Game Link (must be a valid game URL)</label>
+              <input type="url" class="input-field" id="gameUrl" placeholder="https://your-game-url.com">
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">Game Name</label>
+              <input type="text" class="input-field" id="gameName" placeholder="e.g., Space Invaders Remix">
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">Description</label>
+              <textarea class="input-field" id="gameDesc" placeholder="Describe your game..." style="min-height:50px;"></textarea>
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">Company / Developer</label>
+              <input type="text" class="input-field" id="gameCompany" placeholder="e.g., My Studio">
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">Game Icon URL</label>
+              <input type="url" class="input-field" id="gameIcon" placeholder="https://example.com/icon.png">
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">Game Screenshot URL</label>
+              <input type="url" class="input-field" id="gameImage" placeholder="https://example.com/screenshot.png">
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">Your Email (optional)</label>
+              <input type="email" class="input-field" id="gameEmail" placeholder="you@email.com">
+            </div>
+            <button class="btn btn-success btn-sm" onclick="submitCommunityItem('game')" style="width:100%;">Submit Game for Review</button>
+            <div style="font-size:10px;color:var(--text-secondary);margin-top:6px;">All submissions are reviewed before going live. You will be notified via email.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community Web Apps -->
+    <section class="screen" id="community-apps">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">🌐 Community Apps</h2>
+        </div>
+        <div id="communityAppsContent"></div>
+        <div id="appSubmitForm" style="display:none;">
+          <div style="padding:14px;background:rgba(0,240,255,0.05);border-radius:10px;margin-top:14px;">
+            <div style="font-size:13px;font-weight:600;color:var(--accent-cyan);margin-bottom:10px;">Submit Your Web App</div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">App Link (must be a valid web app URL)</label>
+              <input type="url" class="input-field" id="appUrl" placeholder="https://your-web-app-url.com">
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">App Name</label>
+              <input type="text" class="input-field" id="appName" placeholder="e.g., Task Manager Pro">
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">Description</label>
+              <textarea class="input-field" id="appDesc" placeholder="Describe your web app..." style="min-height:50px;"></textarea>
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">Company / Developer</label>
+              <input type="text" class="input-field" id="appCompany" placeholder="e.g., My Company">
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">App Icon URL</label>
+              <input type="url" class="input-field" id="appIcon" placeholder="https://example.com/icon.png">
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">App Screenshot URL</label>
+              <input type="url" class="input-field" id="appImage" placeholder="https://example.com/screenshot.png">
+            </div>
+            <div class="input-group" style="margin-bottom:8px;">
+              <label class="input-label">Your Email (optional)</label>
+              <input type="email" class="input-field" id="appEmail" placeholder="you@email.com">
+            </div>
+            <button class="btn btn-success btn-sm" onclick="submitCommunityItem('webapp')" style="width:100%;">Submit App for Review</button>
+            <div style="font-size:10px;color:var(--text-secondary);margin-top:6px;">All submissions are reviewed before going live. You will be notified via email.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cross-Ads Partner Dashboard -->
+    <section class="screen" id="partner-dashboard">
+      <div class="tool-container">
+        <div class="tool-header">
+          <button class="back-btn" onclick="openScreen('home')">← Back</button>
+          <h2 class="tool-title">💰 Cross-Ads Partner</h2>
+        </div>
+        <div id="partnerDashContent"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="ad-banner">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-4262912359957760"
+         data-ad-slot="1122334455"
+         data-ad-format="auto"
+         full-width-responsive="true"></ins>
+    <script>
+         try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) { console.log("AdSense load skipped"); }
+    </script>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
