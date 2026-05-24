@@ -2992,7 +2992,7 @@ async function loadPartnerDashboard() {
       </div>` : `
       <div style="padding:12px;background:rgba(16,185,129,0.08);border-radius:10px;margin-bottom:10px;">
         <div style="font-size:12px;font-weight:600;color:var(--success);margin-bottom:4px;">Payment Method on File</div>
-        <div style="font-size:11px;color:var(--text-secondary);">${partner.payment_method.bank_name || 'Bank'} - ${partner.payment_method.account_name || 'Account'} (${partner.payment_method.country || 'N/A'})</div>
+        <div style="font-size:11px;color:var(--text-secondary);">${partner.payment_method ? (partner.payment_method.bank_name || 'Bank') + ' - ' + (partner.payment_method.account_name || 'Account') + ' (' + (partner.payment_method.country || 'N/A') + ')' : 'Bank - Account (N/A)'}</div>
         <button class="btn btn-secondary btn-sm" onclick="editPaymentMethod()" style="margin-top:6px;font-size:10px;">Edit</button>
       </div>`}
 
