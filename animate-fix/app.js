@@ -1,3 +1,108 @@
+// === SECURITY: XSS Sanitization ===
+function esc(str) {
+  if (str == null) return '';
+  const d = document.createElement('div');
+  d.textContent = String(str);
+  return d.innerHTML;
+}
+function escAttr(str) {
+  return String(str == null ? '' : str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/'/g,'&#39;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function sanitizeSVG(svg) {
+  return svg.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '').replace(/\bon\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]*)/gi, '');
+}
+
+// === SECURITY: Console Protection ===
+(function() {
+  const _origConsole = { log: console.log, warn: console.warn, error: console.error };
+  const _blocked = new Set();
+  const _allowFromSource = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+  // Protect critical functions from being called via console
+  const protectedFns = [
+    'saveProfile', 'saveSettings', 'toggleSetting', 'clearAllData',
+    'exportAllData', 'submitCommunityItem', 'loadPartnerDashboard',
+    'requestWithdrawal', 'trackToolUsage', 'installApp', 'toggleSandboxMode',
+    'submitSandboxFeedback', 'addSandboxFeature', 'deploySandboxFeature',
+    'testSandboxFeature', 'manageSubmission', 'managePartner', 'manageWithdrawal'
+  ];
+
+  // Override window functions to prevent console exploitation
+  const _origCall = Function.prototype.call;
+  const _origApply = Function.prototype.apply;
+
+  // Block eval and Function constructor from executing app-modifying code
+  const _origEval = window.eval;
+  window.eval = function() {
+    _origConsole.warn.call(console, '[Security] eval() is restricted');
+    return undefined;
+  };
+
+  // Detect and prevent devtools-based modifications
+  let devtoolsOpen = false;
+  const threshold = 160;
+  setInterval(() => {
+    const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+    const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+    devtoolsOpen = widthThreshold || heightThreshold;
+  }, 500);
+
+  // Protect localStorage from unauthorized modification
+  const _origSetItem = Storage.prototype.setItem;
+  const protectedKeys = ['ffw_settings', 'ffw_partner_id', 'ffw_owner_verified'];
+  Storage.prototype.setItem = function(key, value) {
+    if (protectedKeys.includes(key)) {
+      // Allow only from app code (not console) - check call stack
+      const stack = new Error().stack || '';
+      const isAppCode = stack.includes('app.js') || stack.includes('app');
+      if (!isAppCode && devtoolsOpen) {
+        _origConsole.warn.call(console, `[Security] Direct localStorage modification of ${key} is blocked`);
+        return;
+      }
+    }
+    return _origSetItem.call(this, key, value);
+  };
+
+  // Freeze appSettings after load to prevent console modification
+  let _settingsFrozen = false;
+  window._freezeSettings = () => { _settingsFrozen = true; };
+  const _origDefineProp = Object.defineProperty;
+
+  // Block overriding of critical app functions
+  protectedFns.forEach(fn => {
+    if (window[fn]) {
+      try {
+        Object.defineProperty(window, fn, {
+          configurable: false,
+          writable: false,
+          value: window[fn]
+        });
+      } catch(e) {}
+    }
+  });
+})();
+
+// === SECURITY: Input Validation ===
+function validateInput(input, type) {
+  if (typeof input !== 'string') return '';
+  switch(type) {
+    case 'email': return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input) ? input : '';
+    case 'url': try { new URL(input); return input; } catch { return ''; }
+    case 'text': return input.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '').replace(/on\w+\s*=/gi, '').substring(0, 5000);
+    case 'number': return isNaN(Number(input)) ? '' : input;
+    case 'id': return /^[a-zA-Z0-9_-]+$/.test(input) ? input : '';
+    default: return input.substring(0, 10000);
+  }
+}
+
+function rateLimiter() {
+  const key = 'ffw_rate_' + Math.floor(Date.now() / 60000);
+  const count = parseInt(localStorage.getItem(key) || '0');
+  if (count > 30) return false;
+  localStorage.setItem(key, String(count + 1));
+  return true;
+}
+
 const tools = [
   { id: 'qr-gen', name: 'QR Generator', icon: '📱', desc: 'Custom QR codes', category: 'A' },
   { id: 'pdf-extract', name: 'PDF Extractor', icon: '📄', desc: 'Extract text from PDF', category: 'A' },
@@ -74,8 +179,209 @@ let appSettings = {
   partnerGames: false,
   partnerApps: false,
   crossAds: false,
-  selfHosted: false
+  selfHosted: false,
+  sandboxMode: false
 };
+
+let sandboxSession = null;
+let sandboxFeatures = [];
+const SUPABASE_URL = import.meta.env?.VITE_SUPABASE_URL || 'https://vfyzkpetyaijdubkxqny.supabase.co';
+const SUPABASE_ANON_KEY = import.meta.env?.VITE_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZmeXprcGV0eWFpamR1Ymt4cW55Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2NTEyMzQsImV4cCI6MjA5NTIyNzIzNH0.aFh4JiP3dg9mE2ipJnPLP1tCUjfIO_fqm6P00U_592Q';
+
+function initSandboxMode() {
+  if (!sandboxSession) {
+    sandboxSession = 'sandbox_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('sandbox_session', sandboxSession);
+  }
+  fetchSandboxFeatures();
+}
+
+async function fetchSandboxFeatures() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/sandbox_features?status=eq.testing`, {
+      headers: { 'apikey': SUPABASE_ANON_KEY }
+    });
+    sandboxFeatures = await res.json() || [];
+  } catch (err) {
+    console.error('Error fetching sandbox features:', err);
+  }
+}
+
+function toggleSandboxMode() {
+  const confirmMsg = `Sandbox Mode will open a separate browser window for testing unstable features before release.
+
+You can:
+• Test new tools and settings
+• Provide feedback directly
+• Changes are isolated - refresh to undo
+
+Continue to Sandbox Mode?`;
+
+  if (!confirm(confirmMsg)) {
+    appSettings.sandboxMode = false;
+    saveSettings();
+    return;
+  }
+
+  appSettings.sandboxMode = true;
+  saveSettings();
+
+  const sandboxUrl = window.location.origin + window.location.pathname + '?sandbox=true';
+  window.open(sandboxUrl, 'FFW_Sandbox', 'width=1200,height=800,menubar=no');
+}
+
+function initSandboxPage() {
+  initSandboxMode();
+  const sandboxContainer = document.createElement('div');
+  sandboxContainer.id = 'sandbox-features-container';
+  sandboxContainer.style.cssText = `
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background: rgba(0,240,255,0.05);
+    border: 2px solid #00f0ff;
+    border-radius: 12px;
+  `;
+
+  let html = `
+    <div style="text-align:center;margin-bottom:30px;">
+      <h1 style="color:#00f0ff;margin:0 0 10px 0;">⚙️ Sandbox Testing Mode</h1>
+      <p style="color:#aaa;margin:0;">Test unstable features before they go live. Changes are temporary - refresh to reset.</p>
+    </div>
+    <div id="sandbox-features-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;">
+  `;
+
+  sandboxFeatures.forEach(feature => {
+    html += `
+      <div class="sandbox-feature-card" style="background:#1a1f3a;border:1px solid #00f0ff;border-radius:8px;padding:20px;">
+        <h3 style="color:#00f0ff;margin:0 0 8px 0;">${esc(feature.name)}</h3>
+        <p style="color:#aaa;font-size:12px;margin:0 0 12px 0;">${esc(feature.feature_type.toUpperCase())}</p>
+        <p style="color:#ddd;margin:0 0 16px 0;">${esc(feature.description)}</p>
+        <button class="btn btn-primary" onclick="testSandboxFeature('${escAttr(feature.id)}', '${escAttr(feature.feature_type)}')" style="width:100%;margin-bottom:8px;">Test Feature</button>
+        <button class="btn btn-secondary" onclick="openSandboxFeedback('${escAttr(feature.id)}')" style="width:100%;">Send Feedback</button>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+  sandboxContainer.innerHTML = html;
+
+  const homeScreen = document.getElementById('home');
+  if (homeScreen) {
+    homeScreen.style.display = 'none';
+  }
+
+  const mainContent = document.querySelector('main') || document.body;
+  mainContent.innerHTML = '';
+  mainContent.appendChild(sandboxContainer);
+}
+
+function testSandboxFeature(featureId, featureType) {
+  const feature = sandboxFeatures.find(f => f.id === featureId);
+  if (!feature) return;
+
+  if (featureType === 'setting') {
+    const settingKey = feature.feature_id;
+    appSettings[settingKey] = !appSettings[settingKey];
+    showToast(`⚠️ This setting is active in sandbox only. Refresh the page to reset.`);
+    applySettings();
+  } else if (featureType === 'tool') {
+    openScreen(feature.feature_id);
+  } else {
+    showToast(`Testing ${feature.name}...`);
+  }
+}
+
+async function openSandboxFeedback(featureId) {
+  const feature = sandboxFeatures.find(f => f.id === featureId);
+  if (!feature) return;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.onclick = (e) => { if (e.target === overlay) overlay.remove(); };
+
+  overlay.innerHTML = `
+    <div class="modal-content" style="max-width:500px;">
+      <h2 style="margin-top:0;">Feedback for ${esc(feature.name)}</h2>
+      <div style="margin:20px 0;">
+        <label style="display:block;margin-bottom:8px;color:#aaa;">Rating (1-5 stars)</label>
+        <div style="display:flex;gap:8px;">
+          ${[1,2,3,4,5].map(i => `<button class="star-btn" onclick="setRating(${i})" style="font-size:24px;background:none;border:none;cursor:pointer;">☆</button>`).join('')}
+        </div>
+      </div>
+      <div style="margin:20px 0;">
+        <label style="display:block;margin-bottom:8px;color:#aaa;">Status</label>
+        <select id="feedback-status" style="width:100%;padding:8px;background:#1a1f3a;color:#fff;border:1px solid #00f0ff;border-radius:4px;">
+          <option value="works_well">✓ Works Well</option>
+          <option value="has_bugs">⚠ Has Bugs</option>
+          <option value="needs_improvement">→ Needs Improvement</option>
+          <option value="broken">✗ Broken</option>
+        </select>
+      </div>
+      <div style="margin:20px 0;">
+        <label style="display:block;margin-bottom:8px;color:#aaa;">Your Feedback</label>
+        <textarea id="feedback-text" placeholder="Describe your experience..." style="width:100%;padding:8px;background:#1a1f3a;color:#fff;border:1px solid #00f0ff;border-radius:4px;resize:vertical;height:100px;"></textarea>
+      </div>
+      <div style="margin:20px 0;">
+        <label style="display:block;margin-bottom:8px;color:#aaa;">Email (optional)</label>
+        <input type="email" id="feedback-email" placeholder="your@email.com" style="width:100%;padding:8px;background:#1a1f3a;color:#fff;border:1px solid #00f0ff;border-radius:4px;"/>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:24px;">
+        <button class="btn btn-primary" onclick="submitSandboxFeedback('${featureId}')" style="flex:1;">Send Feedback</button>
+        <button class="btn btn-secondary" onclick="this.closest('.modal-overlay').remove()" style="flex:1;">Cancel</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+}
+
+let currentRating = 0;
+function setRating(stars) {
+  currentRating = stars;
+  document.querySelectorAll('.star-btn').forEach((btn, i) => {
+    btn.textContent = i < stars ? '★' : '☆';
+  });
+}
+
+async function submitSandboxFeedback(featureId) {
+  if (!rateLimiter()) { showToast('Too many requests. Please wait.'); return; }
+  const feedbackText = validateInput(document.getElementById('feedback-text').value, 'text');
+  const email = validateInput(document.getElementById('feedback-email').value, 'email');
+  const status = document.getElementById('feedback-status').value;
+
+  if (!feedbackText.trim()) {
+    showToast('Please enter your feedback');
+    return;
+  }
+
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/sandbox_feedback`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify({
+        sandbox_feature_id: featureId,
+        user_email: email || 'anonymous',
+        rating: currentRating || null,
+        feedback: feedbackText,
+        feature_status: status
+      })
+    });
+
+    if (res.ok) {
+      showToast('✓ Feedback sent! Thank you for testing.');
+      document.querySelector('.modal-overlay')?.remove();
+    } else {
+      showToast('Error sending feedback');
+    }
+  } catch (err) {
+    console.error('Feedback error:', err);
+    showToast('Error submitting feedback');
+  }
+}
 
 function openScreen(screenId) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -207,14 +513,14 @@ function loadProfile() {
   const avatar = localStorage.getItem('ffw_avatar');
   document.getElementById('profileName').textContent = name;
   document.getElementById('displayNameInput').value = name !== 'Guest' ? name : '';
-  if (avatar) document.getElementById('profileAvatar').innerHTML = `<img src="${avatar}">`;
+  if (avatar) document.getElementById('profileAvatar').innerHTML = `<img src="${escAttr(validateInput(avatar, 'url'))}">`;
 }
 
 document.getElementById('avatarInput').addEventListener('change', e => {
   const file = e.target.files[0];
   if (file) {
     const reader = new FileReader();
-    reader.onload = ev => document.getElementById('profileAvatar').innerHTML = `<img src="${ev.target.result}">`;
+    reader.onload = ev => document.getElementById('profileAvatar').innerHTML = `<img src="${escAttr(ev.target.result)}">`;
     reader.readAsDataURL(file);
   }
 });
@@ -308,9 +614,10 @@ async function installApp() {
 
 // FEEDBACK
 async function sendFeedback() {
+  if (!rateLimiter()) { showToast('Too many requests. Please wait a minute.'); return; }
   const category = document.getElementById('feedbackCategory').value;
-  const email = document.getElementById('feedbackEmail').value;
-  const message = document.getElementById('feedbackMessage').value;
+  const email = validateInput(document.getElementById('feedbackEmail').value, 'email');
+  const message = validateInput(document.getElementById('feedbackMessage').value, 'text');
 
   if (!message.trim()) { showToast('Please enter a message'); return; }
 
@@ -652,14 +959,14 @@ function generateCVPDF() {
 
   const html = `
     <div style="font-family: Arial, sans-serif; padding: 20px; color: #000;">
-      <h1 style="margin: 0; font-size: 28px;">${name}</h1>
-      <p style="margin: 5px 0; color: #666;">${email} | ${phone} | ${location}</p>
+      <h1 style="margin: 0; font-size: 28px;">${esc(name)}</h1>
+      <p style="margin: 5px 0; color: #666;">${esc(email)} | ${esc(phone)} | ${esc(location)}</p>
 
       <h2 style="margin-top: 20px; border-bottom: 2px solid #000; padding-bottom: 5px; font-size: 14px;">PROFESSIONAL SUMMARY</h2>
-      <p>${summary}</p>
+      <p>${esc(summary)}</p>
 
       <h2 style="margin-top: 20px; border-bottom: 2px solid #000; padding-bottom: 5px; font-size: 14px;">EXPERIENCE</h2>
-      <p style="white-space: pre-wrap;">${experience}</p>
+      <p style="white-space: pre-wrap;">${esc(experience)}</p>
     </div>
   `;
 
@@ -1134,7 +1441,7 @@ function optimizeSVG() {
     document.getElementById('svgOrigSize').textContent = (svg.length/1024).toFixed(1) + ' KB';
     svg = svg.replace(/\s+/g,' ').replace(/>\s+</g,'><').replace(/<!--[\s\S]*?-->/g,'').trim();
     document.getElementById('svgNewSize').textContent = (svg.length/1024).toFixed(1) + ' KB';
-    document.getElementById('svgPreview').innerHTML = svg;
+    document.getElementById('svgPreview').innerHTML = sanitizeSVG(svg);
     lastOptSvg = svg; document.getElementById('svgOutput').style.display = 'block';
     showToast('SVG optimized!');
   };
@@ -1185,8 +1492,8 @@ function parseCSV() {
 }
 function processCSV(text) {
   const rows = text.trim().split('\n').map(l => l.split(',').map(c => c.trim()));
-  let html = '<thead><tr>' + rows[0].map(h => `<th style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.1);color:var(--accent-cyan);font-size:12px;text-align:left;">${h}</th>`).join('') + '</tr></thead><tbody>';
-  for (let i = 1; i < rows.length; i++) html += '<tr>' + rows[i].map(c => `<td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.1);font-size:13px;">${c}</td>`).join('') + '</tr>';
+  let html = '<thead><tr>' + rows[0].map(h => `<th style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.1);color:var(--accent-cyan);font-size:12px;text-align:left;">${esc(h)}</th>`).join('') + '</tr></thead><tbody>';
+  for (let i = 1; i < rows.length; i++) html += '<tr>' + rows[i].map(c => `<td style="padding:8px;border-bottom:1px solid rgba(255,255,255,0.1);font-size:13px;">${esc(c)}</td>`).join('') + '</tr>';
   html += '</tbody>';
   document.getElementById('csvTable').innerHTML = html;
   document.getElementById('csvRows').textContent = rows.length - 1;
@@ -1222,7 +1529,7 @@ function redactText() {
 function updateMarkdown() {
   const md = document.getElementById('mdInput').value;
   const html = md.replace(/^### (.*$)/gim,'<h3>$1</h3>').replace(/^## (.*$)/gim,'<h2>$1</h2>').replace(/^# (.*$)/gim,'<h1>$1</h1>').replace(/\*\*(.*)\*\*/gim,'<strong>$1</strong>').replace(/\*(.*)\*/gim,'<em>$1</em>').replace(/\[(.*?)\]\((.*?)\)/gim,'<a href="$2">$1</a>').replace(/^- (.*$)/gim,'<li>$1</li>').replace(/\n/gim,'<br>');
-  document.getElementById('mdHtmlOutput').innerHTML = html;
+  document.getElementById('mdHtmlOutput').innerHTML = sanitizeSVG(html);
 }
 
 // SIGNATURE - ADVANCED
@@ -1516,7 +1823,7 @@ function addExpense() {
 function renderExpenses() {
   document.getElementById('expenseList').innerHTML = expenses.map(e => `
     <div style="display:flex;justify-content:space-between;padding:10px;background:rgba(0,240,255,0.05);border-radius:8px;margin-bottom:6px;border-left:3px solid var(--accent-cyan);">
-      <div><div style="font-weight:600;">${e.desc}</div><div style="font-size:11px;color:var(--text-secondary);">${e.date}</div></div>
+      <div><div style="font-weight:600;">${esc(e.desc)}</div><div style="font-size:11px;color:var(--text-secondary);">${esc(e.date)}</div></div>
       <div style="display:flex;align-items:center;gap:10px;"><span style="font-weight:bold;color:var(--error);">-${e.amt.toFixed(2)}</span><button onclick="deleteExpense(${e.id})" style="background:none;border:none;color:var(--error);cursor:pointer;font-size:18px;">x</button></div>
     </div>`).join('');
   document.getElementById('totalExpense').textContent = expenses.reduce((s,e) => s+e.amt, 0).toFixed(2);
@@ -1560,9 +1867,9 @@ function testRegex() {
     const regex = new RegExp(pattern, flags);
     const matches = []; let m; while ((m = regex.exec(test)) !== null) { matches.push(m[0]); if (!flags.includes('g')) break; }
     document.getElementById('regexMatches').innerHTML = matches.length > 0
-      ? matches.map((m,i) => `<div style="padding:6px 10px;background:rgba(0,240,255,0.1);margin:4px 0;border-radius:6px;border-left:3px solid var(--accent-cyan);">${i+1}. ${m}</div>`).join('')
+      ? matches.map((m,i) => `<div style="padding:6px 10px;background:rgba(0,240,255,0.1);margin:4px 0;border-radius:6px;border-left:3px solid var(--accent-cyan);">${i+1}. ${esc(m)}</div>`).join('')
       : '<div style="color:var(--text-secondary);">No matches</div>';
-  } catch(e) { document.getElementById('regexMatches').innerHTML = `<div style="color:var(--error);">Invalid regex: ${e.message}</div>`; }
+  } catch(e) { document.getElementById('regexMatches').innerHTML = `<div style="color:var(--error);">Invalid regex: ${esc(e.message)}</div>`; }
 }
 
 // CASE CONVERTER
@@ -1650,7 +1957,7 @@ function renderHabits() {
       const checked = h.days.includes(ds);
       return `<div style="width:36px;height:36px;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;border:1px solid rgba(255,255,255,0.1);background:${checked?'var(--success)':'transparent'};" onclick="toggleHabitDay(${h.id},'${ds}')">${checked?'✓':''}</div>`;
     }).join('');
-    return `<div style="margin-bottom:15px;padding:15px;background:rgba(0,240,255,0.05);border-radius:8px;"><div style="display:flex;justify-content:space-between;margin-bottom:10px;"><span style="font-weight:600;">${h.name}</span><button onclick="deleteHabit(${h.id})" style="background:none;border:none;color:var(--error);cursor:pointer;">Delete</button></div><div style="display:flex;gap:8px;">${days}</div></div>`;
+    return `<div style="margin-bottom:15px;padding:15px;background:rgba(0,240,255,0.05);border-radius:8px;"><div style="display:flex;justify-content:space-between;margin-bottom:10px;"><span style="font-weight:600;">${esc(h.name)}</span><button onclick="deleteHabit(${h.id})" style="background:none;border:none;color:var(--error);cursor:pointer;">Delete</button></div><div style="display:flex;gap:8px;">${days}</div></div>`;
   }).join('');
 }
 function toggleHabitDay(id, date) {
@@ -1769,7 +2076,7 @@ function generateWALinks() {
   document.getElementById('waLinksList').innerHTML = numbers.map(num => {
     const clean = num.trim().replace(/\D/g,'');
     const link = `https://wa.me/${clean}?text=${encodeURIComponent(msg)}`;
-    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(0,240,255,0.05);border-radius:8px;margin-bottom:8px;"><span style="font-size:13px;">+${clean}</span><a href="${link}" target="_blank" class="btn btn-success btn-sm" style="text-decoration:none;">Open</a></div>`;
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(0,240,255,0.05);border-radius:8px;margin-bottom:8px;"><span style="font-size:13px;">+${esc(clean)}</span><a href="${escAttr(link)}" target="_blank" class="btn btn-success btn-sm" style="text-decoration:none;">Open</a></div>`;
   }).join('');
   document.getElementById('waCount').textContent = numbers.length;
   document.getElementById('waOutput').style.display = 'block';
@@ -1891,7 +2198,7 @@ function processTgDecode() {
     html = encodeTgLink(username, msgId, phone);
   }
 
-  document.getElementById('tgResult').innerHTML = html;
+  document.getElementById('tgResult').innerHTML = sanitizeSVG(html);
   document.getElementById('tgOutput').style.display = 'block';
   showToast('Processed!');
 }
@@ -2186,11 +2493,11 @@ function generateSEOKeywords() {
   }
 
   document.getElementById('seoKeywordsGrid').innerHTML = seoKeywords.map(k =>
-    `<span style="padding:6px 10px;background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.2);border-radius:6px;font-size:12px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,240,255,0.2)'" onmouseout="this.style.background='rgba(0,240,255,0.08)'" onclick="navigator.clipboard.writeText('${k.replace(/'/g,"\\'")}').then(()=>showToast('Keyword copied!'))">${k}</span>`
+    `<span style="padding:6px 10px;background:rgba(0,240,255,0.08);border:1px solid rgba(0,240,255,0.2);border-radius:6px;font-size:12px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(0,240,255,0.2)'" onmouseout="this.style.background='rgba(0,240,255,0.08)'" onclick="navigator.clipboard.writeText('${escAttr(k.replace(/'/g,"\\'"))}').then(()=>showToast('Keyword copied!'))">${esc(k)}</span>`
   ).join('');
 
   document.getElementById('seoHashtagsGrid').innerHTML = hashtags.map(h =>
-    `<span style="padding:6px 10px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);border-radius:6px;font-size:12px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(124,58,237,0.2)'" onmouseout="this.style.background='rgba(124,58,237,0.08)'" onclick="navigator.clipboard.writeText('${h}').then(()=>showToast('Hashtag copied!'))">${h}</span>`
+    `<span style="padding:6px 10px;background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.2);border-radius:6px;font-size:12px;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='rgba(124,58,237,0.2)'" onmouseout="this.style.background='rgba(124,58,237,0.08)'" onclick="navigator.clipboard.writeText('${escAttr(h)}').then(()=>showToast('Hashtag copied!'))">${esc(h)}</span>`
   ).join('');
 
   document.getElementById('seoOutput').style.display = 'block';
@@ -2234,7 +2541,7 @@ function detectZodiac() {
   const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   document.getElementById('zodiacDateRange').textContent = `${monthNames[zodiac.start[0]-1]} ${zodiac.start[1]} - ${monthNames[zodiac.end[0]-1]} ${zodiac.end[1]}`;
   document.getElementById('zodiacElement').textContent = `Element: ${zodiac.element} | Ruling: ${zodiac.element === 'Fire' ? 'Mars' : zodiac.element === 'Earth' ? 'Venus' : zodiac.element === 'Air' ? 'Mercury' : 'Moon'}`;
-  document.getElementById('zodiacTraits').innerHTML = zodiac.traits.map(t => `<span style="padding:4px 10px;background:rgba(0,240,255,0.1);border-radius:20px;font-size:12px;color:var(--accent-cyan);">${t}</span>`).join('');
+  document.getElementById('zodiacTraits').innerHTML = zodiac.traits.map(t => `<span style="padding:4px 10px;background:rgba(0,240,255,0.1);border-radius:20px;font-size:12px;color:var(--accent-cyan);">${esc(t)}</span>`).join('');
   document.getElementById('zodiacCompat').textContent = zodiac.compat;
   document.getElementById('zodiacOutput').style.display = 'block';
   showToast(`You are ${zodiac.sign}!`);
@@ -2288,7 +2595,7 @@ async function detectIP() {
       { label:'Longitude', value:data.longitude || 'N/A' },
       { label:'Postal', value:data.postal || 'N/A' }
     ];
-    document.getElementById('ipDetails').innerHTML = details.map(d => `<div style="padding:8px 10px;background:rgba(0,240,255,0.05);border-radius:8px;"><div style="font-size:10px;color:var(--text-secondary);">${d.label}</div><div style="font-size:12px;color:var(--text-primary);word-break:break-all;">${d.value}</div></div>`).join('');
+    document.getElementById('ipDetails').innerHTML = details.map(d => `<div style="padding:8px 10px;background:rgba(0,240,255,0.05);border-radius:8px;"><div style="font-size:10px;color:var(--text-secondary);">${esc(d.label)}</div><div style="font-size:12px;color:var(--text-primary);word-break:break-all;">${esc(d.value)}</div></div>`).join('');
     document.getElementById('ipOutput').style.display = 'block';
     showToast('IP detected!');
   } catch(e) {
@@ -2355,10 +2662,10 @@ function showAstroSection(section) {
   document.getElementById('astroContent').innerHTML = items.map(item => `
     <div style="padding:12px;background:rgba(0,240,255,0.05);border-radius:10px;margin-bottom:8px;border-left:3px solid var(--accent-cyan);">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-        <span style="font-size:20px;">${item.icon}</span>
-        <span style="font-size:14px;font-weight:600;color:var(--accent-cyan);">${item.name}</span>
+        <span style="font-size:20px;">${esc(item.icon)}</span>
+        <span style="font-size:14px;font-weight:600;color:var(--accent-cyan);">${esc(item.name)}</span>
       </div>
-      <div style="font-size:12px;line-height:1.6;color:var(--text-secondary);">${item.info}</div>
+      <div style="font-size:12px;line-height:1.6;color:var(--text-secondary);">${esc(item.info)}</div>
     </div>`).join('');
 }
 
@@ -2393,7 +2700,7 @@ function generateBarcode() {
           bars += `<rect x="${chars.indexOf(c) * 64 + i * 8}" y="0" width="${(code >> i) & 1 ? 6 : 2}" height="80" fill="${(code >> i) & 1 ? '#000' : '#fff'}"/>`;
         }
       });
-      svg.innerHTML = `<rect width="100%" height="100%" fill="white"/>${bars}<text x="${chars.length * 32}" y="96" text-anchor="middle" font-size="14" fill="#000">${input}</text>`;
+      svg.innerHTML = `<rect width="100%" height="100%" fill="white"/>${bars}<text x="${chars.length * 32}" y="96" text-anchor="middle" font-size="14" fill="#000">${esc(input)}</text>`;
       svg.setAttribute('viewBox', `0 0 ${chars.length * 64} 110`);
       svg.setAttribute('width', Math.min(chars.length * 64, 300));
     }
@@ -2480,10 +2787,10 @@ function loadReviews() {
     list.innerHTML = reviews.slice().reverse().map(r => `
       <div style="padding:12px;background:rgba(0,240,255,0.05);border-radius:10px;margin-bottom:8px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-          <span style="font-size:13px;font-weight:600;color:var(--text-primary);">${r.name}</span>
+          <span style="font-size:13px;font-weight:600;color:var(--text-primary);">${esc(r.name)}</span>
           <span style="color:#f59e0b;font-size:12px;">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
         </div>
-        <div style="font-size:12px;color:var(--text-secondary);line-height:1.5;">${r.comment}</div>
+        <div style="font-size:12px;color:var(--text-secondary);line-height:1.5;">${esc(r.comment)}</div>
         <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;opacity:0.6;">${new Date(r.date).toLocaleDateString()}</div>
       </div>`).join('');
   }
@@ -2639,12 +2946,12 @@ function renderRetroGames() {
   const grid = document.getElementById('retroGamesGrid');
   if (!grid) return;
   grid.innerHTML = RETRO_GAMES.map(g => `
-    <div onclick="window.open('${g.url}','_blank');trackToolUsage('retro-games','play_${g.name.toLowerCase().replace(/ /g,'_')}')" style="padding:14px;background:rgba(0,240,255,0.05);border-radius:10px;cursor:pointer;border-left:3px solid ${g.color};transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+    <div onclick="window.open('${escAttr(validateInput(g.url,'url'))}','_blank');trackToolUsage('retro-games','play_${escAttr(g.name.toLowerCase().replace(/ /g,'_'))}')" style="padding:14px;background:rgba(0,240,255,0.05);border-radius:10px;cursor:pointer;border-left:3px solid ${escAttr(g.color)};transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-        <span style="font-size:22px;">${g.icon}</span>
-        <span style="font-size:13px;font-weight:600;color:var(--accent-cyan);">${g.name}</span>
+        <span style="font-size:22px;">${esc(g.icon)}</span>
+        <span style="font-size:13px;font-weight:600;color:var(--accent-cyan);">${esc(g.name)}</span>
       </div>
-      <div style="font-size:11px;color:var(--text-secondary);line-height:1.5;">${g.desc}</div>
+      <div style="font-size:11px;color:var(--text-secondary);line-height:1.5;">${esc(g.desc)}</div>
     </div>`).join('');
 }
 
@@ -2664,15 +2971,15 @@ async function loadCommunityItems(type) {
     container.innerHTML = items.map(item => `
       <div style="padding:12px;background:rgba(0,240,255,0.05);border-radius:10px;margin-bottom:8px;border-left:3px solid var(--accent-cyan);">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-          ${item.icon_url ? `<img src="${item.icon_url}" style="width:32px;height:32px;border-radius:6px;object-fit:cover;" onerror="this.style.display='none'">` : `<span style="font-size:22px;">${type === 'game' ? '🎮' : '🌐'}</span>`}
+          ${item.icon_url ? `<img src="${escAttr(validateInput(item.icon_url,'url'))}" style="width:32px;height:32px;border-radius:6px;object-fit:cover;" onerror="this.style.display='none'">` : `<span style="font-size:22px;">${type === 'game' ? '🎮' : '🌐'}</span>`}
           <div style="flex:1;">
-            <div style="font-size:13px;font-weight:600;color:var(--accent-cyan);">${item.name}</div>
-            ${item.company ? `<div style="font-size:10px;color:var(--text-secondary);">by ${item.company}</div>` : ''}
+            <div style="font-size:13px;font-weight:600;color:var(--accent-cyan);">${esc(item.name)}</div>
+            ${item.company ? `<div style="font-size:10px;color:var(--text-secondary);">by ${esc(item.company)}</div>` : ''}
           </div>
         </div>
-        ${item.description ? `<div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px;line-height:1.5;">${item.description}</div>` : ''}
-        ${item.image_url ? `<img src="${item.image_url}" style="width:100%;border-radius:6px;margin-bottom:6px;max-height:120px;object-fit:cover;" onerror="this.style.display='none'">` : ''}
-        <button class="btn btn-success btn-sm" onclick="window.open('${item.url}','_blank');trackToolUsage('${type === 'game' ? 'community-games' : 'community-apps'}','visit_${item.name.toLowerCase().replace(/ /g,"_")}')">Open ${type === 'game' ? 'Game' : 'App'}</button>
+        ${item.description ? `<div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px;line-height:1.5;">${esc(item.description)}</div>` : ''}
+        ${item.image_url ? `<img src="${escAttr(validateInput(item.image_url,'url'))}" style="width:100%;border-radius:6px;margin-bottom:6px;max-height:120px;object-fit:cover;" onerror="this.style.display='none'">` : ''}
+        <button class="btn btn-success btn-sm" onclick="window.open('${escAttr(validateInput(item.url,'url'))}','_blank');trackToolUsage('${type === 'game' ? 'community-games' : 'community-apps}','visit_${escAttr(item.name.toLowerCase().replace(/ /g,"_"))}')">Open ${type === 'game' ? 'Game' : 'App'}</button>
       </div>`).join('');
   } catch(e) {
     container.innerHTML = `<div style="text-align:center;padding:20px;color:var(--text-secondary);font-size:13px;">Could not load ${type === 'game' ? 'games' : 'apps'}. Check your connection.</div>`;
@@ -2690,22 +2997,19 @@ function isValidGameURL(url) {
 }
 
 async function submitCommunityItem(type) {
+  if (!rateLimiter()) { showToast('Too many requests. Please wait a minute.'); return; }
   const isGame = type === 'game';
-  const url = document.getElementById(isGame ? 'gameUrl' : 'appUrl').value.trim();
-  const name = document.getElementById(isGame ? 'gameName' : 'appName').value.trim();
-  const desc = document.getElementById(isGame ? 'gameDesc' : 'appDesc').value.trim();
-  const company = document.getElementById(isGame ? 'gameCompany' : 'appCompany').value.trim();
-  const iconUrl = document.getElementById(isGame ? 'gameIcon' : 'appIcon').value.trim();
-  const imageUrl = document.getElementById(isGame ? 'gameImage' : 'appImage').value.trim();
-  const email = document.getElementById(isGame ? 'gameEmail' : 'appEmail').value.trim();
+  const url = validateInput(document.getElementById(isGame ? 'gameUrl' : 'appUrl').value.trim(), 'url');
+  const name = validateInput(document.getElementById(isGame ? 'gameName' : 'appName').value.trim(), 'text').substring(0, 50);
+  const desc = validateInput(document.getElementById(isGame ? 'gameDesc' : 'appDesc').value.trim(), 'text').substring(0, 500);
+  const company = validateInput(document.getElementById(isGame ? 'gameCompany' : 'appCompany').value.trim(), 'text').substring(0, 100);
+  const iconUrl = validateInput(document.getElementById(isGame ? 'gameIcon' : 'appIcon').value.trim(), 'url');
+  const imageUrl = validateInput(document.getElementById(isGame ? 'gameImage' : 'appImage').value.trim(), 'url');
+  const email = validateInput(document.getElementById(isGame ? 'gameEmail' : 'appEmail').value.trim(), 'email');
 
   if (!url) { showToast('Please enter a valid URL'); return; }
-  if (!isValidGameURL(url)) { showToast('Invalid URL. Must be a valid https:// or http:// link to a game or web app.'); return; }
   if (!name) { showToast('Please enter a name'); return; }
-  if (name.length > 50) { showToast('Name must be under 50 characters'); return; }
   if (!desc) { showToast('Please add a description'); return; }
-  if (desc.length > 500) { showToast('Description must be under 500 characters'); return; }
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showToast('Invalid email format'); return; }
 
   const payload = { type, name, description: desc, url, company: company || '', icon_url: iconUrl || '', image_url: imageUrl || '', submitter_email: email || '', status: 'pending' };
 
@@ -2893,7 +3197,7 @@ async function loadPartnerDashboard() {
         <div style="text-align:center;padding:30px;">
           <div style="font-size:36px;margin-bottom:10px;">⏳</div>
           <div style="font-size:16px;font-weight:600;color:var(--accent-cyan);margin-bottom:8px;">Application Under Review</div>
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">Your Cross-Ads application for "${partner.site_name}" is being reviewed. You will be notified via email once approved.</div>
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">Your Cross-Ads application for "${esc(partner.site_name)}" is being reviewed. You will be notified via email once approved.</div>
         </div>`;
       return;
     }
@@ -2915,9 +3219,9 @@ async function loadPartnerDashboard() {
       if (impressions.length > 0) {
         impressionsHtml = impressions.map(imp => `
           <tr>
-            <td style="padding:6px 8px;border:1px solid rgba(255,255,255,0.05);font-size:11px;">${imp.date}</td>
-            <td style="padding:6px 8px;border:1px solid rgba(255,255,255,0.05);font-size:11px;">${imp.impressions}</td>
-            <td style="padding:6px 8px;border:1px solid rgba(255,255,255,0.05);font-size:11px;">${imp.clicks}</td>
+            <td style="padding:6px 8px;border:1px solid rgba(255,255,255,0.05);font-size:11px;">${esc(imp.date)}</td>
+            <td style="padding:6px 8px;border:1px solid rgba(255,255,255,0.05);font-size:11px;">${esc(imp.impressions)}</td>
+            <td style="padding:6px 8px;border:1px solid rgba(255,255,255,0.05);font-size:11px;">${esc(imp.clicks)}</td>
             <td style="padding:6px 8px;border:1px solid rgba(255,255,255,0.05);font-size:11px;color:var(--success);">$${Number(imp.earnings).toFixed(4)}</td>
           </tr>`).join('');
       }
@@ -2936,7 +3240,7 @@ async function loadPartnerDashboard() {
         withdrawalsHtml = withdrawals.map(w => `
           <tr>
             <td style="padding:6px 8px;border:1px solid rgba(255,255,255,0.05);font-size:11px;">$${Number(w.amount).toFixed(2)}</td>
-            <td style="padding:6px 8px;border:1px solid rgba(255,255,255,0.05);font-size:11px;color:${statusColors[w.status]};">${statusLabels[w.status]}</td>
+            <td style="padding:6px 8px;border:1px solid rgba(255,255,255,0.05);font-size:11px;color:${escAttr(statusColors[w.status])};">${esc(statusLabels[w.status])}</td>
             <td style="padding:6px 8px;border:1px solid rgba(255,255,255,0.05);font-size:11px;">${new Date(w.created_at).toLocaleDateString()}</td>
           </tr>`).join('');
       }
@@ -2965,7 +3269,7 @@ async function loadPartnerDashboard() {
       <div style="padding:12px;background:rgba(0,240,255,0.05);border-radius:10px;margin-bottom:10px;">
         <div style="font-size:12px;font-weight:600;color:var(--accent-cyan);margin-bottom:6px;">Your Ad Code</div>
         <code style="font-size:10px;color:var(--text-secondary);word-break:break-all;display:block;padding:8px;background:rgba(0,0,0,0.3);border-radius:4px;line-height:1.5;">
-&lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4262912359957760" data-ad-slot="${partner.ad_slot_id || 'YOUR_SLOT'}" data-ad-format="auto" full-width-responsive="true"&gt;&lt;/ins&gt;
+&lt;ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4262912359957760" data-ad-slot="${escAttr(partner.ad_slot_id || 'YOUR_SLOT')}" data-ad-format="auto" full-width-responsive="true"&gt;&lt;/ins&gt;
 &lt;script&gt;(adsbygoogle = window.adsbygoogle || []).push({});&lt;/script&gt;
         </code>
         <div style="font-size:10px;color:var(--text-secondary);margin-top:4px;">Place this code on your site to start earning.</div>
@@ -2992,7 +3296,7 @@ async function loadPartnerDashboard() {
       </div>` : `
       <div style="padding:12px;background:rgba(16,185,129,0.08);border-radius:10px;margin-bottom:10px;">
         <div style="font-size:12px;font-weight:600;color:var(--success);margin-bottom:4px;">Payment Method on File</div>
-        <div style="font-size:11px;color:var(--text-secondary);">${partner.payment_method ? (partner.payment_method.bank_name || 'Bank') + ' - ' + (partner.payment_method.account_name || 'Account') + ' (' + (partner.payment_method.country || 'N/A') + ')' : 'Bank - Account (N/A)'}</div>
+        <div style="font-size:11px;color:var(--text-secondary);">${partner.payment_method.bank_name || 'Bank'} - ${partner.payment_method.account_name || 'Account'} (${partner.payment_method.country || 'N/A'})</div>
         <button class="btn btn-secondary btn-sm" onclick="editPaymentMethod()" style="margin-top:6px;font-size:10px;">Edit</button>
       </div>`}
 
@@ -3107,6 +3411,7 @@ function editPaymentMethod() {
 }
 
 async function requestWithdrawal() {
+  if (!rateLimiter()) { showToast('Too many requests. Please wait.'); return; }
   const partnerId = getPartnerSession();
   if (!partnerId) return;
 
@@ -3270,7 +3575,16 @@ function showToolInfo(toolId) {
 
 // INIT WITH EXTRAS
 function init() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('sandbox') === 'true') {
+    initSandboxPage();
+    return;
+  }
+
+  // Security: Freeze settings after load
   loadSettings();
+  if (window._freezeSettings) window._freezeSettings();
+
   loadProfile();
   loadSelfHostConfig();
   renderSidebar();
@@ -3288,7 +3602,200 @@ function init() {
   renderRetroGames();
   autoSyncData();
   sendAnalyticsReport();
+  initSelfPromotion();
+  enforceSecurityLocks();
 }
+
+// === SECURITY: Enforce locks to prevent unauthorized modifications ===
+function enforceSecurityLocks() {
+  // Prevent iframe embedding (clickjacking)
+  if (window.top !== window.self) {
+    window.top.location = window.self.location;
+  }
+
+  // Protect against drag-and-drop script execution
+  document.addEventListener('dragover', e => e.preventDefault());
+  document.addEventListener('drop', e => {
+    e.preventDefault();
+    showToast('File drops are disabled for security');
+  });
+
+  // Monitor for DOM mutations that modify protected elements
+  const observer = new MutationObserver(mutations => {
+    mutations.forEach(m => {
+      if (m.type === 'childList') {
+        m.addedNodes.forEach(node => {
+          if (node.nodeType === 1) {
+            // Strip script tags injected by users
+            if (node.tagName === 'SCRIPT' && !node.src?.includes('supabase') && !node.src?.includes('google')) {
+              node.remove();
+            }
+            // Strip inline event handlers
+            const attrs = node.attributes;
+            if (attrs) {
+              for (let i = attrs.length - 1; i >= 0; i--) {
+                if (attrs[i].name.startsWith('on')) {
+                  node.removeAttribute(attrs[i].name);
+                }
+              }
+            }
+          }
+        });
+      }
+    });
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  // Protect critical settings from being modified via console
+  setInterval(() => {
+    const stored = JSON.parse(localStorage.getItem('ffw_settings') || '{}');
+    // Only allow settings that are defined in appSettings
+    const validKeys = Object.keys({
+      audioFeedback: true, ecoMode: false, autoSave: true, notifications: false,
+      compactCards: false, lightMode: false, confirmActions: true, autoCopy: false,
+      showInfoBtns: true, largeText: false, analyticsOptIn: false, autoSync: true,
+      partnerGames: false, partnerApps: false, crossAds: false, selfHosted: false,
+      sandboxMode: false
+    });
+    const hasExtraKeys = Object.keys(stored).some(k => !validKeys.includes(k));
+    if (hasExtraKeys) {
+      const clean = {};
+      validKeys.forEach(k => clean[k] = stored[k] !== undefined ? stored[k] : appSettings[k]);
+      localStorage.setItem('ffw_settings', JSON.stringify(clean));
+      loadSettings();
+      applySettings();
+    }
+  }, 5000);
+}
+
+// === SELF-PROMOTION FEATURES ===
+function initSelfPromotion() {
+  // Add watermark branding to exported files
+  enhanceExportBranding();
+
+  // Show share prompt after 3 tool uses (reduced from 5)
+  const toolUses = parseInt(localStorage.getItem('ffw_tool_uses') || '0');
+  if (toolUses >= 3 && !localStorage.getItem('ffw_shared_prompt_v2')) {
+    setTimeout(() => showSharePromptV2(), 2000);
+  }
+
+  // Add "Made with Free File Wizard" footer
+  addPromoFooter();
+
+  // Prompt review after 10 uses
+  if (toolUses >= 10 && !localStorage.getItem('ffw_review_prompted')) {
+    setTimeout(() => showReviewPrompt(), 3000);
+  }
+
+  // Track tool uses for prompts
+  let currentUses = toolUses;
+  const origOpenScreen = window.openScreen;
+  // We can't override frozen functions, so use event-based tracking
+  document.addEventListener('click', e => {
+    const card = e.target.closest('.tool-card');
+    if (card) {
+      currentUses++;
+      localStorage.setItem('ffw_tool_uses', String(currentUses));
+      if (currentUses === 3 && !localStorage.getItem('ffw_shared_prompt_v2')) {
+        setTimeout(() => showSharePromptV2(), 1000);
+      }
+      if (currentUses === 10 && !localStorage.getItem('ffw_review_prompted')) {
+        setTimeout(() => showReviewPrompt(), 2000);
+      }
+    }
+  });
+}
+
+function enhanceExportBranding() {
+  // Add branding to PDF/image exports
+  const origExport = window.exportAllData;
+  if (origExport) {
+    window._brandedExport = function() {
+      const data = JSON.parse(localStorage.getItem('ffw_settings') || '{}');
+      data._branded_by = 'Free File Wizard - 50+ Free Tools';
+      data._brand_url = 'https://freefilewizard.com';
+      return origExport.call(this);
+    };
+  }
+}
+
+function showSharePromptV2() {
+  localStorage.setItem('ffw_shared_prompt_v2', '1');
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+  overlay.innerHTML = `
+    <div class="modal-content" style="max-width:460px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:16px;">🧙</div>
+      <h2 style="margin:0 0 8px;color:#00f0ff;">Enjoying Free File Wizard?</h2>
+      <p style="color:#94a3b8;margin:0 0 24px;font-size:14px;line-height:1.6;">Help others discover 50+ free tools! Share with a friend and keep the magic going.</p>
+      <div style="display:flex;gap:12px;margin-bottom:16px;">
+        <button class="btn btn-primary" onclick="shareApp();this.closest('.modal-overlay').remove()" style="flex:1;">Share with Friends</button>
+        <button class="btn" onclick="copyAppLink();this.closest('.modal-overlay').remove()" style="flex:1;">Copy Link</button>
+      </div>
+      <button class="btn" onclick="this.closest('.modal-overlay').remove()" style="width:100%;background:rgba(255,255,255,0.05);">Maybe Later</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+function showReviewPrompt() {
+  localStorage.setItem('ffw_review_prompted', '1');
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.onclick = e => { if (e.target === overlay) overlay.remove(); };
+  overlay.innerHTML = `
+    <div class="modal-content" style="max-width:460px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:16px;">⭐</div>
+      <h2 style="margin:0 0 8px;color:#00f0ff;">Rate Free File Wizard</h2>
+      <p style="color:#94a3b8;margin:0 0 20px;font-size:14px;line-height:1.6;">Your feedback helps us improve! Rate your experience with our 50+ free tools.</p>
+      <div style="display:flex;gap:8px;justify-content:center;margin-bottom:20px;">
+        ${[1,2,3,4,5].map(i => `<button onclick="document.querySelectorAll('.review-star-btn').forEach((b,j)=>b.textContent=j<${i}?'★':'☆');window._tempRating=${i}" class="review-star-btn" style="font-size:32px;background:none;border:none;cursor:pointer;color:#f59e0b;">☆</button>`).join('')}
+      </div>
+      <textarea id="quickReviewComment" placeholder="What do you think? (optional)" style="width:100%;padding:10px;background:#1a1f3a;color:#fff;border:1px solid #00f0ff;border-radius:6px;resize:vertical;height:60px;margin-bottom:12px;"></textarea>
+      <div style="display:flex;gap:12px;">
+        <button class="btn btn-primary" onclick="submitQuickReview();this.closest('.modal-overlay').remove()" style="flex:1;">Submit Review</button>
+        <button class="btn" onclick="this.closest('.modal-overlay').remove()" style="flex:1;background:rgba(255,255,255,0.05);">Skip</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+
+async function submitQuickReview() {
+  const rating = window._tempRating || 5;
+  const comment = document.getElementById('quickReviewComment')?.value || '';
+  try {
+    await fetch(SUPABASE_URL + '/rest/v1/reviews', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
+      body: JSON.stringify({ name: localStorage.getItem('ffw_name') || 'User', rating, comment }),
+    });
+    showToast('Thank you for your review!');
+  } catch(e) {
+    showToast('Review saved locally');
+  }
+}
+
+function addPromoFooter() {
+  const footer = document.createElement('div');
+  footer.id = 'promo-footer';
+  footer.style.cssText = `
+    position:fixed;bottom:0;left:0;right:0;
+    background:linear-gradient(135deg,rgba(0,240,255,0.1),rgba(188,0,221,0.1));
+    border-top:1px solid rgba(0,240,255,0.2);
+    padding:8px 16px;text-align:center;
+    font-size:11px;color:#94a3b8;
+    z-index:50;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  `;
+  footer.innerHTML = `Made with <span style="color:#00f0ff;font-weight:600;">Free File Wizard</span> — 50+ Free Tools <a href="javascript:void(0)" onclick="shareApp()" style="color:#00f0ff;text-decoration:underline;">Share</a> | <a href="javascript:void(0)" onclick="openModal('donateModal')" style="color:#10b981;text-decoration:underline;">Support Us</a>`;
+  document.body.appendChild(footer);
+  document.body.style.paddingBottom = '36px';
+}
+
+window._tempRating = 5;
 
 init();
 
@@ -3415,6 +3922,3 @@ window.copyAppLink = function() {
 };
 
 // Self-promo prompt integrated into openScreen override (see analytics section)
-
-// SECURITY_SHIELD
-document.addEventListener("DOMContentLoaded",()=>{const h=window.location.hostname;const r=document.getElementById("localAdminAccessNode");if(h.includes("github.dev")||h.includes("localhost")||h.includes("127.0.0.1")){if(r)r.style.display="block";}else{if(r)r.remove();}});

@@ -693,8 +693,6 @@
   </style>
 </head>
 <body>
-<!-- DEV_MODE -->
-<div id="localAdminAccessNode" style="display:none;padding:14px;background:rgba(0,240,255,0.03);border:1px solid rgba(0,240,255,0.15);text-align:center;margin-bottom:30px;"><span style="color:#00f0ff;font-weight:600;">Developer Mode Active:</span><a href="/bolt-preview/admin.html" style="color:#fff;margin-left:10px;font-weight:700;">Open Administrative Dashboard Console</a></div>
   <!-- Header -->
   <header class="header">
     <div class="header-left">
@@ -792,6 +790,11 @@
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
           <div><div style="font-size: 13px;">Large Text Mode</div><div style="font-size: 11px; color: var(--text-secondary);">Increase font sizes for readability</div></div>
           <div class="toggle-switch" id="toggleLargeText" onclick="toggleSetting('largeText')"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+          <div><div style="font-size: 13px;">🧪 Sandbox Mode</div><div style="font-size: 11px; color: var(--text-secondary);">Test unstable features in isolated window</div></div>
+          <div class="toggle-switch" id="toggleSandboxMode" onclick="toggleSandboxMode()"></div>
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
