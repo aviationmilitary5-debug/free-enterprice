@@ -3418,3 +3418,23 @@ window.copyAppLink = function() {
 
 // SECURITY_SHIELD
 document.addEventListener("DOMContentLoaded",()=>{const h=window.location.hostname;const r=document.getElementById("localAdminAccessNode");if(h.includes("github.dev")||h.includes("localhost")||h.includes("127.0.0.1")){if(r)r.style.display="block";const s=document.getElementById("localSandboxToggleNode");if(s)s.style.setProperty("display","flex","important");}else{if(r)r.remove();}});
+
+// 🧪 AUTOMATED BETA TESTING SANDBOX WORKSPACE ACTION LIFECYCLE
+function toggleSandboxLifecycle(){
+  const toggle = document.getElementById("sandboxToggle");
+  if(!toggle) return;
+  if(toggle.checked){
+    const userChoice = confirm("⚠️ ENTERING ISOLATED BETA SANDBOX WORKSPACE\n\nThis operational configuration launches an insulated staging frame workspace page context containing unreleased updates and tools currently undergoing evaluation.\n\nWould you like to open your staging preview tab window now?");
+    if(userChoice){
+      localStorage.setItem("ffw_sandbox_active", "true");
+      window.open(window.location.origin + "/bolt-preview/sandbox.html", "_blank");
+    } else {
+      toggle.checked = false;
+      localStorage.setItem("ffw_sandbox_active", "false");
+    }
+  } else {
+    localStorage.setItem("ffw_sandbox_active", "false");
+  }
+}
+// Sync Checkbox State on initial page boot
+document.addEventListener("DOMContentLoaded",()=>{const s=localStorage.getItem("ffw_sandbox_active")==="true";const b=document.getElementById("sandboxToggle");if(b)b.checked=s;});
