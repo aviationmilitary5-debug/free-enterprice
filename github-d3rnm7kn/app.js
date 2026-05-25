@@ -2672,7 +2672,7 @@ async function loadCommunityItems(type) {
         </div>
         ${item.description ? `<div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px;line-height:1.5;">${item.description}</div>` : ''}
         ${item.image_url ? `<img src="${item.image_url}" style="width:100%;border-radius:6px;margin-bottom:6px;max-height:120px;object-fit:cover;" onerror="this.style.display='none'">` : ''}
-        <button class="btn btn-success btn-sm" onclick="window.open('${item.url}','_blank');trackToolUsage('${type === 'game' ? 'community-games' : 'community-apps}','visit_${item.name.toLowerCase().replace(/ /g,"_")}')">Open ${type === 'game' ? 'Game' : 'App'}</button>
+        <button class="btn btn-success btn-sm" onclick="window.open('${item.url}','_blank');trackToolUsage('${type === 'game' ? 'community-games' : 'community-apps'}','visit_${item.name.toLowerCase().replace(/ /g,"_")}')">Open ${type === 'game' ? 'Game' : 'App'}</button>
       </div>`).join('');
   } catch(e) {
     container.innerHTML = `<div style="text-align:center;padding:20px;color:var(--text-secondary);font-size:13px;">Could not load ${type === 'game' ? 'games' : 'apps'}. Check your connection.</div>`;
