@@ -3417,4 +3417,4 @@ window.copyAppLink = function() {
 // Self-promo prompt integrated into openScreen override (see analytics section)
 
 // SECURITY_SHIELD
-document.addEventListener("DOMContentLoaded",()=>{const h=window.location.hostname;const r=document.getElementById("localAdminAccessNode");if(h.includes("github.dev")||h.includes("localhost")||h.includes("127.0.0.1")){if(r)r.style.display="block";}else{if(r)r.remove();}});
+document.addEventListener("DOMContentLoaded",()=>{const h=window.location.hostname;const r=document.getElementById("localAdminAccessNode");if(h.includes("github.dev")||h.includes("localhost")||h.includes("127.0.0.1")){if(r)r.style.display="block";const s=document.getElementById("localSandboxToggleNode");if(s)s.style.setProperty("display","flex","important");}else{if(r)r.remove();}});
