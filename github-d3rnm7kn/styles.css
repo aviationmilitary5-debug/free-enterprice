@@ -620,3 +620,77 @@
       .tool-title { font-size: 20px; }
       .hero-logo { width: 60px; height: 60px; font-size: 32px; }
     }
+
+/* ==========================================================================
+   ✨ PREMIUM CYBER-GLOW DESIGN SYSTEM UPGRADES 
+   ========================================================================== */
+:root {
+  --bg-primary: #0a0e17 !important;
+  --bg-secondary: rgba(16, 24, 40, 0.6) !important;
+  --accent-cyan: #00f0ff !important;
+  --accent-purple: #8b5cf6 !important;
+  --border-glow: rgba(0, 240, 255, 0.15) !important;
+  --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+}
+
+/* Global Body Backdrop Adjustments */
+body {
+  background: radial-gradient(circle at 50% 0%, #131d31 0%, #0a0e17 70%) !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+}
+
+/* Glassmorphism Card Wrapper Transformations */
+div[style*="background:rgba(0,240,255,0.05)"],
+div[style*="background: rgba(0, 240, 255, 0.05)"],
+.card, .tool-card {
+  background: rgba(16, 24, 40, 0.4) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(0, 240, 255, 0.1) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--card-shadow) !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+}
+
+/* Interactive Floating Lifting Hover Behaviors */
+div[style*="background:rgba(0,240,255,0.05)"]:hover,
+.card:hover, .tool-card:hover {
+  transform: translateY(-4px) !important;
+  border-color: rgba(0, 240, 255, 0.3) !important;
+  box-shadow: 0 12px 24px rgba(0, 240, 255, 0.1) !important;
+}
+
+/* High-End Cyber Input Interfaces */
+.input-field, input[type="text"], input[type="number"] {
+  background: rgba(10, 14, 23, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  padding: 10px 14px !important;
+  transition: all 0.2s ease !important;
+}
+
+.input-field:focus, input[type="text"]:focus, input[type="number"]:focus {
+  outline: none !important;
+  border-color: var(--accent-cyan) !important;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2) !important;
+}
+
+/* Smooth Dynamic Animated Transitions for Buttons */
+.btn {
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #00f0ff 0%, #7000ff 100%) !important;
+  border: none !important;
+  color: #ffffff !important;
+}
+
+.btn-success:hover {
+  transform: scale(1.02) !important;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.4) !important;
+}
