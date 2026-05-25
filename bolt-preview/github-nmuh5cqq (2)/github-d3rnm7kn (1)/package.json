@@ -1,0 +1,8 @@
+{
+  "name": "free-file-wizard",
+  "version": "1.0.0",
+  "description": "Free File Wizard - 50+ free online tools",
+  "scripts": {
+    "build": "echo 'Static site - no build step required'"
+  }
+}
