@@ -1,5 +1,11 @@
 {
   "version": 2,
   "cleanUrls": true,
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "routes": [
+    {
+      "src": "/ads.txt",
+      "dest": "/ads.txt"
+    }
+  ]
 }
