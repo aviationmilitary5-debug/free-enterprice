@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free File Wizard - Admin Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:#0a0e17;color:#e2e8f0;min-height:100vh}
+
+/* Login Screen */
+.login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0a0e17 0%,#1a1f3a 50%,#0a0e17 100%)}
+.login-box{background:#131926;border:1px solid rgba(0,240,255,0.2);border-radius:16px;padding:40px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.login-box h1{color:#00f0ff;font-size:24px;margin-bottom:8px;text-align:center}
+.login-box p{color:#64748b;font-size:13px;text-align:center;margin-bottom:32px}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;color:#94a3b8;font-size:12px;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input{width:100%;padding:12px 16px;background:#0a0e17;border:1px solid #1e293b;border-radius:8px;color:#e2e8f0;font-size:14px;outline:none;transition:border-color 0.2s}
+.form-group input:focus{border-color:#00f0ff}
+.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#00f0ff,#0891b2);color:#0a0e17;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;transition:transform 0.1s,box-shadow 0.2s}
+.login-btn:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(0,240,255,0.3)}
+.login-btn:active{transform:translateY(0)}
+.login-error{color:#ef4444;font-size:12px;text-align:center;margin-top:12px;display:none}
+.login-attempts{color:#f59e0b;font-size:11px;text-align:center;margin-top:8px;display:none}
+
+/* Dashboard */
+.dashboard{display:none}
+.dash-header{background:#131926;border-bottom:1px solid #1e293b;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.dash-header h2{color:#00f0ff;font-size:18px;font-weight:700}
+.dash-header-right{display:flex;align-items:center;gap:12px}
+.dash-header-right span{color:#64748b;font-size:12px}
+.logout-btn{padding:6px 16px;background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid rgba(239,68,68,0.3);border-radius:6px;font-size:12px;cursor:pointer;transition:all 0.2s}
+.logout-btn:hover{background:rgba(239,68,68,0.25)}
+
+/* Tabs */
+.tabs{background:#131926;border-bottom:1px solid #1e293b;padding:0 24px;display:flex;gap:0;overflow-x:auto}
+.tab{padding:12px 20px;color:#64748b;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap}
+.tab:hover{color:#94a3b8}
+.tab.active{color:#00f0ff;border-bottom-color:#00f0ff}
+
+/* Content */
+.dash-content{padding:24px;max-width:1400px;margin:0 auto}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* Stats */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}
+.stat-card{background:#131926;border:1px solid #1e293b;border-radius:12px;padding:20px}
+.stat-card .stat-value{font-size:28px;font-weight:700;color:#00f0ff}
+.stat-card .stat-label{font-size:12px;color:#64748b;margin-top:4px;text-transform:uppercase;letter-spacing:0.5px}
+.stat-card.success .stat-value{color:#10b981}
+.stat-card.warning .stat-value{color:#f59e0b}
+.stat-card.danger .stat-value{color:#ef4444}
+
+/* Tables */
+.data-table{width:100%;border-collapse:collapse;background:#131926;border-radius:12px;overflow:hidden}
+.data-table th{text-align:left;padding:12px 16px;background:#0a0e17;color:#64748b;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;border-bottom:1px solid #1e293b}
+.data-table td{padding:12px 16px;border-bottom:1px solid rgba(30,41,59,0.5);font-size:13px;max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.data-table tr:hover td{background:rgba(0,240,255,0.03)}
+
+/* Badges */
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600}
+.badge-pending{background:rgba(245,158,11,0.15);color:#f59e0b}
+.badge-approved{background:rgba(16,185,129,0.15);color:#10b981}
+.badge-rejected{background:rgba(239,68,68,0.15);color:#ef4444}
+.badge-testing{background:rgba(0,240,255,0.15);color:#00f0ff}
+.badge-live{background:rgba(16,185,129,0.15);color:#10b981}
+.badge-suspended{background:rgba(239,68,68,0.15);color:#ef4444}
+.badge-processing{background:rgba(59,130,246,0.15);color:#3b82f6}
+.badge-paid{background:rgba(16,185,129,0.15);color:#10b981}
+.badge-approved_for_live{background:rgba(245,158,11,0.15);color:#f59e0b}
+.badge-rolled_back{background:rgba(239,68,68,0.15);color:#ef4444}
+.badge-attempted{background:rgba(100,116,139,0.15);color:#94a3b8}
+.badge-allowed{background:rgba(16,185,129,0.15);color:#10b981}
+
+/* Buttons */
+.btn{padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s}
+.btn-approve{background:rgba(16,185,129,0.15);color:#10b981;border:1px solid rgba(16,185,129,0.3)}
+.btn-approve:hover{background:rgba(16,185,129,0.25)}
+.btn-reject{background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid rgba(239,68,68,0.3)}
+.btn-reject:hover{background:rgba(239,68,68,0.25)}
+.btn-deploy{background:rgba(0,240,255,0.15);color:#00f0ff;border:1px solid rgba(0,240,255,0.3)}
+.btn-deploy:hover{background:rgba(0,240,255,0.25)}
+.btn-ban{background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid rgba(239,68,68,0.3)}
+.btn-ban:hover{background:rgba(239,68,68,0.25)}
+.btn-resolve{background:rgba(16,185,129,0.15);color:#10b981;border:1px solid rgba(16,185,129,0.3)}
+.btn-resolve:hover{background:rgba(16,185,129,0.25)}
+.btn-delete{background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid rgba(239,68,68,0.3)}
+.btn-delete:hover{background:rgba(239,68,68,0.25)}
+.btn-sm{padding:4px 10px;font-size:11px}
+.btn-group{display:flex;gap:6px;flex-wrap:wrap}
+
+/* Section header */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.section-header h3{color:#e2e8f0;font-size:16px;font-weight:700}
+
+/* Add feature form */
+.add-form{background:#131926;border:1px solid #1e293b;border-radius:12px;padding:20px;margin-bottom:24px}
+.add-form h4{color:#00f0ff;margin-bottom:16px;font-size:14px}
+.add-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.add-form input,.add-form select,.add-form textarea{width:100%;padding:10px;background:#0a0e17;border:1px solid #1e293b;border-radius:6px;color:#e2e8f0;font-size:13px;outline:none}
+.add-form input:focus,.add-form select:focus,.add-form textarea:focus{border-color:#00f0ff}
+.add-form textarea{resize:vertical;min-height:60px}
+.add-form .submit-btn{padding:10px 24px;background:linear-gradient(135deg,#00f0ff,#0891b2);color:#0a0e17;border:none;border-radius:6px;font-weight:700;font-size:13px;cursor:pointer}
+
+/* Search */
+.search-bar{display:flex;gap:8px;margin-bottom:16px}
+.search-bar input{flex:1;padding:10px 16px;background:#0a0e17;border:1px solid #1e293b;border-radius:8px;color:#e2e8f0;font-size:13px;outline:none}
+.search-bar input:focus{border-color:#00f0ff}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 24px;background:#131926;border:1px solid #1e293b;border-radius:8px;color:#e2e8f0;font-size:13px;z-index:9999;transform:translateY(100px);opacity:0;transition:all 0.3s}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.success{border-color:rgba(16,185,129,0.3);color:#10b981}
+.toast.error{border-color:rgba(239,68,68,0.3);color:#ef4444}
+
+/* Ban modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000}
+.modal-box{background:#131926;border:1px solid #1e293b;border-radius:12px;padding:24px;width:100%;max-width:400px}
+.modal-box h3{color:#ef4444;margin-bottom:16px;font-size:16px}
+.modal-box p{color:#94a3b8;font-size:13px;margin-bottom:16px}
+.modal-box .form-group{margin-bottom:12px}
+.modal-box input,.modal-box select{width:100%;padding:10px;background:#0a0e17;border:1px solid #1e293b;border-radius:6px;color:#e2e8f0;font-size:13px}
+.modal-box .btn-group{justify-content:flex-end;margin-top:16px}
+
+/* Analytics chart area */
+.chart-area{background:#131926;border:1px solid #1e293b;border-radius:12px;padding:20px;margin-bottom:24px}
+.chart-area h4{color:#e2e8f0;font-size:14px;margin-bottom:16px}
+.tool-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+.tool-stat{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#0a0e17;border-radius:6px;font-size:12px}
+.tool-stat .tool-name{color:#94a3b8}
+.tool-stat .tool-count{color:#00f0ff;font-weight:700}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:#0a0e17}
+::-webkit-scrollbar-thumb{background:#1e293b;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#334155}
+</style>
+</head>
+<body>
+
+<!-- Login Screen -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <h1>Admin Dashboard</h1>
+    <p>Free File Wizard - Authorized Access Only</p>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="loginEmail" placeholder="admin@example.com" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="loginPassword" placeholder="Enter password">
+    </div>
+    <button class="login-btn" onclick="handleLogin()">Sign In</button>
+    <div class="login-error" id="loginError">Invalid credentials. Access denied.</div>
+    <div class="login-attempts" id="loginAttempts"></div>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div class="dashboard" id="dashboard">
+  <div class="dash-header">
+    <h2>Free File Wizard Admin</h2>
+    <div class="dash-header-right">
+      <span id="adminInfo"></span>
+      <button class="logout-btn" onclick="downloadDashboard()" style="background:rgba(0,240,255,0.1);color:#00f0ff;border-color:rgba(0,240,255,0.3);margin-right:8px;">Download</button>
+      <button class="logout-btn" onclick="handleLogout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('overview')">Overview</div>
+    <div class="tab" onclick="switchTab('feedback')">Feedback</div>
+    <div class="tab" onclick="switchTab('reviews')">Reviews</div>
+    <div class="tab" onclick="switchTab('submissions')">Submissions</div>
+    <div class="tab" onclick="switchTab('partners')">Partners</div>
+    <div class="tab" onclick="switchTab('withdrawals')">Withdrawals</div>
+    <div class="tab" onclick="switchTab('sandbox')">Sandbox</div>
+    <div class="tab" onclick="switchTab('staging')">Staging</div>
+    <div class="tab" onclick="switchTab('posts')">Posts</div>
+    <div class="tab" onclick="switchTab('accounts')">Accounts</div>
+    <div class="tab" onclick="switchTab('userSubs')">User Subs</div>
+    <div class="tab" onclick="switchTab('analytics')">Analytics</div>
+    <div class="tab" onclick="switchTab('users')">Live Users</div>
+    <div class="tab" onclick="switchTab('connections')">Connections</div>
+    <div class="tab" onclick="switchTab('security')">Security</div>
+  </div>
+
+  <div class="dash-content">
+    <!-- Overview Tab -->
+    <div class="tab-content active" id="tab-overview">
+      <div class="stats-grid" id="overviewStats"></div>
+    </div>
+
+    <!-- Feedback Tab -->
+    <div class="tab-content" id="tab-feedback">
+      <div class="section-header">
+        <h3>User Feedback</h3>
+      </div>
+      <table class="data-table" id="feedbackTable">
+        <thead>
+          <tr><th>Date</th><th>Category</th><th>Email</th><th>Message</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Reviews Tab -->
+    <div class="tab-content" id="tab-reviews">
+      <div class="section-header">
+        <h3>User Reviews</h3>
+      </div>
+      <table class="data-table" id="reviewsTable">
+        <thead>
+          <tr><th>Date</th><th>Name</th><th>Rating</th><th>Comment</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Submissions Tab -->
+    <div class="tab-content" id="tab-submissions">
+      <div class="section-header">
+        <h3>Community Submissions</h3>
+      </div>
+      <table class="data-table" id="submissionsTable">
+        <thead>
+          <tr><th>Date</th><th>Type</th><th>Name</th><th>URL</th><th>Submitter</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Partners Tab -->
+    <div class="tab-content" id="tab-partners">
+      <div class="section-header">
+        <h3>Ad Partners</h3>
+      </div>
+      <table class="data-table" id="partnersTable">
+        <thead>
+          <tr><th>Date</th><th>Email</th><th>Site</th><th>Balance</th><th>Total Earned</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Withdrawals Tab -->
+    <div class="tab-content" id="tab-withdrawals">
+      <div class="section-header">
+        <h3>Withdrawal Requests</h3>
+      </div>
+      <table class="data-table" id="withdrawalsTable">
+        <thead>
+          <tr><th>Date</th><th>Partner</th><th>Amount</th><th>Payment Method</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Sandbox Tab -->
+    <div class="tab-content" id="tab-sandbox">
+      <div class="section-header">
+        <h3>Sandbox Features</h3>
+      </div>
+      <div class="add-form">
+        <h4>Add New Sandbox Feature</h4>
+        <div class="form-row">
+          <input type="text" id="newFeatureId" placeholder="Feature ID (e.g. new-pdf-tool)">
+          <select id="newFeatureType"><option value="tool">Tool</option><option value="setting">Setting</option><option value="bugfix">Bugfix</option><option value="ui">UI Change</option></select>
+        </div>
+        <div class="form-row">
+          <input type="text" id="newFeatureName" placeholder="Feature Name">
+          <input type="text" id="newFeatureCodeUrl" placeholder="GitHub Commit URL">
+        </div>
+        <textarea id="newFeatureDesc" placeholder="Description of the feature..."></textarea>
+        <div style="margin-top:12px">
+          <button class="submit-btn" onclick="addSandboxFeature()">Add to Sandbox</button>
+        </div>
+      </div>
+      <table class="data-table" id="sandboxTable">
+        <thead>
+          <tr><th>Created</th><th>Feature ID</th><th>Type</th><th>Name</th><th>Status</th><th>Feedback</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Posts Tab -->
+    <div class="tab-content" id="tab-posts">
+      <div class="section-header">
+        <h3>Admin Feed Posts</h3>
+      </div>
+      <div class="add-form">
+        <h4>Create New Post</h4>
+        <div class="form-row">
+          <input type="text" id="postTitle" placeholder="Post Title">
+          <select id="postCategory"><option value="update">Update</option><option value="new_feature">New Feature</option><option value="guideline">Guideline</option><option value="announcement">Announcement</option><option value="maintenance">Maintenance</option><option value="bug_fix">Bug Fix</option></select>
+        </div>
+        <textarea id="postContent" placeholder="Post content..." style="min-height:80px;"></textarea>
+        <div class="form-row" style="margin-top:8px;">
+          <input type="url" id="postMediaUrl" placeholder="Media URL (video/image)">
+          <select id="postMediaType"><option value="none">No Media</option><option value="video">Video</option><option value="image">Image</option></select>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="submit-btn" onclick="createPost('published')">Publish Now</button>
+          <button class="btn" onclick="createPost('draft')" style="background:rgba(255,255,255,0.05);">Save Draft</button>
+        </div>
+      </div>
+      <table class="data-table" id="postsTable">
+        <thead>
+          <tr><th>Date</th><th>Category</th><th>Title</th><th>Stats</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Analytics Tab -->
+    <div class="tab-content" id="tab-analytics">
+      <div class="section-header">
+        <h3>Tool Usage Analytics</h3>
+      </div>
+      <div class="chart-area">
+        <h4>Top Tools by Usage</h4>
+        <div class="tool-stats" id="toolStats"></div>
+      </div>
+    </div>
+
+    <!-- Live Users Tab -->
+    <div class="tab-content" id="tab-users">
+      <div class="section-header">
+        <h3>Live User Tracker</h3>
+      </div>
+      <div class="stats-grid" style="margin-bottom:16px;">
+        <div class="stat-card success"><div class="stat-value" id="liveUserCount">0</div><div class="stat-label">Sessions Today</div></div>
+        <div class="stat-card"><div class="stat-value" id="uniqueIPCount">0</div><div class="stat-label">Unique IPs</div></div>
+        <div class="stat-card warning"><div class="stat-value" id="mobileUserCount">0</div><div class="stat-label">Mobile Users</div></div>
+      </div>
+      <table class="data-table" id="liveUsersTable">
+        <thead>
+          <tr><th>Time</th><th>Username</th><th>IP Address</th><th>Device</th><th>Browser</th><th>OS</th><th>Screen</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Staging Tab -->
+    <div class="tab-content" id="tab-staging">
+      <div class="section-header">
+        <h3>Staging Environment</h3>
+      </div>
+      <div class="add-form">
+        <h4>Add Feature to Staging</h4>
+        <div class="form-row">
+          <input type="text" id="stagingFeatureId" placeholder="Feature ID (e.g. new-pdf-tool)">
+          <select id="stagingFeatureType"><option value="tool">Tool</option><option value="setting">Setting</option><option value="bugfix">Bugfix</option><option value="ui">UI Change</option></select>
+        </div>
+        <div class="form-row">
+          <input type="text" id="stagingFeatureName" placeholder="Feature Name">
+          <input type="text" id="stagingFeatureCodeUrl" placeholder="GitHub Commit URL">
+        </div>
+        <textarea id="stagingFeatureDesc" placeholder="Description..."></textarea>
+        <div style="margin-top:12px">
+          <button class="submit-btn" onclick="addStagingFeature()">Add to Staging</button>
+        </div>
+      </div>
+      <div class="section-header" style="margin-top:24px">
+        <h3>Staging Features</h3>
+      </div>
+      <table class="data-table" id="stagingTable">
+        <thead>
+          <tr><th>Created</th><th>Feature ID</th><th>Type</th><th>Name</th><th>Status</th><th>Test Results</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="section-header" style="margin-top:24px">
+        <h3>Deployment History</h3>
+      </div>
+      <table class="data-table" id="deploymentsTable">
+        <thead>
+          <tr><th>Date</th><th>Feature</th><th>Action</th><th>Admin</th><th>Notes</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Accounts Tab -->
+    <div class="tab-content" id="tab-accounts">
+      <div class="section-header">
+        <h3>User Accounts</h3>
+      </div>
+      <table class="data-table" id="accountsTable">
+        <thead>
+          <tr><th>Created</th><th>Code Name</th><th>Email</th><th>Display Name</th><th>IP</th><th>Partner</th><th>Warnings</th><th>Banned</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- User Submissions Tab -->
+    <div class="tab-content" id="tab-userSubs">
+      <div class="section-header">
+        <h3>User Tool Submissions</h3>
+      </div>
+      <table class="data-table" id="userSubsTable">
+        <thead>
+          <tr><th>Date</th><th>User</th><th>Type</th><th>Name</th><th>Category</th><th>URL</th><th>Status</th><th>Actions</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Connections Tab -->
+    <div class="tab-content" id="tab-connections">
+      <div class="section-header">
+        <h3>Self-Hosted Connection Audit</h3>
+      </div>
+      <div class="add-form">
+        <h4>Revoke a Connection</h4>
+        <div class="form-row">
+          <input type="url" id="revokeConnectionUrl" placeholder="Connection URL to revoke">
+        </div>
+        <div style="margin-top:12px">
+          <button class="btn btn-ban" onclick="revokeConnection()">Revoke Connection</button>
+        </div>
+      </div>
+      <table class="data-table" id="connectionsTable">
+        <thead>
+          <tr><th>Date</th><th>Connection URL</th><th>Key Fingerprint</th><th>Status</th><th>Reason</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Security Tab -->
+    <div class="tab-content" id="tab-security">
+      <div class="section-header">
+        <h3>Security & User Control</h3>
+      </div>
+      <div class="add-form">
+        <h4>Ban / Suspend User by Email</h4>
+        <div class="form-row">
+          <input type="email" id="banEmail" placeholder="User email to ban">
+          <select id="banScope"><option value="all">All (Submissions + Partners)</option><option value="submissions">Submissions Only</option><option value="partners">Partners Only</option></select>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button class="btn btn-ban" onclick="banUser(true)">Ban User</button>
+          <button class="btn btn-approve" onclick="banUser(false)">Unban User</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API_URL = 'https://vfyzkpetyaijdubkxqny.supabase.co/functions/v1/admin-auth';
+let authToken = null;
+let adminData = null;
+let loginAttempts = 0;
+
+// Helpers
+function esc(str) {
+  const d = document.createElement('div');
+  d.textContent = str || '';
+  return d.innerHTML;
+}
+
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+function formatDate(d) {
+  if (!d) return '-';
+  return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function badge(status) {
+  const cls = { pending: 'badge-pending', approved: 'badge-approved', rejected: 'badge-rejected', testing: 'badge-testing', live: 'badge-live', suspended: 'badge-suspended', processing: 'badge-processing', paid: 'badge-paid' };
+  return `<span class="badge ${cls[status] || 'badge-pending'}">${esc(status)}</span>`;
+}
+
+async function apiCall(action, method = 'GET', body = null) {
+  const opts = {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${authToken}`,
+    },
+  };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(`${API_URL}?action=${action}`, opts);
+  return res.json();
+}
+
+// Login
+async function handleLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+
+  if (!email || !password) {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('loginError').textContent = 'Please enter email and password.';
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API_URL}?action=login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      authToken = data.token;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      document.getElementById('adminInfo').textContent = `${data.email} (${data.role})`;
+      loadDashboard();
+    } else {
+      loginAttempts++;
+      document.getElementById('loginError').style.display = 'block';
+      document.getElementById('loginError').textContent = 'Invalid credentials. Access denied.';
+      if (loginAttempts >= 3) {
+        document.getElementById('loginAttempts').style.display = 'block';
+        document.getElementById('loginAttempts').textContent = 'Too many failed attempts. Please wait before trying again.';
+        document.querySelector('.login-btn').disabled = true;
+        setTimeout(() => {
+          loginAttempts = 0;
+          document.getElementById('loginAttempts').style.display = 'none';
+          document.querySelector('.login-btn').disabled = false;
+        }, 30000);
+      }
+    }
+  } catch (err) {
+    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('loginError').textContent = 'Connection error. Please try again.';
+  }
+}
+
+function handleLogout() {
+  authToken = null;
+  adminData = null;
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
+}
+
+// Enter key for login
+document.getElementById('loginPassword').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') handleLogin();
+});
+
+// Tab switching
+function switchTab(tabId) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + tabId).classList.add('active');
+}
+
+// Load dashboard data
+async function loadDashboard() {
+  try {
+    const data = await apiCall('dashboard');
+    adminData = data;
+    renderOverview(data);
+    renderFeedback(data.feedback);
+    renderReviews(data.reviews);
+    renderSubmissions(data.submissions);
+    renderPartners(data.partners);
+    renderWithdrawals(data.withdrawals);
+    renderSandbox(data.sandbox, data.sandboxFeedback);
+    renderStaging(data.stagingFeatures, data.stagingDeployments);
+    renderAnalytics(data.analytics);
+    renderConnections(data.connectionAudit);
+  } catch (err) {
+    showToast('Error loading dashboard', 'error');
+  }
+}
+
+// Overview
+function renderOverview(data) {
+  const pendingSubs = data.submissions.filter(s => s.status === 'pending').length;
+  const pendingWR = data.withdrawals.filter(w => w.status === 'pending').length;
+  const unresolvedFB = data.feedback.filter(f => !f.resolved).length;
+  const testingFeatures = data.sandbox.filter(s => s.status === 'testing').length;
+  const activePartners = data.partners.filter(p => p.status === 'approved').length;
+
+  const stagingTesting = (data.stagingFeatures || []).filter(s => s.status === 'testing').length;
+  const revokedConns = (data.connectionAudit || []).filter(c => c.status === 'revoked').length;
+
+  document.getElementById('overviewStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${data.feedback.length}</div><div class="stat-label">Total Feedback</div></div>
+    <div class="stat-card warning"><div class="stat-value">${unresolvedFB}</div><div class="stat-label">Unresolved</div></div>
+    <div class="stat-card"><div class="stat-value">${data.reviews.length}</div><div class="stat-label">Reviews</div></div>
+    <div class="stat-card warning"><div class="stat-value">${pendingSubs}</div><div class="stat-label">Pending Submissions</div></div>
+    <div class="stat-card success"><div class="stat-value">${activePartners}</div><div class="stat-label">Active Partners</div></div>
+    <div class="stat-card danger"><div class="stat-value">${pendingWR}</div><div class="stat-label">Pending Withdrawals</div></div>
+    <div class="stat-card"><div class="stat-value">${testingFeatures}</div><div class="stat-label">Sandbox Features</div></div>
+    <div class="stat-card"><div class="stat-value">${stagingTesting}</div><div class="stat-label">Staging Features</div></div>
+    <div class="stat-card"><div class="stat-value">${data.analytics.length}</div><div class="stat-label">Analytics Events</div></div>
+    <div class="stat-card danger"><div class="stat-value">${revokedConns}</div><div class="stat-label">Revoked Connections</div></div>
+  `;
+}
+
+// Feedback
+function renderFeedback(items) {
+  const tbody = document.querySelector('#feedbackTable tbody');
+  tbody.innerHTML = items.map(f => `
+    <tr>
+      <td>${formatDate(f.created_at)}</td>
+      <td>${esc(f.category)}</td>
+      <td>${esc(f.email)}</td>
+      <td title="${esc(f.message)}">${esc(f.message?.substring(0, 60))}${f.message?.length > 60 ? '...' : ''}</td>
+      <td>${f.resolved ? '<span class="badge badge-approved">Resolved</span>' : '<span class="badge badge-pending">Open</span>'}</td>
+      <td><div class="btn-group">
+        ${!f.resolved ? `<button class="btn btn-resolve btn-sm" onclick="resolveFeedback('${f.id}')">Resolve</button>` : ''}
+        <button class="btn btn-ban btn-sm" onclick="prefillBan('${esc(f.email)}')">Ban Email</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+async function resolveFeedback(id) {
+  await apiCall('manage_feedback', 'POST', { id, resolved: true });
+  showToast('Feedback resolved', 'success');
+  loadDashboard();
+}
+
+// Reviews
+function renderReviews(items) {
+  const tbody = document.querySelector('#reviewsTable tbody');
+  tbody.innerHTML = items.map(r => `
+    <tr>
+      <td>${formatDate(r.created_at)}</td>
+      <td>${esc(r.name)}</td>
+      <td>${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</td>
+      <td title="${esc(r.comment)}">${esc(r.comment?.substring(0, 60))}${r.comment?.length > 60 ? '...' : ''}</td>
+      <td><button class="btn btn-delete btn-sm" onclick="deleteReview('${r.id}')">Delete</button></td>
+    </tr>
+  `).join('');
+}
+
+async function deleteReview(id) {
+  if (!confirm('Delete this review?')) return;
+  await apiCall('manage_review', 'POST', { id, action: 'delete' });
+  showToast('Review deleted', 'success');
+  loadDashboard();
+}
+
+// Submissions
+function renderSubmissions(items) {
+  const tbody = document.querySelector('#submissionsTable tbody');
+  tbody.innerHTML = items.map(s => `
+    <tr>
+      <td>${formatDate(s.created_at)}</td>
+      <td>${esc(s.type)}</td>
+      <td>${esc(s.name)}</td>
+      <td title="${esc(s.url)}"><a href="${esc(s.url)}" target="_blank" style="color:#00f0ff">${esc(s.url?.substring(0, 30))}...</a></td>
+      <td>${esc(s.submitter_email)}</td>
+      <td>${badge(s.status)}</td>
+      <td><div class="btn-group">
+        ${s.status === 'pending' ? `<button class="btn btn-approve btn-sm" onclick="manageSubmission('${s.id}','approved')">Approve</button><button class="btn btn-reject btn-sm" onclick="manageSubmission('${s.id}','rejected')">Reject</button>` : ''}
+        <button class="btn btn-ban btn-sm" onclick="prefillBan('${esc(s.submitter_email)}')">Ban</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+async function manageSubmission(id, status) {
+  await apiCall('manage_submission', 'POST', { id, status });
+  showToast(`Submission ${status}`, 'success');
+  loadDashboard();
+}
+
+// Partners
+function renderPartners(items) {
+  const tbody = document.querySelector('#partnersTable tbody');
+  tbody.innerHTML = items.map(p => `
+    <tr>
+      <td>${formatDate(p.created_at)}</td>
+      <td>${esc(p.email)}</td>
+      <td><a href="${esc(p.site_url)}" target="_blank" style="color:#00f0ff">${esc(p.site_name)}</a></td>
+      <td>$${Number(p.balance || 0).toFixed(2)}</td>
+      <td>$${Number(p.total_earned || 0).toFixed(2)}</td>
+      <td>${badge(p.status)}</td>
+      <td><div class="btn-group">
+        ${p.status === 'pending' ? `<button class="btn btn-approve btn-sm" onclick="managePartner('${p.id}','approved')">Approve</button><button class="btn btn-reject btn-sm" onclick="managePartner('${p.id}','rejected')">Reject</button>` : ''}
+        ${p.status === 'approved' ? `<button class="btn btn-ban btn-sm" onclick="managePartner('${p.id}','suspended')">Suspend</button>` : ''}
+        ${p.status === 'suspended' ? `<button class="btn btn-approve btn-sm" onclick="managePartner('${p.id}','approved')">Reactivate</button>` : ''}
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+async function managePartner(id, status) {
+  await apiCall('manage_partner', 'POST', { id, status });
+  showToast(`Partner ${status}`, 'success');
+  loadDashboard();
+}
+
+// Withdrawals
+function renderWithdrawals(items) {
+  const tbody = document.querySelector('#withdrawalsTable tbody');
+  tbody.innerHTML = items.map(w => {
+    const partner = adminData?.partners?.find(p => p.id === w.partner_id);
+    return `
+    <tr>
+      <td>${formatDate(w.created_at)}</td>
+      <td>${esc(partner?.email || w.partner_id)}</td>
+      <td>$${Number(w.amount || 0).toFixed(2)}</td>
+      <td title="${esc(JSON.stringify(w.payment_method))}">${esc(Object.values(w.payment_method || {}).join(', ').substring(0, 30)) || '-'}</td>
+      <td>${badge(w.status)}</td>
+      <td><div class="btn-group">
+        ${w.status === 'pending' ? `<button class="btn btn-approve btn-sm" onclick="manageWithdrawal('${w.id}','approved')">Approve</button><button class="btn btn-reject btn-sm" onclick="manageWithdrawal('${w.id}','rejected')">Reject</button>` : ''}
+        ${w.status === 'approved' ? `<button class="btn btn-deploy btn-sm" onclick="manageWithdrawal('${w.id}','processing')">Processing</button>` : ''}
+        ${w.status === 'processing' ? `<button class="btn btn-approve btn-sm" onclick="manageWithdrawal('${w.id}','paid')">Mark Paid</button>` : ''}
+      </div></td>
+    </tr>
+  `}).join('');
+}
+
+async function manageWithdrawal(id, status) {
+  await apiCall('manage_withdrawal', 'POST', { id, status });
+  showToast(`Withdrawal ${status}`, 'success');
+  loadDashboard();
+}
+
+// Sandbox
+function renderSandbox(features, feedback) {
+  const tbody = document.querySelector('#sandboxTable tbody');
+  tbody.innerHTML = features.map(f => {
+    const fb = feedback.filter(fb => fb.sandbox_feature_id === f.id);
+    const avgRating = fb.length ? (fb.reduce((a, b) => a + (b.rating || 0), 0) / fb.length).toFixed(1) : '-';
+    return `
+    <tr>
+      <td>${formatDate(f.created_at)}</td>
+      <td>${esc(f.feature_id)}</td>
+      <td>${esc(f.feature_type)}</td>
+      <td>${esc(f.name)}</td>
+      <td>${badge(f.status)}</td>
+      <td>${fb.length} reviews (${avgRating} avg)</td>
+      <td><div class="btn-group">
+        ${f.status === 'testing' ? `<button class="btn btn-deploy btn-sm" onclick="deploySandboxFeature('${f.id}')">Deploy to Live</button><button class="btn btn-reject btn-sm" onclick="archiveSandboxFeature('${f.id}')">Archive</button>` : ''}
+        ${f.status === 'live' ? `<button class="btn btn-reject btn-sm" onclick="rollbackFeature('${esc(f.feature_id)}')">Rollback</button>` : ''}
+      </div></td>
+    </tr>
+  `}).join('');
+}
+
+async function addSandboxFeature() {
+  const featureId = document.getElementById('newFeatureId').value.trim();
+  const featureType = document.getElementById('newFeatureType').value;
+  const name = document.getElementById('newFeatureName').value.trim();
+  const codeUrl = document.getElementById('newFeatureCodeUrl').value.trim();
+  const description = document.getElementById('newFeatureDesc').value.trim();
+
+  if (!featureId || !name) {
+    showToast('Feature ID and Name are required', 'error');
+    return;
+  }
+
+  await apiCall('manage_sandbox', 'POST', { featureId, featureType, name, description, codeUrl });
+  showToast('Feature added to sandbox', 'success');
+  document.getElementById('newFeatureId').value = '';
+  document.getElementById('newFeatureName').value = '';
+  document.getElementById('newFeatureCodeUrl').value = '';
+  document.getElementById('newFeatureDesc').value = '';
+  loadDashboard();
+}
+
+async function deploySandboxFeature(id) {
+  if (!confirm('Deploy this feature to live? All users will see it.')) return;
+  await apiCall('manage_sandbox', 'POST', { id, status: 'live' });
+  showToast('Feature deployed to live!', 'success');
+  loadDashboard();
+}
+
+async function archiveSandboxFeature(id) {
+  await apiCall('manage_sandbox', 'POST', { id, status: 'archived' });
+  showToast('Feature archived', 'success');
+  loadDashboard();
+}
+
+// Analytics
+function renderAnalytics(analytics) {
+  const toolCounts = {};
+  const sessionEvents = [];
+  analytics.forEach(a => {
+    if (a.tool_id?.startsWith('_session_')) {
+      sessionEvents.push(a);
+    } else {
+      toolCounts[a.tool_id] = (toolCounts[a.tool_id] || 0) + 1;
+    }
+  });
+  const sorted = Object.entries(toolCounts).sort((a, b) => b[1] - a[1]).slice(0, 30);
+
+  document.getElementById('toolStats').innerHTML = sorted.map(([name, count]) => `
+    <div class="tool-stat"><span class="tool-name">${esc(name)}</span><span class="tool-count">${count}</span></div>
+  `).join('');
+
+  // Render live users
+  renderLiveUsers(sessionEvents);
+}
+
+function renderLiveUsers(sessionEvents) {
+  const tbody = document.querySelector('#liveUsersTable tbody');
+  if (!tbody) return;
+
+  const today = new Date().toISOString().split('T')[0];
+  const todayEvents = sessionEvents.filter(e => e.created_at?.startsWith(today));
+  const ips = new Set();
+  let mobileCount = 0;
+
+  const rows = todayEvents.map(e => {
+    const parts = (e.action || '').split('|');
+    const data = {};
+    parts.forEach(p => {
+      const [key, val] = p.split(':');
+      data[key] = val;
+    });
+
+    if (data.ip) ips.add(data.ip);
+    if (data.device && !['Desktop', 'Unknown'].includes(data.device)) mobileCount++;
+
+    return {
+      time: e.created_at,
+      name: data.name || 'Guest',
+      ip: data.ip || '-',
+      device: data.device || '-',
+      browser: data.browser || '-',
+      os: data.os || '-',
+      screen: data.screen || '-',
+    };
+  });
+
+  document.getElementById('liveUserCount').textContent = todayEvents.length;
+  document.getElementById('uniqueIPCount').textContent = ips.size;
+  document.getElementById('mobileUserCount').textContent = mobileCount;
+
+  tbody.innerHTML = rows.slice(0, 50).map(r => `
+    <tr>
+      <td>${formatDate(r.time)}</td>
+      <td>${esc(r.name)}</td>
+      <td style="font-size:11px;">${esc(r.ip)}</td>
+      <td>${esc(r.device)}</td>
+      <td>${esc(r.browser)}</td>
+      <td>${esc(r.os)}</td>
+      <td style="font-size:11px;">${esc(r.screen)}</td>
+    </tr>
+  `).join('');
+}
+
+// Security - Ban
+function prefillBan(email) {
+  document.getElementById('banEmail').value = email;
+  switchTab('security');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab')[8].classList.add('active');
+}
+
+async function banUser(ban) {
+  const email = document.getElementById('banEmail').value.trim();
+  const scope = document.getElementById('banScope').value;
+
+  if (!email) {
+    showToast('Enter an email address', 'error');
+    return;
+  }
+
+  if (!confirm(`${ban ? 'Ban' : 'Unban'} ${email}?`)) return;
+
+  await apiCall('ban_user', 'POST', { email, table: scope, ban });
+  showToast(`${email} ${ban ? 'banned' : 'unbanned'}`, 'success');
+  loadDashboard();
+}
+
+// Staging Features
+async function addStagingFeature() {
+  const featureId = document.getElementById('stagingFeatureId').value.trim();
+  const featureType = document.getElementById('stagingFeatureType').value;
+  const name = document.getElementById('stagingFeatureName').value.trim();
+  const codeUrl = document.getElementById('stagingFeatureCodeUrl').value.trim();
+  const description = document.getElementById('stagingFeatureDesc').value.trim();
+
+  if (!featureId || !name) {
+    showToast('Feature ID and Name are required', 'error');
+    return;
+  }
+
+  await apiCall('manage_sandbox', 'POST', { featureId, featureType, name, description, codeUrl });
+  showToast('Feature added to staging', 'success');
+  document.getElementById('stagingFeatureId').value = '';
+  document.getElementById('stagingFeatureName').value = '';
+  document.getElementById('stagingFeatureCodeUrl').value = '';
+  document.getElementById('stagingFeatureDesc').value = '';
+  loadDashboard();
+}
+
+async function promoteToProduction(featureId) {
+  if (!confirm(`Promote ${featureId} to production? This will make it LIVE for all users.`)) return;
+  const result = await apiCall('promote_to_production', 'POST', { featureId });
+  if (result.success) {
+    const p = result.promotion;
+    showToast(`Deployed! ${p.totalFeedback} feedbacks, ${p.worksWell} works well, avg ${p.avgRating} stars`, 'success');
+    loadDashboard();
+  } else {
+    showToast(result.error || 'Promotion failed', 'error');
+  }
+}
+
+async function rollbackFeature(featureId) {
+  const reason = prompt('Reason for rollback:');
+  if (reason === null) return;
+  await apiCall('rollback_feature', 'POST', { featureId, reason });
+  showToast('Feature rolled back to testing', 'success');
+  loadDashboard();
+}
+
+function renderStaging(features, deployments) {
+  const tbody = document.querySelector('#stagingTable tbody');
+  tbody.innerHTML = (features || []).map(f => {
+    const results = f.test_results || {};
+    const summary = Object.keys(results).length
+      ? `${results.worksWell || 0} OK / ${results.hasBugs || 0} bugs / ${results.broken || 0} broken (${results.avgRating || '-'} avg)`
+      : 'No test results yet';
+    return `
+    <tr>
+      <td>${formatDate(f.created_at)}</td>
+      <td>${esc(f.feature_id)}</td>
+      <td>${esc(f.feature_type)}</td>
+      <td>${esc(f.name)}</td>
+      <td>${badge(f.status)}</td>
+      <td style="font-size:11px;color:#94a3b8">${summary}</td>
+      <td><div class="btn-group">
+        ${f.status === 'testing' ? `<button class="btn btn-deploy btn-sm" onclick="promoteToProduction('${esc(f.feature_id)}')">Promote to Live</button>` : ''}
+        ${f.status === 'approved_for_live' || f.status === 'live' ? `<button class="btn btn-reject btn-sm" onclick="rollbackFeature('${esc(f.feature_id)}')">Rollback</button>` : ''}
+      </div></td>
+    </tr>
+  `}).join('');
+
+  const dtbody = document.querySelector('#deploymentsTable tbody');
+  dtbody.innerHTML = (deployments || []).map(d => `
+    <tr>
+      <td>${formatDate(d.created_at)}</td>
+      <td>${esc(d.feature_id)}</td>
+      <td>${badge(d.action === 'promote_to_live' ? 'live' : d.action === 'rollback' ? 'rejected' : d.action)}</td>
+      <td>${esc(d.admin_email)}</td>
+      <td style="font-size:11px;color:#94a3b8;max-width:300px">${esc(d.notes)}</td>
+    </tr>
+  `).join('');
+}
+
+// Connections
+async function revokeConnection() {
+  const url = document.getElementById('revokeConnectionUrl').value.trim();
+  if (!url) { showToast('Enter a connection URL', 'error'); return; }
+  if (!confirm(`Revoke connection: ${url}?`)) return;
+  await apiCall('revoke_connection', 'POST', { connectionUrl: url });
+  showToast('Connection revoked', 'success');
+  document.getElementById('revokeConnectionUrl').value = '';
+  loadDashboard();
+}
+
+function renderConnections(audit) {
+  const tbody = document.querySelector('#connectionsTable tbody');
+  tbody.innerHTML = (audit || []).map(a => `
+    <tr>
+      <td>${formatDate(a.created_at)}</td>
+      <td style="font-size:11px">${esc(a.connection_url)}</td>
+      <td style="font-size:11px">${esc(a.anon_key_fingerprint?.substring(0, 20))}...</td>
+      <td>${badge(a.status === 'revoked' ? 'rejected' : a.status === 'allowed' ? 'approved' : 'pending')}</td>
+      <td style="font-size:11px;color:#94a3b8">${esc(a.reason)}</td>
+    </tr>
+  `).join('');
+}
+
+// Posts
+let adminPosts = [];
+
+async function loadPosts() {
+  try {
+    const data = await apiCall('get_posts');
+    adminPosts = data || [];
+    renderPosts();
+  } catch(e) { console.error(e); }
+}
+
+async function createPost(status) {
+  const title = document.getElementById('postTitle').value.trim();
+  const content = document.getElementById('postContent').value.trim();
+  const category = document.getElementById('postCategory').value;
+  const mediaUrl = document.getElementById('postMediaUrl').value.trim();
+  const mediaType = document.getElementById('postMediaType').value;
+
+  if (!title && !content) { showToast('Title or content required', 'error'); return; }
+
+  await apiCall('manage_post', 'POST', { postAction: 'create', title, content, category, mediaUrl, mediaType, status });
+  showToast(status === 'published' ? 'Post published!' : 'Draft saved', 'success');
+  document.getElementById('postTitle').value = '';
+  document.getElementById('postContent').value = '';
+  document.getElementById('postMediaUrl').value = '';
+  document.getElementById('postMediaType').value = 'none';
+  loadPosts();
+}
+
+async function deletePost(id) {
+  if (!confirm('Delete this post?')) return;
+  await apiCall('manage_post', 'POST', { id, postAction: 'delete' });
+  showToast('Post deleted', 'success');
+  loadPosts();
+}
+
+async function togglePostStatus(id, newStatus) {
+  await apiCall('manage_post', 'POST', { id, postAction: 'update', status: newStatus });
+  showToast(`Post ${newStatus}`, 'success');
+  loadPosts();
+}
+
+function renderPosts() {
+  const tbody = document.querySelector('#postsTable tbody');
+  if (!tbody) return;
+  const catColors = { update: '#00f0ff', new_feature: '#10b981', guideline: '#f59e0b', announcement: '#3b82f6', maintenance: '#ef4444' };
+  tbody.innerHTML = adminPosts.map(p => `
+    <tr>
+      <td>${formatDate(p.created_at)}</td>
+      <td><span style="color:${catColors[p.category] || '#94a3b8'};font-size:11px;font-weight:600;">${esc(p.category.replace('_', ' ').toUpperCase())}</span></td>
+      <td>${esc(p.title || '(no title)')}</td>
+      <td style="font-size:11px;color:#94a3b8;">${p.likes || 0} likes / ${p.shares || 0} shares / ${p.downloads || 0} saves</td>
+      <td>${badge(p.status === 'draft' ? 'pending' : 'approved')}</td>
+      <td><div class="btn-group">
+        ${p.status === 'draft' ? `<button class="btn btn-approve btn-sm" onclick="togglePostStatus('${p.id}','published')">Publish</button>` : ''}
+        ${p.status === 'published' ? `<button class="btn btn-reject btn-sm" onclick="togglePostStatus('${p.id}','draft')">Unpublish</button>` : ''}
+        <button class="btn btn-delete btn-sm" onclick="deletePost('${p.id}')">Delete</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+// Dashboard data loading update to include posts
+const origLoadDashboard = loadDashboard;
+loadDashboard = async function() {
+  await origLoadDashboard.call(this);
+  loadPosts();
+};
+
+// Restrict dashboard download to authorized emails only
+const AUTHORIZED_EMAILS = [
+  'prospertaku098@gmail.com',
+  'jeepsyearth@gmail.com',
+  'shawndemitrix@gmail.com'
+];
+
+function downloadDashboard() {
+  const adminInfoEl = document.getElementById('adminInfo');
+  const email = adminInfoEl?.textContent?.split('(')?.[0]?.trim();
+  if (!AUTHORIZED_EMAILS.includes(email)) {
+    showToast('Download restricted to authorized admin emails only', 'error');
+    return;
+  }
+  const html = document.documentElement.outerHTML;
+  const blob = new Blob([html], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'ffw-admin-dashboard.html';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Dashboard downloaded', 'success');
+}
+
+// User Accounts
+let userAccountsList = [];
+
+async function loadUserAccounts() {
+  try {
+    const res = await fetch(`${API_URL}?action=admin_get_users`, {
+      headers: { 'Authorization': `Bearer ${authToken}`, 'Content-Type': 'application/json' },
+    });
+    const data = await res.json();
+    userAccountsList = data.users || [];
+    renderUserAccounts();
+  } catch(e) { console.error(e); }
+}
+
+function renderUserAccounts() {
+  const tbody = document.querySelector('#accountsTable tbody');
+  if (!tbody) return;
+  tbody.innerHTML = (userAccountsList || []).map(u => `
+    <tr>
+      <td>${formatDate(u.created_at)}</td>
+      <td style="font-size:11px;font-family:monospace;color:#00f0ff;">${esc(u.code_name)}</td>
+      <td style="font-size:11px;">${esc(u.email)}</td>
+      <td>${esc(u.display_name)}</td>
+      <td style="font-size:10px;">${esc(u.ip_fingerprint?.substring(0, 15))}...</td>
+      <td>${u.is_partner ? badge(u.partner_status) : '<span style="color:#64748b;font-size:11px;">No</span>'}</td>
+      <td style="color:${u.warning_count >= 3 ? '#ef4444' : u.warning_count > 0 ? '#f59e0b' : '#64748b'};">${u.warning_count}</td>
+      <td>${u.is_banned ? '<span style="color:#ef4444;font-weight:700;">BANNED</span>' : '<span style="color:#10b981;">Active</span>'}</td>
+      <td><div class="btn-group">
+        ${u.is_partner && u.partner_status === 'pending' ? `<button class="btn btn-approve btn-sm" onclick="approvePartner('${esc(u.code_name)}')">Approve Partner</button>` : ''}
+        ${!u.is_banned ? `<button class="btn btn-reject btn-sm" onclick="banUserAccount('${esc(u.code_name)}')">Ban</button>` : `<button class="btn btn-approve btn-sm" onclick="unbanUserAccount('${esc(u.code_name)}')">Unban</button>`}
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+async function approvePartner(codeName) {
+  await apiCall('admin_manage_user', 'POST', { codeName, partnerStatus: 'approved' });
+  showToast('Partner approved');
+  loadUserAccounts();
+}
+
+async function banUserAccount(codeName) {
+  const reason = prompt('Ban reason:');
+  if (reason === null) return;
+  await apiCall('admin_manage_user', 'POST', { codeName, isBanned: true, banReason: reason });
+  showToast('User banned');
+  loadUserAccounts();
+}
+
+async function unbanUserAccount(codeName) {
+  await apiCall('admin_manage_user', 'POST', { codeName, isBanned: false, banReason: '' });
+  showToast('User unbanned');
+  loadUserAccounts();
+}
+
+// User Submissions
+let userSubsList = [];
+
+async function loadUserSubmissions() {
+  try {
+    const res = await fetch(`${API_URL}?action=admin_get_submissions`, {
+      headers: { 'Authorization': `Bearer ${authToken}`, 'Content-Type': 'application/json' },
+    });
+    const data = await res.json();
+    userSubsList = data.submissions || [];
+    renderUserSubmissions();
+  } catch(e) { console.error(e); }
+}
+
+function renderUserSubmissions() {
+  const tbody = document.querySelector('#userSubsTable tbody');
+  if (!tbody) return;
+  tbody.innerHTML = (userSubsList || []).map(s => `
+    <tr>
+      <td>${formatDate(s.created_at)}</td>
+      <td style="font-size:11px;font-family:monospace;">${esc(s.code_name)}</td>
+      <td>${badge(s.submission_type === 'game' ? 'pending' : s.submission_type === 'website' ? 'approved' : 'pending')}</td>
+      <td>${esc(s.name)}</td>
+      <td>${esc(s.category)}</td>
+      <td style="font-size:10px;max-width:120px;overflow:hidden;text-overflow:ellipsis;">${esc(s.url)}</td>
+      <td>${badge(s.status)}</td>
+      <td><div class="btn-group">
+        ${s.status === 'pending' ? `<button class="btn btn-approve btn-sm" onclick="approveUserSub('${s.id}')">Approve</button><button class="btn btn-reject btn-sm" onclick="rejectUserSub('${s.id}')">Reject</button>` : ''}
+        ${s.status === 'needs_info' ? `<button class="btn btn-approve btn-sm" onclick="approveUserSub('${s.id}')">Approve</button>` : ''}
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+async function approveUserSub(id) {
+  await apiCall('admin_manage_submission', 'POST', { id, status: 'approved' });
+  showToast('Submission approved and added to tool hub');
+  loadUserSubmissions();
+}
+
+async function rejectUserSub(id) {
+  const reason = prompt('Rejection reason:');
+  if (reason === null) return;
+  await apiCall('admin_manage_submission', 'POST', { id, status: 'rejected', rejectionReason: reason });
+  showToast('Submission rejected');
+  loadUserSubmissions();
+}
+
+// Load new data on dashboard refresh
+const prevLoadDashboard = loadDashboard;
+loadDashboard = async function() {
+  await prevLoadDashboard.call(this);
+  loadUserAccounts();
+  loadUserSubmissions();
+};
+
+// Auto-refresh every 30 seconds
+setInterval(() => {
+  if (authToken) loadDashboard();
+}, 30000);
+</script>
+</body>
+</html>
