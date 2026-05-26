@@ -1,3 +1,19 @@
+
+// ⚡ OFFLINE CORE DATA STREAM FALLBACK MATRIX
+window.MOCK_TOOLS_GRID = [
+  { id: '1', name: '📄 PDF Page Merger Suite', category: 'Foundational', icon: 'file-text', description: 'Combine pages or split files cleanly.', url: '/pdf-tool' },
+  { id: '2', name: '🖼️ Dynamic QR Vector Code', category: 'Media', icon: 'qr-code', description: 'Compile tracking matrix elements live.', url: '/qr-tool' },
+  { id: '3', name: '🎨 Image Compressor Pro', category: 'Media', icon: 'image', description: 'Optimize payloads weights protecting pixels.', url: '/img-tool' },
+  { id: '4', name: '📊 Excel Cell Data Matrix', category: 'Office', icon: 'table', description: 'Format sheet grids and normalize attributes.', url: '/excel-tool' },
+  { id: '5', name: '📝 Private Markdown Notepad', category: 'Life', icon: 'edit', description: 'Secure local storage notepad schemas.', url: '/note-tool' },
+  { id: '6', name: '📡 Network Port Sniffer Tracker', category: 'Local', icon: 'radio', description: 'Track active background listener endpoints.', url: '/port-tool' }
+];
+
+if (!window.tools || window.tools.length === 0) {
+  console.log("🩹 Database empty or unreachable. Activating local data streams grid...");
+  window.tools = window.MOCK_TOOLS_GRID;
+}
+
 // === SECURITY: XSS Sanitization ===
 function esc(str) {
   if (str == null) return '';
