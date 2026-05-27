@@ -3,6 +3,7 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/ads.txt", "destination": "/github-d3rnm7kn/ads.txt" },
+    { "source": "/robots.txt", "destination": "/github-d3rnm7kn/robots.txt" },
     { "source": "/sitemap.xml", "destination": "/github-d3rnm7kn/sitemap.xml?v=550" }
   ]
 }
