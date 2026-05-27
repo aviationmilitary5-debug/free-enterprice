@@ -1,4 +1,8 @@
 {
   "version": 2,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/ads.txt", "destination": "/github-d3rnm7kn/ads.txt" },
+    { "source": "/sitemap.xml", "destination": "/github-d3rnm7kn/sitemap.xml" }
+  ]
 }
