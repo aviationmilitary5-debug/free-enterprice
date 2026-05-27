@@ -4,5 +4,9 @@
   "description": "Free File Wizard - 50+ free online tools",
   "scripts": {
     "build": "echo 'Static site - no build step required'"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.106.2"
   }
 }
