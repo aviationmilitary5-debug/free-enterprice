@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/app", "destination": "https://freefilewizard-app.vercel.app" },
-    { "source": "/app/(.*)", "destination": "https://freefilewizard-app.vercel.app/$1" }
-  ]
-}
