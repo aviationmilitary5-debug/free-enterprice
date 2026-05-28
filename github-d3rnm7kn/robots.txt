@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Sitemap: https://freefilewizard.com
+
+# 🍏 AUTHORIZE EXPLICIT APPLE SAFARI SEARCH ENGINE BOT ENTRIES
+User-agent: Applebot
+Allow: /
+Crawl-delay: 1
