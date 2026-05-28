@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/github-d3rnm7kn/(.*)", "destination": "../github-d3rnm7kn/$1" }
+    { "source": "/app/(.*)", "destination": "../github-d3rnm7kn/$1" }
   ]
 }
