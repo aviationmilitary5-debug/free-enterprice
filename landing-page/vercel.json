@@ -1,9 +1,4 @@
 {
-  "version": 2,
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "https://replit.app"
-    }
-  ]
+  "cleanUrls": true,
+  "trailingSlash": false
 }
