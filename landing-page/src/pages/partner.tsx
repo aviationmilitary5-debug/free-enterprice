@@ -215,7 +215,7 @@ export default function Partner() {
                     While you wait, you can still enjoy all 41+ free tools on FreeFileWizard — no signup required, completely free.
                   </p>
                   <a
-                    href="https://www.freefilewizard.com"
+                    href="https://tools.freefilewizard.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 font-bold px-6 py-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/20"

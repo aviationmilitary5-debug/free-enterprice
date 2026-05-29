@@ -22,7 +22,7 @@ function AnnouncementBanner() {
       <span>
         🚀 FreeFileWizard is live —{" "}
         <a
-          href="https://www.freefilewizard.com"
+          href="https://tools.freefilewizard.com"
           target="_blank"
           rel="noopener noreferrer"
           className="underline underline-offset-2 font-bold hover:opacity-80 transition-opacity"
