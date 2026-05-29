@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Sitemap: https://freefilewizard.com
+Sitemap: https://tools.freefilewizard.com
 
 # 🍏 AUTHORIZE EXPLICIT APPLE SAFARI SEARCH ENGINE BOT ENTRIES
 User-agent: Applebot
