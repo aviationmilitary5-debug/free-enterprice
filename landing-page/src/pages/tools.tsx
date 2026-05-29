@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Search, Zap, ShieldCheck, Infinity, ArrowUpRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
-const TOOLS_SITE = "https://www.freefilewizard.com";
+const TOOLS_SITE = "https://tools.freefilewizard.com";
 
 const TOOLS = [
   { id: "qr", name: "QR Generator", desc: "Create custom QR codes instantly.", cat: "Images & Media" },
@@ -193,17 +193,14 @@ export default function Tools() {
             All {TOOLS.length}+ tools are 100% free, unlimited, and client-side — your files never leave your device.
           </p>
           
-            href={TOOLS_SITE}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 font-bold px-8 py-4 rounded-full text-base transition-all duration-200 hover:shadow-xl hover:shadow-primary/25 hover:-translate-y-0.5"
-          <a href="https://tools.freefilewizard.com/" className="inline-flex items-center gap-2">
-            <Zap size={18} /> Start Using Tools for Free
-            <ArrowUpRight size={16} />
-          </a>
-          <p className="text-xs text-muted-foreground mt-4">Open https://tools.freefilewizard.com · No signup required · Always free</p>
-        </motion.div>
-      </div>
-    </div>
-  );
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="https://tools.freefilewizard.com/" className="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 font-bold px-8 py-4 rounded-full text-base transition-all duration-200 hover:shadow-xl hover:shadow-primary/25 hover:-translate-y-0.5"> 
+              <Zap size={18} /> Start Using Tools for Free <ArrowUpRight size={16} /> 
+            </a> 
+          </div>
+          <p className="text-xs text-muted-foreground mt-4">Open https://tools.freefilewizard.com · No signup required · Always free</p> 
+        </motion.div> 
+      </div> 
+    </div> 
+  ); 
 }
