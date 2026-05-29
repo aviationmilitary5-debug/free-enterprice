@@ -37,10 +37,10 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button size="lg" className="w-full sm:w-auto text-lg px-8 py-6 rounded-full" asChild data-testid="button-visit-tools-hero">
-              <Link href="/tools">Visit Tools <ArrowRight className="ml-2 w-5 h-5" /></Link>
+              <Link href="https://tools.freefilewizard.com/">Visit Tools <ArrowRight className="ml-2 w-5 h-5" /></Link>
             </Button>
             <Button size="lg" variant="outline" className="w-full sm:w-auto text-lg px-8 py-6 rounded-full border-primary/50 hover:bg-primary/10" asChild data-testid="button-become-partner-hero">
-              <Link href="/about">Become a Partner</Link>
+              <Link href="https://www.freefilewizard.com/about">Become a Partner</Link>
             </Button>
           </motion.div>
         </div>
