@@ -192,16 +192,16 @@ export default function Tools() {
           <p className="text-muted-foreground mb-6 max-w-md mx-auto">
             All {TOOLS.length}+ tools are 100% free, unlimited, and client-side — your files never leave your device.
           </p>
-          <a
+          
             href={TOOLS_SITE}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 font-bold px-8 py-4 rounded-full text-base transition-all duration-200 hover:shadow-xl hover:shadow-primary/25 hover:-translate-y-0.5"
-          >
+          <a href="https://tools.freefilewizard.com/" className="inline-flex items-center gap-2">
             <Zap size={18} /> Start Using Tools for Free
             <ArrowUpRight size={16} />
           </a>
-          <p className="text-xs text-muted-foreground mt-4">Opens freefilewizard.com · No signup required · Always free</p>
+          <p className="text-xs text-muted-foreground mt-4">Open https://tools.freefilewizard.com · No signup required · Always free</p>
         </motion.div>
       </div>
     </div>
