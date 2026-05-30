@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { AdSenseUnit } from "@/components/AdSenseUnit";
@@ -43,6 +43,19 @@ function AnnouncementBanner() {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
+
+  // 💰 WHAT WE DID: Injected the core Google AdSense loading engine right at the initialization step
+  useEffect(() => { 
+    if (!document.getElementById("google-adsense-global-script")) { 
+      const script = document.createElement("script"); 
+      script.id = "google-adsense-global-script"; 
+      script.async = true; 
+      script.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4262912359957760"; 
+      script.crossOrigin = "anonymous"; 
+      document.head.appendChild(script); 
+    } 
+  }, []); 
+
   return (
     <div className="min-h-[100dvh] flex flex-col w-full relative">
       <AnnouncementBanner />
