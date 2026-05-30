@@ -106,8 +106,9 @@ function BlogNewsletterForm() {
         body: JSON.stringify({ email: email }), 
       }); 
       
-      const loopsPromise = fetch("https://loops.so", { 
+      const loopsPromise = fetch("https://app.loops.so/api/newsletter-form/cmps01egn00jm0ju29fxcpwh0", { 
         method: "POST", 
+mode: "no-cors", // 🔒 WHAT WE FIXED: Bypasses browser security locks for HTML forms                 
         headers: { "Content-Type": "application/x-www-form-urlencoded" }, 
         body: new URLSearchParams({ email: email }), 
       }); 
