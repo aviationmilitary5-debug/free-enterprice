@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
 
-  <link rel="icon" type="image/x-icon" href="https://freefilewizard.com">
-  <link rel="shortcut icon" type="image/x-icon" href="https://freefilewizard.com">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://freefilewizard.com">
+<script 
+  src="https://www.paypal.com/sdk/js?client-id=BAAGT1tiivMcvinsNa94p_bDJRZDEKsjKU-hWta957kABaY2MPHHkM3qFKI2NTEi5ejs1HYRzGktO33MPo&components=hosted-buttons&disable-funding=venmo&currency=USD">
+</script>
+
+  <link rel="icon" type="image/x-icon" href="https://tools.freefilewizard.com">
+  <link rel="shortcut icon" type="image/x-icon" href="https://tools.freefilewizard.com">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tools.freefilewizard.com">
     
 
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,13 +29,13 @@
   <meta name="keywords" content="free online tools, PDF extractor, QR code generator, CV builder, image compressor, barcode generator, zodiac signs, horoscope, IP detector, astronomy, SEO keywords, hashtag generator, password generator, unit converter, currency converter, free file tools, no signup, offline tools, web utilities">
   <meta name="author" content="Achaleke Prosper Taku">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <link rel="canonical" href="https://freefilewizard.com">
+  <link rel="canonical" href="https://tools.freefilewizard.com">
 
   <!-- Open Graph / Social Media -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Free File Wizard - 50+ Free Online Tools">
   <meta property="og:description" content="Premium tools without paywalls. PDF, QR codes, CV builder, image editor, barcode, zodiac, astronomy & more. 100% free.">
-  <meta property="og:url" content="https://freefilewizard.com">
+  <meta property="og:url" content="https://tools.freefilewizard.com">
   <meta property="og:site_name" content="Free File Wizard">
   <meta property="og:locale" content="en_US">
 
@@ -46,7 +50,7 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Free File Wizard",
-    "url": "https://freefilewizard.com",
+    "url": "https://tools.freefilewizard.com",
     "description": "50+ free online tools including PDF extractor, QR code generator, CV builder, image compressor, barcode maker, zodiac detector, astronomy portal, SEO wizard and more.",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Any",
@@ -84,7 +88,7 @@
       --bg-core: #090d16;
       --bg-panel: #131926;
       --accent-cyan: #00f0ff;
-      --accent-purple: #bc00dd;
+      --accent-purple: #d902ff;
       --success: #10b981;
       --error: #ef4444;
       --text-primary: #ffffff;
@@ -96,11 +100,11 @@
     body.light-mode {
       --bg-core: #f0f2f5;
       --bg-panel: #ffffff;
-      --accent-cyan: #0891b2;
-      --accent-purple: #7c3aed;
-      --success: #10b981;
-      --error: #ef4444;
-      --text-primary: #1a1a2e;
+      --accent-cyan: #000000;
+      --accent-purple: #ffffff;
+      --success: #04ff60;
+      --error: #ff0000;
+      --text-primary: #000000;
       --text-secondary: #64748b;
     }
 
@@ -114,14 +118,14 @@
     body.light-mode .ad-banner { background: #e8eaed; border-color: rgba(0,0,0,0.1); color: #64748b; }
     body.light-mode .hero-banner { background: linear-gradient(135deg, #ffffff, rgba(124,58,237,0.1)); border-color: rgba(0,0,0,0.1); }
     body.light-mode .sidebar-category-title { color: var(--accent-cyan); }
-    body.light-mode .sidebar-item { color: #64748b; }
+    body.light-mode .sidebar-item { color: #ffffff; }
     body.light-mode .sidebar-item:hover { background: rgba(8,145,178,0.1); color: #1a1a2e; }
     body.light-mode .sidebar-item.active { background: linear-gradient(135deg, rgba(8,145,178,0.15), rgba(124,58,237,0.15)); border-left-color: var(--accent-cyan); color: #1a1a2e; }
-    body.light-mode .brand-title { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    body.light-mode .brand-title { background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     body.light-mode .hamburger { color: var(--accent-cyan); }
-    body.light-mode .header-btn { border-color: rgba(8,145,178,0.3); color: var(--accent-cyan); }
+    body.light-mode .header-btn { border-color: rgba(0, 0, 0, 0.3); color: var(--accent-cyan); }
     body.light-mode .filter-btn { border-color: rgba(0,0,0,0.15); color: #64748b; }
-    body.light-mode .back-btn { border-color: rgba(0,0,0,0.15); color: var(--accent-cyan); }
+    body.light-mode .back-btn { border-color: rgba(0, 0, 0, 0.15); color: var(--accent-cyan); }
     body.light-mode .btn-secondary { border-color: var(--accent-cyan); color: var(--accent-cyan); }
     body.light-mode select.input-field { background: #f0f2f5; color: #1a1a2e; }
 
@@ -147,7 +151,7 @@
       top: 0;
       z-index: 1000;
       background: var(--bg-panel);
-      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+      border-bottom: 1px solid rgb(255, 255, 255);
       padding: 12px 20px;
       display: flex;
       justify-content: space-between;
@@ -168,7 +172,7 @@
       transition: var(--transition);
     }
 
-    .hamburger:hover { background: rgba(0, 240, 255, 0.1); }
+    .hamburger:hover { background: rgba(0, 0, 0, 0.1); }
 
     .logo-container {
       display: flex;
@@ -181,7 +185,7 @@
     }
 
     .logo-container:hover {
-      background: rgba(0, 240, 255, 0.1);
+      background: rgba(0, 0, 0, 0.1);
       transform: scale(1.02);
     }
 
@@ -191,10 +195,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #1e5a96, #2d7ab8);
+      background: linear-gradient(135deg, #fdfeff, #048eff);
       border-radius: 8px;
       border: 2px solid var(--accent-cyan);
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+      box-shadow: 0 0 12px rgba(5, 5, 5, 0.3);
       font-size: 20px;
     }
 
@@ -203,6 +207,7 @@
       font-weight: 700;
       background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
@@ -212,7 +217,7 @@
 
     .header-btn {
       background: none;
-      border: 1px solid rgba(0, 240, 255, 0.3);
+      border: 1px solid rgba(254, 255, 255, 0.3);
       color: var(--accent-cyan);
       padding: 8px 14px;
       border-radius: 8px;
@@ -224,10 +229,10 @@
       gap: 4px;
     }
 
-    .header-btn:hover { background: rgba(0, 240, 255, 0.1); }
+    .header-btn:hover { background: rgba(13, 45, 48, 0.1); }
 
     .donate-btn {
-      background: linear-gradient(135deg, #ef4444, #ec4899);
+      background: linear-gradient(135deg, #ef4444, #2100fa);
       border: none;
       color: white;
       animation: pulse-glow 2s infinite;
@@ -363,6 +368,7 @@
       font-weight: 700;
       margin-bottom: 12px;
       background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -392,7 +398,7 @@
 
     .info-card {
       background: var(--bg-panel);
-      border: 1px solid rgba(0, 240, 255, 0.2);
+      border: 1px solid rgba(0, 0, 0, 0.2);
       border-radius: var(--border-radius);
       padding: 20px;
       cursor: pointer;
@@ -425,12 +431,12 @@
 
     .tool-info-btn {
       margin-left: auto; width: 28px; height: 28px; border-radius: 50%;
-      background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3);
+      background: rgba(0,240,255,0.1); border: 1px solid rgba(0, 238, 255, 0.3);
       color: var(--accent-cyan); font-size: 14px; font-weight: 700;
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: all 0.2s;
     }
-    .tool-info-btn:hover { background: rgba(0,240,255,0.25); transform: scale(1.1); }
+    .tool-info-btn:hover { background: rgba(11, 228, 98, 0.25); transform: scale(1.1); }
 
     .info-modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -559,10 +565,12 @@
       border-radius: 3px;
       background: rgba(255, 255, 255, 0.1);
       -webkit-appearance: none;
+      appearance: none;
     }
 
     .range-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
+      appearance: none;
       width: 16px; height: 16px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
@@ -608,6 +616,7 @@
       font-size: 22px;
       margin-bottom: 20px;
       background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -707,9 +716,9 @@
 <body>
 
   <nav style="display:none;" aria-label="Directory Sublinks Navigation Link Row">
-    <a href="https://freefilewizard.com">About Free File Wizard Suite</a>
-    <a href="https://freefilewizard.com">User Community & Forum Console</a>
-    <a href="https://freefilewizard.com">Official Tool Reviews & Feedback Logs</a>
+    <a href="https://tools.freefilewizard.com">About Free File Wizard Suite</a>
+    <a href="https://tools.freefilewizard.com">User Community & Forum Console</a>
+    <a href="https://tools.freefilewizard.com">Official Tool Reviews & Feedback Logs</a>
   </nav>
     
 <!-- DEV_MODE -->
@@ -760,11 +769,11 @@
       </div>
 
       <!-- Settings Section -->
-      <div style="padding: 15px; background: rgba(188,0,221,0.05); border-radius: 10px; margin-bottom: 16px;">
+      <div style="padding: 15px; background: rgba(21, 0, 255, 0.05); border-radius: 10px; margin-bottom: 16px;">
         <div style="font-size: 13px; font-weight: 600; color: var(--accent-purple); margin-bottom: 12px;">App Settings</div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
-          <div><div style="font-size: 13px;">Light Mode</div><div style="font-size: 11px; color: var(--text-secondary);">Switch to light theme</div></div>
+          <div><div style="font-size: 13px;">Light Mode</div>☀️<div style="font-size: 11px; color: var(--text-secondary);">Switch to light theme</div>☀️</div>
           <div class="toggle-switch" id="toggleLightMode" onclick="toggleSetting('lightMode')"></div>
         </div>
 
@@ -834,7 +843,7 @@
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
-          <div><div style="font-size: 13px;">Cross-Ads Sharing</div><div style="font-size: 11px; color: var(--text-secondary);">Ad revenue sharing with partners</div></div>
+          <div><div style="font-size: 13px;">Cross-Ads Sharing</div>💎<div style="font-size: 11px; color: var(--text-secondary);">Ad revenue sharing with partners</div></div>
           <div class="toggle-switch" id="toggleCrossAds" onclick="toggleSetting('crossAds')"></div>
         </div>
 
@@ -842,7 +851,7 @@
           <div><div style="font-size: 13px;">Self-Hosted Database</div>
 
 <!-- 🧪 PROTECTED SEPARATE SANDBOX BLOCK -->
-<div id="localSandboxToggleNode" class="settings-card" style="display:none; padding:14px; background:rgba(139,92,246,0.03); border:1px solid rgba(139,92,246,0.2); border-radius:12px; margin-top:14px;"><div style="font-size:11px; font-weight:700; color:#8b5cf6; margin-bottom:8px; text-transform:uppercase;">🧪 Private Testing Sandbox</div><div style="display:flex; justify-content:space-between; align-items:center;"><div><div style="font-size:13px; color:#fff;">Sandbox Workspace Environment</div><div style="font-size:11px; color:#94a3b8;">Launch an isolated page thread canvas to test unreleased updates</div></div><label class="switch"><input type="checkbox" id="sandboxToggle" onchange="toggleSandboxLifecycle()"><span class="slider"></span></label></div></div>
+<div id="localSandboxToggleNode" class="settings-card" style="display:none; padding:14px; background:rgba(255, 255, 255, 0.03); border:1px solid rgba(139,92,246,0.2); border-radius:12px; margin-top:14px;"><div style="font-size:11px; font-weight:700; color:#8b5cf6; margin-bottom:8px; text-transform:uppercase;">🧪 Private Testing Sandbox</div><div style="display:flex; justify-content:space-between; align-items:center;"><div><div style="font-size:13px; color:#fff;">Sandbox Workspace Environment</div><div style="font-size:11px; color:#94a3b8;">Launch an isolated page thread canvas to test unreleased updates</div></div><label class="switch"><input type="checkbox" id="sandboxToggle" onchange="toggleSandboxLifecycle()"><span class="slider"></span></label></div></div>
 
 <div style="font-size: 11px; color: var(--text-secondary);">Use your own database server</div></div>
           <div class="toggle-switch" id="toggleSelfHosted" onclick="toggleSetting('selfHosted')"></div>
@@ -872,7 +881,7 @@
       </div>
 
       <!-- Feedback & Support Section -->
-      <div style="padding: 15px; background: rgba(0,240,255,0.05); border-radius: 10px; border: 1px solid rgba(0,240,255,0.15); margin-bottom: 16px;">
+      <div style="padding: 15px; background: rgba(0, 0, 0, 0.05); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.15); margin-bottom: 16px;">
         <div style="font-size: 13px; font-weight: 600; color: var(--accent-cyan); margin-bottom: 12px;">Feedback & Support</div>
 
         <!-- Tab Navigation -->
@@ -954,7 +963,7 @@
       </div>
 
       <!-- Danger Zone -->
-      <div style="padding: 15px; background: rgba(239,68,68,0.05); border-radius: 10px; border: 1px solid rgba(239,68,68,0.2); margin-bottom: 16px;">
+      <div style="padding: 15px; background: rgba(3, 3, 3, 0.05); border-radius: 10px; border: 1px solid rgba(255, 0, 0, 0.2); margin-bottom: 16px;">
         <div style="font-size: 13px; font-weight: 600; color: var(--error); margin-bottom: 12px;">Data & Cache</div>
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
           <button class="btn btn-secondary btn-sm" onclick="exportAllData()" style="border-color: var(--accent-cyan); color: var(--accent-cyan);">Export All Data</button>
@@ -975,14 +984,14 @@
   <div class="modal" id="donateModal" onclick="closeModalOnOverlay(event, 'donateModal')">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeModal('donateModal')">&times;</button>
-      <h3 class="modal-title">❤️ Support Free File Wizard</h3>
+      <h3 class="modal-title">😎 Support Free File Wizard</h3>
       <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 13px; line-height: 1.6;">Help keep this platform 100% free. Your donation supports development and hosting.</p>
 
       <div class="payment-section">
         <div class="payment-header">
           <span class="payment-icon">📱</span>
           <div>
-            <div class="payment-title" style="color: #ffcc00;">MTN Mobile Money</div>
+            <div class="payment-title" style="color: #c8ff00;">MTN Mobile Money</div>
             <div class="payment-subtitle">Cameroon</div>
           </div>
         </div>
@@ -999,7 +1008,7 @@
         <div class="payment-header">
           <span class="payment-icon">🟠</span>
           <div>
-            <div class="payment-title" style="color: #ff6600;">Orange Money</div>
+            <div class="payment-title" style="color: #25ff03;">secondary mobile money number</div>
             <div class="payment-subtitle">Cameroon</div>
           </div>
         </div>
@@ -1008,7 +1017,7 @@
         <div class="payment-label">Number</div>
         <div class="payment-detail" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
           <span>+237677104499</span>
-          <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('+237677104499', 'Orange Money Number Copied!')">Copy</button>
+          <button class="btn btn-sm btn-secondary" onclick="copyToClipboard('+237677104499', 'momo Number Copied!')">Copy</button>
         </div>
       </div>
 
@@ -1016,12 +1025,20 @@
         <div class="payment-header">
           <span class="payment-icon">💳</span>
           <div>
-            <div class="payment-title" style="color: #009cde;">Credit Card / PayPal</div>
+            <div class="payment-title" style="color: #3610e1;">Credit Card / PayPal</div>
             <div class="payment-subtitle">International</div>
           </div>
         </div>
+
+        <div id="paypal-container-8HZWJDB6RAPQ6"></div>
+<script>
+  paypal.HostedButtons({
+    hostedButtonId: "8HZWJDB6RAPQ6",
+  }).render("#paypal-container-8HZWJDB6RAPQ6")
+</script>
+
         <div class="payment-desc"><strong>Secure International Payouts:</strong> Click below to open our official encrypted billing lane. Use any Credit/Debit Card or PayPal wallet. No registration required.</div>
-        <a href="https://paypal.com" target="_blank" rel="noopener noreferrer" class="payment-paypal-btn">💳 Donate with PayPal</a>
+        <a href="https://www.paypal.com/ncp/payment/8HZWJDB6RAPQ6" target="_blank" rel="noopener noreferrer" class="payment-paypal-btn">💳 Donate with PayPal</a>
         <div class="payment-email">Contact: <span style="color: var(--accent-cyan);">prospertaku098@hmail.com</span></div>
       </div>
     </div>
