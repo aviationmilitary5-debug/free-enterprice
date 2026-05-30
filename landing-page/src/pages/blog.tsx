@@ -44,24 +44,7 @@ export default function Blog() {
             <h3 className="mt-0">Join the Newsletter</h3>
             <p className="mb-4">Get the latest updates directly in your inbox.</p>
             
-                    {/* 📬 WHAT WE FIXED: Wrapped the inputs inside a live Formspree engine pipeline */}
-        <form action="https://formspree.io/f/mqejjnbg" method="POST" className="flex gap-2"> 
-          <input 
-            type="email" 
-            name="email" 
-            required 
-            placeholder="Email address" 
-            className="flex-1 bg-background border border-border rounded-md px-3 py-2" 
-          /> 
-          <button type="submit" className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium">
-            Subscribe
-          </button> 
-        </form> 
-      </div> 
-    </div> 
-  </div> 
-); }
-
+          <BlogNewsletterForm />
 
   return (
     <div className="container mx-auto px-4 py-16 max-w-6xl">
@@ -114,6 +97,69 @@ export default function Blog() {
           </motion.div>
         ))}
       </div>
+    </div>
+  );
+}
+
+function BlogNewsletterForm() {
+  const [email, setEmail] = React.useState("");
+  const [status, setStatus] = React.useState("idle");
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    setStatus("submitting");
+
+    try {
+      const formspreePromise = fetch("https://formspree.io/f/mqejjnbg", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({ email: email }),
+      });
+
+      const loopsPromise = fetch("https://loops.so", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ email: email }),
+      });
+
+      await Promise.all([formspreePromise, loopsPromise]);
+      setStatus("success");
+      setEmail("");
+    } catch (error) {
+      console.error("Sync Error:", error);
+      setStatus("error");
+    }
+  };
+
+  return (
+    <div className="w-full">
+      {status === "success" ? (
+        <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm text-center font-medium">
+          🎉 Welcome to the community! Check your inbox for your wizard greeting.
+        </div>
+      ) : (
+        <form onSubmit={handleSubscribe} className="flex gap-2">
+          <input 
+            type="email" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required 
+            placeholder="Email address" 
+            className="flex-1 bg-background border border-border rounded-md px-3 py-2 text-slate-100 focus:outline-none focus:border-primary" 
+          />
+          <button 
+            type="submit" 
+            disabled={status === "submitting"}
+            className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium hover:bg-primary/90 disabled:opacity-50"
+          >
+            {status === "submitting" ? "Joining..." : "Subscribe"}
+          </button>
+        </form>
+      )}
+      {status === "error" && (
+        <p className="text-xs text-red-400 mt-2 text-center">Network sync timeout. Please try again.</p>
+      )}
     </div>
   );
 }
