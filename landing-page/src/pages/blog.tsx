@@ -43,15 +43,25 @@ export default function Blog() {
           <div className="p-6 bg-card border border-border rounded-xl my-8">
             <h3 className="mt-0">Join the Newsletter</h3>
             <p className="mb-4">Get the latest updates directly in your inbox.</p>
-            <div className="flex gap-2">
-              <input type="email" placeholder="Email address" className="flex-1 bg-background border border-border rounded-md px-3 py-2" />
-              <button className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium">Subscribe</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+            
+                    {/* 📬 WHAT WE FIXED: Wrapped the inputs inside a live Formspree engine pipeline */}
+        <form action="https://formspree.io/f/mqejjnbg" method="POST" className="flex gap-2"> 
+          <input 
+            type="email" 
+            name="email" 
+            required 
+            placeholder="Email address" 
+            className="flex-1 bg-background border border-border rounded-md px-3 py-2" 
+          /> 
+          <button type="submit" className="bg-primary text-primary-foreground px-4 py-2 rounded-md font-medium">
+            Subscribe
+          </button> 
+        </form> 
+      </div> 
+    </div> 
+  </div> 
+); }
+
 
   return (
     <div className="container mx-auto px-4 py-16 max-w-6xl">
