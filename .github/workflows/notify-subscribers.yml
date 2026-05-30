@@ -1,0 +1,26 @@
+
+name: Automated Ecosystem Subscriber Notification Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    # 🔒 THE FILTER GATE: Only execute if the commit message explicitly contains [BigApple098@]
+    if: "contains(github.event.head_commit.message, '[BigApple098@]')"
+    
+    steps:
+      - name: Trigger Loops Global Email Broadcast Update
+        run: |
+          curl -X POST "https://app.loops.so/api/newsletter-form/cmps01egn00jm0ju29fxcpwh0" \
+          -H "Authorization: Bearer ${{ secrets.LOOPS_API_KEY }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "eventName": "production_deployment",
+            "properties": {
+              "deployment_notes": "${{ github.event.head_commit.message }}"
+            }
+          }'
